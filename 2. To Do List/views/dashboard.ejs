@@ -1,0 +1,79 @@
+<%- include('partials/header') %>
+
+<div class="stats-grid">
+    <div class="stat-card bg-primary">
+        <h3>Total Tasks</h3>
+        <h2><%= stats.total %></h2>
+    </div>
+    <div class="stat-card bg-warning">
+        <h3>Pending Tasks</h3>
+        <h2><%= stats.pending %></h2>
+    </div>
+    <div class="stat-card bg-success">
+        <h3>Completed Tasks</h3>
+        <h2><%= stats.completed %></h2>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Task List</h2>
+        <a href="/add-task" class="btn btn-primary">Add New Task</a>
+    </div>
+    
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(todos.length === 0) { %>
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 30px;">No tasks found. Add a new task!</td>
+                    </tr>
+                <% } %>
+                <% todos.forEach(todo => { %>
+                    <tr>
+                        <td><strong><%= todo.title %></strong></td>
+                        <td><%= todo.description %></td>
+                        <td>
+                            <% if(todo.priority === 'High') { %> <span class="badge high">High</span> <% } %>
+                            <% if(todo.priority === 'Medium') { %> <span class="badge medium">Medium</span> <% } %>
+                            <% if(todo.priority === 'Low') { %> <span class="badge low">Low</span> <% } %>
+                        </td>
+                        <td>
+                            <% if(todo.status === 'Pending') { %> <span class="badge bg-warning text-white">Pending</span> <% } %>
+                            <% if(todo.status === 'In Progress') { %> <span class="badge bg-primary text-white">In Progress</span> <% } %>
+                            <% if(todo.status === 'Completed') { %> <span class="badge bg-success text-white">Completed</span> <% } %>
+                        </td>
+                        <td>
+                            <div class="actions-cell">
+                                <form action="/update-status/<%= todo.id %>" method="POST">
+                                    <select name="status" class="status-select" onchange="this.form.submit()">
+                                        <option value="Pending" <%= todo.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                                        <option value="In Progress" <%= todo.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+                                        <option value="Completed" <%= todo.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+                                    </select>
+                                </form>
+
+                                <a href="/edit/<%= todo.id %>" class="btn btn-sm btn-secondary">Edit</a>
+                                
+                                <form action="/delete/<%= todo.id %>" method="POST" onsubmit="return confirm('Delete this task?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

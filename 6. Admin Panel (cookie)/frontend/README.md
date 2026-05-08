@@ -1,0 +1,200 @@
+<<<<<<< HEAD
+# 🚀 Admin Panel Dashboard (MERN Stack)
+
+A fully functional Admin Panel built using the MERN stack with authentication, role management, and image upload functionality.
+
+
+## 📌 Project Overview
+
+This project is a modern Admin Dashboard where registered admins can:
+
+* 🔐 Authenticate securely (Login/Logout)
+* 👨‍💼 Manage other admins (Create, Read, Update, Delete)
+* 🖼️ Upload images using Multer
+* 🍪 Maintain sessions using cookies
+* 🎨 Use a professional UI template (Apex Admin Panel)
+
+---
+
+## Program Screenshots
+
+### Login Page
+![image](./public/screenshots/login.png)
+
+### Dashboard Page
+![image](./public/screenshots/dashboard.png)
+
+### Add Data Page
+![image](./public/screenshots/add-data.png)
+
+### Manage Admins Page
+![image](./public/screenshots/manage.png)
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* React.js
+* React Router
+* Tailwind CSS / Custom CSS
+* Apex Admin Template
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB (Mongoose)
+
+### Other Tools & Libraries
+
+* Multer (File Upload)
+* Cookie-Parser (Session handling)
+* bcrypt (Password hashing)
+* Cookies (Authentication)
+
+---
+
+## 🔑 Features
+
+* ✅ Admin Authentication System
+* ✅ Secure Password Hashing
+* ✅ Role-Based Admin Management
+* ✅ CRUD Operations for Admins
+* ✅ Image Upload (Single File)
+* ✅ Responsive UI Dashboard
+* ✅ Cookie-Based Session Handling
+
+---
+
+## 📂 Folder Structure
+
+```
+project-root/
+│
+├── client/             # React Frontend
+│   ├── src/
+│   ├── components/
+│   └── pages/
+│
+├── server/             # Node + Express Backend
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   └── uploads/
+│
+├── package.json
+└── README.md
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/masterSahil/Node-Projects
+cd admin-panel
+```
+
+---
+
+### 2️⃣ Install Dependencies
+
+#### Backend
+
+```bash
+cd backend
+npm install
+```
+
+#### Frontend
+
+```bash
+cd frontend
+npm install
+```
+
+---
+
+### 3️⃣ Environment Variables
+
+Create a `.env` file inside the **server** folder:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
+
+---
+
+### 4️⃣ Run the Project
+
+#### Start Backend
+
+```bash
+cd backend
+npm run dev
+```
+
+#### Start Frontend
+
+```bash
+cd frontend
+npm run dev
+```
+
+---
+
+## 🔐 Authentication Flow
+
+1. Admin registers/login
+2. Password is hashed using bcrypt
+3. Cookie is stored in browser
+4. Protected routes verify authentication
+5. Only logged-in admins can access dashboard
+
+---
+
+## 📸 Image Upload
+
+* Implemented using **Multer**
+* Stores images in `/uploads` folder
+* Supports single image upload per admin
+
+---
+
+## 🧠 Learnings from this Project
+
+* Full-stack integration (React + Node + MongoDB)
+* Authentication & Authorization
+* File handling with Multer
+* REST API design
+* MVC architecture
+
+---
+=======
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+>>>>>>> e311783b687321f5a920b52ad2a43d2c6aa49922

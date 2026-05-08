@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Movies</title>
+  <link rel="stylesheet" href="/assets/css/movies.css" />
+</head>
+<body>
+  <%- include('header') -%>
+
+  <div class="container">
+    <% if (movies.length === 0) { %>
+      <p class="empty">No movies found</p>
+    <% } else { %>
+      <table class="movie-table">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Poster</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Genre</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% movies.forEach((movie, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td>
+                <img src="<%= movie.poster %>" class="poster" />
+              </td>
+              <td><%= movie.title %></td>
+              <td><%= movie.year %></td>
+              <td><%= movie.genre %></td>
+
+              <td>
+                <a href="/edit/<%= movie._id %>" class="edit">Edit</a>
+                <a href="/api/movies/delete/<%= movie._id %>" class="delete">
+                  Delete
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+
+  <%- include('footer.ejs') -%>
+</body>
+</html>

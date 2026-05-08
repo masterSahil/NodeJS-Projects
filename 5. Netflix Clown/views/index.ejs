@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie App</title>
+  <link rel="stylesheet" href="/assets/css/index.css" />
+</head>
+<body>
+  <%- include('header') %>
+  <section class="hero">
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+      <h1>Unlimited movies, shows, and more</h1>
+      <h3>Starts at ₹149. Cancel at any time.</h3>
+      <p>Ready to watch? Enter your email</p>
+
+      <div class="cta">
+        <input type="email" placeholder="Email address" />
+        <button>Get Started</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="trending">
+    <h2>Trending Now</h2>
+
+    <div class="movie-row">
+
+    <% if (movies.length === 0) { %>
+      <div class="empty-state">
+        <h2>No Movies Found</h2>
+        <p>Add your first movie to get started</p>
+        <a href="/add" class="add-btn">+ Add Movie</a>
+      </div>
+    <% } else { %>
+      <% movies.map((movie, index) => { %>
+        <div class="movie-card-wrapper">
+          <span class="rank"><%= index + 1 %></span>
+          <% if (movie.poster) { %>
+            <a href="/view/<%= movie._id %>" class="movie-card">
+              <img src="<%= movie.poster %>" alt="poster" />
+            </a>
+          <% } else { %>
+            <div class="no-poster-card">
+              <div class="no-poster-content">
+                <h3><%= movie.title %></h3>
+                <p>No poster available</p>
+                <small>Add image to improve view</small>
+
+                <a href="/edit/<%= movie._id %>" class="add-btn">
+                  + Add Image
+                </a>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+  </section>
+  <%- include('footer') %>
+</body>
+</html>

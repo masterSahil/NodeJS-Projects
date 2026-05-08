@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book | Book Store</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/assets/css/add.css">
+</head>
+<body>
+    <%- include('navbar') -%>
+        <main class="container">
+            <div class="form-card">
+
+                <div class="form-header">
+                    <h1>Add New Book</h1>
+                    <p>Enter the details below to add a new book to the inventory.</p>
+                </div>
+
+                <form action="/api/books" method="POST" enctype="multipart/form-data">
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+                            <label for="title">Book Title</label>
+                            <input type="text" id="title" name="title" placeholder="e.g. The Orange Element" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="author">Author Name</label>
+                            <input type="text" id="author" name="author" placeholder="e.g. John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <option value="fiction">Fiction</option>
+                                <option value="self-help">Self Development</option>
+                                <option value="business">Business & Finance</option>
+                                <option value="technology">Technology</option>
+                                <option value="biography">Biography</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">Price (₹)</label>
+                            <input type="number" id="price" name="price" placeholder="0.00" step="0.01" min="0"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantity">Stock Quantity</label>
+                            <input type="number" id="quantity" name="quantity" placeholder="1" min="1" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description"
+                                placeholder="Write a brief summary of the book..."></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Book Cover Image</label>
+                            
+                            <div class="preview-box">
+                                <img id="previewImg" style="display:none;" />
+                            </div>
+
+                            <div class="file-upload-wrapper">
+                                <i data-lucide="upload-cloud"></i>
+                                <p>Drag and drop or click to upload</p>
+
+                                <input type="file" id="coverImage" name="cover"
+                                    accept="image/png, image/jpeg, image/webp" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i data-lucide="plus-circle"></i>
+                        Add to Library
+                    </button>
+                </form>
+            </div>
+        </main>
+        <%- include('footer') -%>
+        <script src="/assets/js/lucide.js"></script>
+        <script>
+            const input = document.getElementById("coverImage");
+            const preview = document.getElementById("previewImg");
+
+            input.addEventListener("change", () => {
+                const file = input.files[0];
+
+                if (file) {
+                    preview.src = URL.createObjectURL(file);
+                    preview.style.display = "block";
+                }
+            });
+        </script>
+</body>
+</html>

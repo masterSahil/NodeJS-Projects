@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+
+<div class="form-container card">
+    <div class="card-header">
+        <h2>Edit Task</h2>
+    </div>
+    <div class="card-body" style="padding: 20px;">
+        <form action="/update/<%= todo.id %>" method="post">
+            <div class="form-group">
+                <label for="title">Task Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="<%= todo.title %>" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required><%= todo.description %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="priority">Priority</label>
+                <select class="form-control" id="priority" name="priority" required>
+                    <option value="Low" <%= todo.priority === 'Low' ? 'selected' : '' %>>Low</option>
+                    <option value="Medium" <%= todo.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
+                    <option value="High" <%= todo.priority === 'High' ? 'selected' : '' %>>High</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-control" id="status" name="status" required>
+                    <option value="Pending" <%= todo.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                    <option value="In Progress" <%= todo.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+                    <option value="Completed" <%= todo.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <a href="/" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Update Task</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

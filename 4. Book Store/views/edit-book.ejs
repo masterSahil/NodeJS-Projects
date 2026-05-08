@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book | Book Store</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/assets/css/add.css">    
+</head>
+<body>
+<%- include('navbar') -%>
+<main class="container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1>Edit Book</h1>
+            <p>Update the details of this book.</p>
+        </div>
+
+        <form id="editForm" enctype="multipart/form-data">
+            <div class="form-grid">
+                
+                <div class="form-group full-width">
+                    <label for="title">Book Title</label>
+                    <input type="text" name="title" value="<%= book.title %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Author Name</label>
+                    <input type="text" name="author" value="<%= book.author %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" required>
+                        <option value="fiction" <%= book.category === 'fiction' ? 'selected' : '' %>>Fiction</option>
+                        <option value="self-help" <%= book.category === 'self-help' ? 'selected' : '' %>>Self Development</option>
+                        <option value="business" <%= book.category === 'business' ? 'selected' : '' %>>Business & Finance</option>
+                        <option value="technology" <%= book.category === 'technology' ? 'selected' : '' %>>Technology</option>
+                        <option value="biography" <%= book.category === 'biography' ? 'selected' : '' %>>Biography</option>
+                        <option value="other" <%= book.category === 'other' ? 'selected' : '' %>>Others</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Price (₹)</label>
+                    <input type="number" name="price" value="<%= book.price %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Stock Quantity</label>
+                    <input type="number" name="quantity" value="<%= book.quantity %>" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Description</label>
+                    <textarea name="description"><%= book.description %></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Current Cover</label>
+                    <img 
+                        src="/uploads/<%= book.cover %>" 
+                        id="previewImg"
+                        style="width:120px; border-radius:8px; margin-bottom:10px;"
+                    >
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Change Cover Image</label>
+                    <div class="file-upload-wrapper">
+                        <i data-lucide="upload-cloud"></i>
+                        <p>Upload new image (optional)</p>
+                        <input type="file" id="coverInput" name="cover">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">
+                <i data-lucide="save"></i>
+                Update Book
+            </button>
+        </form>
+    </div>
+</main>
+<%- include('footer') -%>
+<script src="/assets/js/lucide.js"></script>
+<script>
+    const form = document.getElementById("editForm");
+    const coverInput = document.getElementById("coverInput");
+    const previewImg = document.getElementById("previewImg");
+
+    coverInput.addEventListener("change", () => {
+        const file = coverInput.files[0];
+        if (file) {
+            previewImg.src = URL.createObjectURL(file);
+        }
+    });
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        try {
+            const res = await fetch(`/api/books/<%= book._id %>`, { method: "PUT", body: formData });
+            const data = await res.json();
+
+            if (data.success) {
+                alert("Book updated");
+                window.location.href = "/manage";
+            } else {
+                alert("Update failed");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Error occurred");
+        }
+    });
+</script>
+</body>
+</html>

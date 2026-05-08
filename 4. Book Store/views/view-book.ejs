@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= book.title %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/assets/css/view.css">
+</head>
+<body>
+    <%- include('navbar') -%>
+    <div class="wrapper">
+        <div class="book-layout">
+            <div class="left-panel">
+                <img src="/uploads/<%= book.cover %>" class="cover-img" alt="<%= book.title %>">
+            </div>
+
+            <div class="right-panel">
+                <span class="category-badge"><%= book.category %></span>
+                
+                <h1 class="book-title"><%= book.title %></h1>
+                
+                <div class="author-name">
+                    <i data-lucide="user" size="20"></i>
+                    <%= book.author %>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">Current Price</span>
+                        <span class="value price-value">₹<%= book.price %></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Availability</span>
+                        <span class="value">
+                            <%= book.quantity > 0 ? book.quantity + ' in stock' : 'Out of Stock' %>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="description-box">
+                    <h3>The Story</h3>
+                    <p><%= book.description %></p>
+                </div>
+
+                <div class="btn-group">
+                    <a href="/edit/<%= book._id %>" class="btn btn-primary">
+                        <i data-lucide="edit-3"></i>
+                        Edit Details
+                    </a>
+                    <button onclick="deleteBook('<%= book._id %>')" class="btn btn-outline">
+                        <i data-lucide="trash-2"></i>
+                        Delete Book
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('footer') -%>
+    <script>
+        lucide.createIcons();
+
+        async function deleteBook(id) {
+            if (!confirm("Are you sure you want to permanently remove this book?")) return;
+            try {
+                const res = await fetch(`/api/books/${id}`, { method: "DELETE" });
+                const data = await res.json();
+                if (data.success) {
+                    window.location.href = "/manage";
+                } else {
+                    alert("Error deleting book");
+                }
+            } catch (err) {
+                console.error("Delete failed:", err);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+:root {
+    --primary: #ff5e00;
+    --primary-hover: #ff7a29;
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --text-main: #ffffff;
+    --text-dim: #9ca3af;
+    --danger: #ef4444;
+    --glass: rgba(255, 255, 255, 0.03);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(circle at 0% 0%, rgba(255, 94, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(255, 94, 0, 0.05) 0%, transparent 50%);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+}
+.wrapper {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 10px;
+}
+.book-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+    background: var(--card);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.7);
+}
+.cover-img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 20px 30px 60px rgba(0, 0, 0, 0.8);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.right-panel {
+    display: flex;
+    flex-direction: column;
+}
+.category-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(255, 94, 0, 0.1);
+    color: var(--primary);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: fit-content;
+    margin-bottom: 20px;
+}
+.book-title {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #fff, #888);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.author-name {
+    font-size: 20px;
+    color: var(--text-dim);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 30px;
+}
+.info-item .label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+.info-item .value {
+    font-size: 18px;
+    font-weight: 600;
+}
+.info-item .price-value {
+    color: var(--primary);
+    font-size: 24px;
+}
+.description-box h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+}
+.description-box p {
+    color: #d1d1d1;
+    line-height: 1.7;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+.btn-group {
+    display: flex;
+    gap: 15px;
+}
+.btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    border: none;
+}
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 10px 30px rgba(255, 94, 0, 0.2);
+}
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(255, 94, 0, 0.4);
+}
+.btn-outline {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.btn-outline:hover {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
+}

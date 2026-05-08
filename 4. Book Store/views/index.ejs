@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/assets/css/index.css">
+</head>
+<body>
+    <%- include('navbar') -%>
+        <main class="container">
+            <% if (books.length> 0) { %>
+                <% books.forEach(book=> { %>
+                    <a href="/book/<%= book._id %>" class="card-link">
+                        <div class="card">
+                            <img src="/uploads/<%= book.cover %>" alt="Book">
+
+                            <div class="card-content">
+                                <h3>
+                                    <%= book.title %>
+                                </h3>
+
+                                <p class="author">
+                                    <i data-lucide="user"></i>
+                                    <%= book.author %>
+                                </p>
+
+                                <p class="desc">
+                                    <%= book.description %>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                    <% }) %>
+                        <% } else { %>
+                            <h2 style="text-align:center; margin-top:50px;">
+                                🚫 No Books Found
+                            </h2>
+                        <% } %>
+        </main>
+        <%- include('footer') -%>
+            <script src="/assets/js/lucide.js"></script>
+</body>
+</html>

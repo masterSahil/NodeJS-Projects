@@ -1,0 +1,90 @@
+body {
+    background: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+.container {
+    padding: 40px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #0a0a0a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #1f2933;
+    text-align: left;
+}
+th {
+    background: #111;
+}
+img {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.btn {
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-right: 5px;
+}
+.edit {
+    background: #ff5e00;
+    color: #fff;
+}
+.delete {
+    background: red;
+    color: #fff;
+}
+.empty {
+    text-align: center;
+    margin-top: 50px;
+}
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+.empty-box {
+    text-align: center;
+    background: #0a0a0a;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid #1f2933;
+    max-width: 400px;
+}
+.empty-icon {
+    width: 60px;
+    height: 60px;
+    color: #ff5e00;
+    margin-bottom: 20px;
+}
+.empty-box h2 {
+    margin-bottom: 10px;
+}
+.empty-box p {
+    color: #aaa;
+    margin-bottom: 20px;
+}
+.empty-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ff5e00;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.empty-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}

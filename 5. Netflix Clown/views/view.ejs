@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= movie.title %></title>
+  <link rel="stylesheet" href="/assets/css/view.css" />
+</head>
+<body>
+    <%- include('header.ejs') -%>
+    <div class="container">
+        <div class="left">
+            <img src="<%= movie.poster %>" class="poster" />
+        </div>
+
+        <div class="right">
+            <h1 class="title"><%= movie.title %></h1>
+
+            <div class="meta">
+            <span>⭐ <%= movie.rating %></span>
+            <span><%= movie.year %></span>
+            <span><%= movie.duration %> min</span>
+            <div class="genre-boxes">
+                <% (Array.isArray(movie.genre) ? movie.genre : movie.genre.split(",")).forEach(g => { %>
+                <span class="genre-box"><%= g.trim() %></span>
+                <% }) %>
+            </div>
+            </div>
+
+            <p class="desc">
+            <%= movie.description %>
+            </p>
+
+            <div class="info-grid">
+
+                <div class="info-card">
+                    <p class="label">Director</p>
+                    <div class="director-boxes">
+                    <% movie.director.forEach(d => { %>
+                        <span class="director-box"><%= d %></span>
+                    <% }) %>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <p class="label">Genre</p>
+                    <div class="director-boxes">
+                    <% movie.genre.forEach(d => { %>
+                        <span class="director-box"><%= d %></span>
+                    <% }) %>
+                    </div>  
+                </div>
+
+                <div class="info-card">
+                    <p class="label">Year</p>
+                    <p class="value"><%= movie.year %></p>
+                </div>
+
+                <div class="info-card">
+                    <p class="label">Duration</p>
+                    <p class="value"><%= movie.duration %> min</p>
+                </div>
+
+                <div class="info-card">
+                    <p class="label">Rating</p>
+                    <p class="value"><%= movie.rating %> / 10</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer.ejs') -%>
+</body>
+</html>

@@ -20,7 +20,7 @@ module.exports.getMovies = async (req, res) => {
 
 module.exports.createMovie = async (req, res) => {
     try {
-        const {poster, title, year, genre, director, rating, duration, description} = req.body;
+        let {poster, title, year, genre, director, rating, duration, description} = req.body;
 
         genre = genre.split(",").map(g => g.trim());
         director = director.split(",").map(item => item.trim());

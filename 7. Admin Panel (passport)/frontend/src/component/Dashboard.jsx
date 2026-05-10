@@ -63,41 +63,6 @@ export default function Dashboard() {
         <Sidebar />
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Top Navbar */}
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-8">
-          <div className="flex items-center gap-4">
-            <button className="p-2 -ml-2 text-gray-500 lg:hidden rounded-md hover:bg-gray-100">
-              <Menu size={20} />
-            </button>
-            <div className="relative w-64 hidden sm:block">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-              <input
-                type="text"
-                placeholder="Search anything..."
-                className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 lg:gap-4">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
-              <Plus size={16} />
-              <span className="hidden sm:inline">New Order</span>
-            </button>
-            <div className="flex items-center gap-1 sm:gap-2 text-gray-500 border-l border-gray-200 pl-2 sm:pl-4">
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <Moon size={20} />
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors relative">
-                <Bell size={20} />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-              </button>
-              <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm ml-2 cursor-pointer">
-                RS
-              </div>
-            </div>
-          </div>
-        </header>
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-auto p-4 lg:p-8">
@@ -307,7 +272,6 @@ export default function Dashboard() {
                         { name: "James Chen", email: "james@company.io", id: "ORD-7890", product: "Team Plan Upgrade", status: "Processing", amount: "$599.00", color: "bg-teal-500", stBg: "bg-blue-100 text-blue-700" },
                         { name: "Sofia Garcia", email: "sofia@startup.co", id: "ORD-7889", product: "Enterprise License", status: "Completed", amount: "$1,499.00", color: "bg-indigo-500", stBg: "bg-green-100 text-green-700" },
                         { name: "Alex Thompson", email: "alex@dev.com", id: "ORD-7888", product: "Single License", status: "Pending", amount: "$79.00", color: "bg-yellow-500", stBg: "bg-yellow-100 text-yellow-700" },
-                        { name: "David Kim", email: "david@tech.io", id: "ORD-7886", product: "Team Plan Upgrade", status: "Cancelled", amount: "$599.00", color: "bg-slate-700", stBg: "bg-red-100 text-red-700" },
                       ].map((order, i) => (
                         <tr key={i} className="hover:bg-gray-50 transition-colors">
                           <td className="px-6 py-4">

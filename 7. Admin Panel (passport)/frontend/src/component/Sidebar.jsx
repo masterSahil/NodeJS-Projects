@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, UserPlus, Users, Settings, LogOut, ChevronRight } from 'lucide-react';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const SidebarItem = ({ icon: Icon, label, to }) => {
   const location = useLocation();
@@ -26,21 +25,50 @@ const SidebarItem = ({ icon: Icon, label, to }) => {
 };
 
 export default function Sidebar() {
-
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null); 
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get("http://localhost:9000/auth-check", {
+          withCredentials: true
+        });
+        if (res.data.success) {
+          setCurrentUser(res.data.user);
+        }
+      } catch (error) {
+        console.log("Failed to fetch user data:", error);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleLogout = async () => {
     try {
       await axios.get("http://localhost:9000/logout", {
         withCredentials: true
       });
-
       navigate("/");  
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getInitials = (text) => {
+    if (!text) return "U";
+    
+    const nameParts = text.split(/[\s._]+/); 
+    
+    if (nameParts.length > 1 && nameParts[1].length > 0) {
+      return (nameParts[0][0] + nameParts[1][0]).toUpperCase();
+    }
+    return text.substring(0, 2).toUpperCase();
+  };
+
+  const displayName = currentUser?.name ? currentUser.name : currentUser?.email?.split('@')[0] || "Loading...";
+
   return (
     <aside className="hidden lg:flex w-64 flex-col bg-slate-950 text-white border-r border-slate-800 relative h-screen">
       {/* Brand Header */}
@@ -86,19 +114,31 @@ export default function Sidebar() {
       <div className="p-4 border-t border-slate-800">
         <div className="flex items-center justify-between cursor-pointer hover:bg-slate-800 p-2 rounded-lg transition-colors">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center font-bold text-sm">
-              RS
-            </div>
+            
+            {currentUser?.image ? (
+              <img src={`http://localhost:9000${currentUser.image}`} alt={displayName} 
+                className="w-9 h-9 rounded-full object-cover border border-slate-700"
+              />
+            ) : (
+              <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center font-bold text-sm">
+                {currentUser ? getInitials(displayName) : "..."}
+              </div>
+            )}
+
+            {/* Show Dynamic Name (or Email prefix) and Role */}
             <div>
-              <p className="text-sm font-semibold">John Doe</p>
-              <p className="text-xs text-gray-400">Admin</p>
+              <p className="text-sm font-semibold truncate max-w-30">
+                {displayName}
+              </p>
+              <p className="text-xs text-gray-400 capitalize">
+                {currentUser ? (currentUser.role || "Admin") : "..."}
+              </p>
             </div>
+
           </div>
-          <LogOut 
-              size={16} 
-              onClick={handleLogout}
-              className="text-gray-400 hover:text-white transition-colors cursor-pointer" 
-            />
+          <LogOut size={16} onClick={handleLogout}
+            className="text-gray-400 hover:text-white transition-colors cursor-pointer shrink-0" 
+          />
         </div>
       </div>
       

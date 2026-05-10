@@ -21,7 +21,7 @@ export default function AuthPage() {
       setPassword("");
       setIsLogin(true);
     } catch (error) {
-      console.log(error);      
+      alert(error);
     }
   };
 
@@ -35,6 +35,7 @@ export default function AuthPage() {
       navigate('/');
       window.location.reload();
     } catch (error) {
+      alert(error);
       console.log(error);      
     }
   };

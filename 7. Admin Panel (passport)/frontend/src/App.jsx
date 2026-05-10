@@ -6,6 +6,7 @@ import EditUserForm from "./component/EditForm"
 import AdminAuth from "./component/Auth"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import Settings from "./component/Settings"
 
 function App() {
 
@@ -37,7 +38,7 @@ function App() {
             <Route path="/users/add" element={<AddUserForm />} />
             <Route path="/users/view" element={<UserList />} />
             <Route path="/users/edit/:id" element={<EditUserForm />} />
-            <Route path="/settings" element={<Dashboard />} />
+            <Route path="/settings" element={<Settings />} />
           </>}
         </Routes>
       </BrowserRouter>

@@ -74,7 +74,6 @@ exports.updateUser = async (req, res) => {
                     fs.unlinkSync(oldPath);
                 }
             }
-
             updatedImage = `/uploads/${req.file.filename}`;
         }
 
@@ -84,13 +83,12 @@ exports.updateUser = async (req, res) => {
         }
 
         const updatedUser = await UserSchema.findByIdAndUpdate(req.params.id, 
-            { name, email, password: updatedPassword,  phone, role, image: updatedImage }, {new: true});
+            {name, email, password:updatedPassword, phone, role, image: updatedImage}, {returnDocument: 'after'});
 
         res.status(200).json({
             success: true,
             user: updatedUser,
         });
-
     } catch (error) {
         console.log(error);
         res.status(500).json({

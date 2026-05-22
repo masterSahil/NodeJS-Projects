@@ -10,6 +10,7 @@ const connectDB = require("./config/mongodb");
 const router = require("./routes/userRoutes")
 const categoryRouter = require("./routes/categoryRoutes")
 const subcategoryRouter = require("./routes/subcategoryRoute")
+const extrasubcategoryRouter = require("./routes/extraCategory")
 
 const PORT = process.env.PORT;
 
@@ -39,3 +40,4 @@ app.use(cookieParser());
 app.use('/', router);
 app.use('/', categoryRouter);
 app.use('/', subcategoryRouter);
+app.use('/', extrasubcategoryRouter);

@@ -18,6 +18,9 @@ import EditCategory from "./component/Categories/EditCategory"
 import AddSubCategory from "./component/SubCategories/AddSubCategories"
 import ViewSubCategories from "./component/SubCategories/ViewSubCategories"
 import EditSubCategory from "./component/SubCategories/EditSubCategory"
+import AddExtraCategory from "./component/ExtraCategories/AddExtraCategory"
+import ViewExtraSubCategories from "./component/ExtraCategories/ViewExtraCategory"
+import EditExtraSubCategory from "./component/ExtraCategories/EditExtraCategory"
 
 function App() {
 
@@ -60,6 +63,11 @@ function App() {
             <Route path="/sub-categories/add" element={<AddSubCategory />} />
             <Route path="/sub-categories/view" element={<ViewSubCategories />} />
             <Route path="/sub-categories/edit/:id" element={<EditSubCategory />} />
+
+            {/* Extra Sub Categories */}
+            <Route path="/extra-categories/add" element={<AddExtraCategory />} />
+            <Route path="/extra-categories/view" element={<ViewExtraSubCategories />} />
+            <Route path="/extra-categories/edit/:id" element={<EditExtraSubCategory />} />
 
             <Route path="/change-password" element={<ChangePwd />} />
             <Route path="/settings" element={<Settings />} />

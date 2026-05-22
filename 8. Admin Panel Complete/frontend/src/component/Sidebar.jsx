@@ -9,14 +9,10 @@ const SidebarItem = ({ icon: Icon, label, to }) => {
   const isActive = location.pathname === to;
 
   return (
-    <Link
-      to={to}
+    <Link to={to}
       className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors ${
-        isActive
-          ? 'bg-blue-600 text-white'
-          : 'text-gray-400 hover:bg-slate-800 hover:text-white'
-      }`}
-    >
+        isActive ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white'
+      }`}>
       <div className="flex items-center gap-3">
         <Icon size={18} />
         <span className="font-medium text-sm">{label}</span>
@@ -32,9 +28,7 @@ export default function Sidebar() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:9000/auth-check", {
-          withCredentials: true
-        });
+        const res = await axios.get("http://localhost:9000/auth-check", { withCredentials: true });
         if (res.data.success) {
           setCurrentUser(res.data.user);
         }
@@ -83,7 +77,7 @@ export default function Sidebar() {
   const displayName = currentUser?.name ? currentUser.name : currentUser?.email?.split('@')[0] || "Loading...";
 
   return (
-    <aside className="hidden lg:flex w-64 flex-col bg-slate-950 text-white border-r border-slate-800 relative h-screen">
+    <aside className="hidden sidebar-scroll lg:flex w-64 flex-col bg-slate-950 text-white border-r border-slate-800 relative h-screen">
       {/* Brand Header */}
       <div className="p-6 flex items-center gap-2">
         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -131,6 +125,15 @@ export default function Sidebar() {
           </div>
         </div>
 
+        {/* Extra Sub Categories Section */}
+        <div>
+          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">EXTRA SUB CATEGORIES</p>
+          <div className="space-y-1">
+            <SidebarItem icon={FolderPlus} label="Add Extra Categories" to="/extra-categories/add" />
+            <SidebarItem icon={FolderOpen} label="View Extra Categories" to="/extra-categories/view" />
+          </div>
+        </div>
+
         {/* System Section */}
         <div>
           <p className="text-xs font-semibold text-slate-500 mb-3 px-3">SYSTEM</p>
@@ -157,7 +160,7 @@ export default function Sidebar() {
               </div>
             )}
 
-            {/* Show Dynamic Name (or Email prefix) and Role */}
+            {/* Show Dynamic Name or Email prefix and Role */}
             <div>
               <p className="text-sm font-semibold truncate max-w-30">
                 {displayName}

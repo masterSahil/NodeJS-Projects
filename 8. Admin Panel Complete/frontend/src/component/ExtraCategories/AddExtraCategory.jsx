@@ -3,6 +3,7 @@ import { Layers3, Save, IndianRupee } from "lucide-react";
 import Sidebar from "../Sidebar";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AddExtraCategory() {
   const [categories, setCategories] = useState([]);
@@ -20,6 +21,8 @@ export default function AddExtraCategory() {
     fetchCategories();
     fetchSubCategories();
   }, []);
+
+  const navigate = useNavigate();
 
   const fetchCategories = async () => {
     try {
@@ -47,11 +50,7 @@ export default function AddExtraCategory() {
       await axios.post("http://localhost:9000/extra-category", formData);
 
       setFormData({
-        categoryId: "",
-        subCategoryId: "",
-        extraCategory: "",
-        pricing: "",
-        isActive: true,
+        categoryId: "", subCategoryId: "", extraCategory: "", pricing: "", isActive: true,
       });
 
       Swal.fire({
@@ -61,6 +60,7 @@ export default function AddExtraCategory() {
         timer: 2000,
         showConfirmButton: false,
       });
+      navigate("/extra-categories/view")
     } catch (error) {
       console.log(error);
       Swal.fire({

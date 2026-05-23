@@ -2,7 +2,7 @@ const SubCategory = require("../model/subCategory");
 
 exports.getSubCategories = async (req, res) => {
   try {
-    const subCategories = await SubCategory.find().populate("categoryId", "category").sort({ createdAt: -1 });
+    const subCategories = await SubCategory.find({isDeleted: false}).populate("categoryId", "category").sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -71,6 +71,76 @@ exports.deleteSubCategory = async (req, res) => {
       subCategory: deletedSubCategory,
     });
   } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.softDeleteSubCategory = async (req, res) => {
+  try {
+    const trashedSubCategory = await SubCategory.findByIdAndUpdate(req.params.id, { isDeleted: true },
+        { returnDocument: 'after'});
+
+    if (!trashedSubCategory) {
+      return res.status(404).json({
+        success: false,
+        message: "Sub Category Not Found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      subCategory: trashedSubCategory,
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getTrashSubCategories = async (req, res) => {
+  try {
+    const trashSubCategories = await SubCategory.find({isDeleted: true})
+      .populate("categoryId", "category")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      subCategory: trashSubCategories,
+    });
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.restoreSubCategory = async (req, res) => {
+  try {
+    const restoredSubCategory = await SubCategory.findByIdAndUpdate(req.params.id, { isDeleted: false },
+        {returnDocument: 'after'});
+
+    if (!restoredSubCategory) {
+      return res.status(404).json({
+        success: false,
+        message: "Sub Category Not Found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      subCategory: restoredSubCategory,
+    });
+  } catch (error) {
+    console.log(error);
     res.status(500).json({
       success: false,
       message: error.message,

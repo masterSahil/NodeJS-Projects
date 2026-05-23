@@ -2,13 +2,14 @@ const Category = require("../model/category");
 
 exports.getCategory = async (req, res) => {
     try {
-        const allCategory = await Category.find();
+        const allCategory = await Category.find({isDeleted: false});
 
         res.status(200).json({
             success: true,
             categories: allCategory,
         })
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             success: false,
             message: error.message,
@@ -26,6 +27,7 @@ exports.CreateCategory = async (req, res) => {
             categories: newCategory,
         })
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             success: false,
             message: error.message,
@@ -44,6 +46,25 @@ exports.UpdateCategory = async (req, res) => {
             categories: updatedCategory,
         })
     } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+}
+
+exports.softDeleteCategory = async (req, res) => {
+    try {
+        const trashed = await Category.findByIdAndUpdate(req.params.id, {isDeleted: true}, 
+            {returnDocument: 'after'});
+
+        res.status(200).json({
+            success: true,
+            categories: trashed,
+        })
+    } catch (error) {
+        console.log(error);
         res.status(500).json({
             success: false,
             message: error.message,
@@ -60,9 +81,45 @@ exports.DeleteCategory = async (req, res) => {
             categories: removed,
         })
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             success: false,
             message: error.message,
         })
     }
 }
+
+exports.getTrashCategories = async (req, res) => {
+  try {
+    const categories = await Category.find({ isDeleted: true });
+
+    res.status(200).json({
+      success: true,
+      categories,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.restoreCategory = async (req, res) => {
+  try {
+    const category = await Category.findByIdAndUpdate(req.params.id, {isDeleted: false}, 
+        {returnDocument: 'after'});
+
+    res.status(200).json({
+      success: true,
+      category,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

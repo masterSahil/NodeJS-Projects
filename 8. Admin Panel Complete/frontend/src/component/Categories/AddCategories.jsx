@@ -3,6 +3,7 @@ import { FolderPlus, Save } from "lucide-react";
 import Sidebar from "../Sidebar";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AddCategory() {
   const [formData, setFormData] = useState({
@@ -10,11 +11,12 @@ export default function AddCategory() {
     isActive: true,
   });
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:9000/category", formData);
-      console.log(res)
 
       setFormData({category: ""});
       Swal.fire({
@@ -22,6 +24,7 @@ export default function AddCategory() {
         text: "Category added successfully",
         timer: 2000, showConfirmButton: false,
       });
+      navigate("/categories/view")
     } catch (error) {
       console.log(error);
       Swal.fire({

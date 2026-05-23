@@ -51,7 +51,7 @@ export default function CategoryList() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:9000/category/${id}`);
+      await axios.put(`http://localhost:9000/trash-category/${id}`);
 
       setCategories(categories.filter((item) => item._id !== id));
       Swal.fire({

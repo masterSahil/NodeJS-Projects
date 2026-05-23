@@ -237,15 +237,10 @@ export default function Settings() {
                     <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
                       <Mail size={18} />
                     </div>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="john@example.com"
-                      className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all"
+                    <input type="email" id="email" name="email" required
+                      value={formData.email} onChange={handleChange}
+                      placeholder="john@example.com" disabled
+                      className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all hover:cursor-not-allowed"
                     />
                   </div>
                 </div>

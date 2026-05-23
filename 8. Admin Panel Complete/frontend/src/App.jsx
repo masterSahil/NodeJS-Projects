@@ -21,6 +21,9 @@ import EditSubCategory from "./component/SubCategories/EditSubCategory"
 import AddExtraCategory from "./component/ExtraCategories/AddExtraCategory"
 import ViewExtraSubCategories from "./component/ExtraCategories/ViewExtraCategory"
 import EditExtraSubCategory from "./component/ExtraCategories/EditExtraCategory"
+import TrashCategory from "./component/Categories/TrashCategory"
+import TrashSubCategory from "./component/SubCategories/TrashSubCategory"
+import TrashExtraCategory from "./component/ExtraCategories/TrashCategory"
 
 function App() {
 
@@ -58,16 +61,19 @@ function App() {
             <Route path="/categories/add" element={<AddCategory />} />
             <Route path="/categories/view" element={<CategoryList />} />
             <Route path="/categories/edit/:id" element={<EditCategory />} />
+            <Route path="/categories/trash" element={<TrashCategory />} />
 
             {/* Sub Categories */}
             <Route path="/sub-categories/add" element={<AddSubCategory />} />
             <Route path="/sub-categories/view" element={<ViewSubCategories />} />
             <Route path="/sub-categories/edit/:id" element={<EditSubCategory />} />
+            <Route path="/sub-categories/trash" element={<TrashSubCategory />} />
 
             {/* Extra Sub Categories */}
             <Route path="/extra-categories/add" element={<AddExtraCategory />} />
             <Route path="/extra-categories/view" element={<ViewExtraSubCategories />} />
             <Route path="/extra-categories/edit/:id" element={<EditExtraSubCategory />} />
+            <Route path="/extra-categories/trash" element={<TrashExtraCategory />} />
 
             <Route path="/change-password" element={<ChangePwd />} />
             <Route path="/settings" element={<Settings />} />

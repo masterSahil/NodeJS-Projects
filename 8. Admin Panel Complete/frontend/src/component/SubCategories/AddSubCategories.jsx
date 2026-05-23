@@ -3,6 +3,7 @@ import { FolderPlus, Save } from "lucide-react";
 import Sidebar from "../Sidebar";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AddSubCategory() {
   const [categories, setCategories] = useState([]);
@@ -16,6 +17,8 @@ export default function AddSubCategory() {
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  const navigate = useNavigate();
 
   const fetchCategories = async () => {
     try {
@@ -45,6 +48,7 @@ export default function AddSubCategory() {
         timer: 2000,
         showConfirmButton: false,
       });
+      navigate("/sub-categories/view")
     } catch (error) {
       console.log(error);
       Swal.fire({

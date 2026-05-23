@@ -63,7 +63,7 @@ export default function ViewExtraSubCategories() {
     if (!result.isConfirmed) return;
 
     try {
-      await axios.delete(`http://localhost:9000/extra-category/${id}`);
+      await axios.put(`http://localhost:9000/trash-extra-category/${id}`);
 
       setExtraCategories((prev) =>prev.filter((item) => item._id !== id));
 

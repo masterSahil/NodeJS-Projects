@@ -2,7 +2,7 @@ const ExtraCategory = require("../model/extraCategory");
 
 exports.getExtraCategories = async (req, res) => {
     try {
-        const extraCategories = await ExtraCategory.find()
+        const extraCategories = await ExtraCategory.find({isDeleted: false})
             .populate("categoryId", "category")
             .populate("subCategoryId", "subcategory")
             .sort({ createdAt: -1 });
@@ -108,4 +108,60 @@ exports.deleteExtraCategory = async (req, res) => {
             message: error.message,
         });
     }
+};
+
+exports.softDeleteExtraCategory = async (req, res) => {
+  try {
+    const trashed = await ExtraCategory.findByIdAndUpdate(
+      req.params.id,
+      { isDeleted: true },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      extraCategories: trashed,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.getTrashExtraCategories = async (req, res) => {
+  try {
+    const extraCategories = await ExtraCategory.find({ isDeleted: true })
+      .populate("categoryId", "category").populate("subCategoryId", "subcategory").sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      extraCategories,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+exports.restoreExtraCategory = async (req, res) => {
+  try {
+    const restored = await ExtraCategory.findByIdAndUpdate(req.params.id, { isDeleted: false },
+      { returnDocument: 'after' });
+
+    res.status(200).json({
+      success: true,
+      extraCategories: restored,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };

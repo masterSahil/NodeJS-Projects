@@ -60,7 +60,7 @@ export default function ViewSubCategories() {
 
     if (!result.isConfirmed) return;
     try {
-      await axios.delete(`http://localhost:9000/subcategory/${id}`);
+      await axios.put(`http://localhost:9000/trash-subcategory/${id}`);
 
       setSubCategories((prev) => prev.filter((item) => item._id !== id));
 
@@ -118,7 +118,7 @@ export default function ViewSubCategories() {
             </p>
           </div>
 
-          <Link to="/subcategory/add"
+          <Link to="/sub-categories/add"
             className="flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-lg">
             <Plus size={18} />
             Add Sub Category

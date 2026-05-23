@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, UserPlus, Users, Settings, LogOut, ChevronRight, Lock, FolderPlus, FolderOpen } from 'lucide-react';
+import { LayoutDashboard, UserPlus, Users, Settings, LogOut, ChevronRight, Lock, FolderPlus, FolderOpen, Trash2 } from 'lucide-react';
 import axios from "axios";
 import Swal from 'sweetalert2';
 
@@ -113,6 +113,7 @@ export default function Sidebar() {
           <div className="space-y-1">
             <SidebarItem icon={FolderPlus} label="Add Categories" to="/categories/add" />
             <SidebarItem icon={FolderOpen} label="View Categories" to="/categories/view" />
+            <SidebarItem icon={Trash2} label="Trash Categories" to="/categories/trash" />
           </div>
         </div>
 
@@ -122,6 +123,7 @@ export default function Sidebar() {
           <div className="space-y-1">
             <SidebarItem icon={FolderPlus} label="Add Sub Categories" to="/sub-categories/add" />
             <SidebarItem icon={FolderOpen} label="View Sub Categories" to="/sub-categories/view" />
+            <SidebarItem icon={Trash2} label="Trash Sub Categories" to="/sub-categories/trash" />
           </div>
         </div>
 
@@ -131,6 +133,7 @@ export default function Sidebar() {
           <div className="space-y-1">
             <SidebarItem icon={FolderPlus} label="Add Extra Categories" to="/extra-categories/add" />
             <SidebarItem icon={FolderOpen} label="View Extra Categories" to="/extra-categories/view" />
+            <SidebarItem icon={Trash2} label="Trash Extra Categories" to="/extra-categories/trash" />
           </div>
         </div>
 
@@ -152,8 +155,7 @@ export default function Sidebar() {
             
             {currentUser?.image ? (
               <img src={`http://localhost:9000${currentUser.image}`} alt={displayName} 
-                className="w-9 h-9 rounded-full object-cover border border-slate-700"
-              />
+                className="w-9 h-9 rounded-full object-cover border border-slate-700" />
             ) : (
               <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center font-bold text-sm">
                 {currentUser ? getInitials(displayName) : "..."}

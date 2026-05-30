@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+body{
+    font-family: poppins;
+}
+*{
+    scroll-behavior: smooth;
+}
+.banner-img-set{
+    background-image: url('/images/hero/banner.png');
+}
+.bg-working-hours-img{
+    background-image: url('/images/workingHours/bg-image.png');
+}
+.bg-footer-img{
+    background-image: url('/images/footer/bg-image.png');
+}

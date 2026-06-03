@@ -34,7 +34,6 @@ module.exports.createProducts = async (req, res) => {
 
 module.exports.updateProducts = async (req, res) => {
     try {
-        const {productCategory, productSubCategory, productName, title, description, image, price, stock, isActive} = req.body
         const updated = await Product.findByIdAndUpdate(req.params.id, req.body, { returnDocument: "after" });
 
         res.status(200).json({
@@ -42,6 +41,7 @@ module.exports.updateProducts = async (req, res) => {
             products: updated,
         })
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             success: false,
             message: error.message,

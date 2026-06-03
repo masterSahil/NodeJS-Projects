@@ -16,24 +16,9 @@ const productSchema = new Schema({
         ref: "ExtraCategory",
         required: true,
     },
-    title: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    description: {
-        type: String,
-    },
-    image: {
-        type: String,
-    },
     price: {
         type: Number,
         required: true,
-    },
-    stock: {
-        type: Number,
-        default: 0,
     },
     isActive: {
         type: Boolean,

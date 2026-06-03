@@ -211,7 +211,6 @@ export default function EditExtraSubCategory() {
               <Save size={18} />
               Update Extra Category
             </button>
-
           </form>
         </div>
       </main>

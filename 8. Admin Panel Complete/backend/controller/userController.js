@@ -189,9 +189,12 @@ exports.AuthCheck = (req, res) => {
         });
     }
 
-    return res.status(401).json({
-        success: false,
-        message: "Not logged in",
+    req.session.destroy(() => {
+        res.clearCookie("connect.sid"); 
+        return res.status(401).json({
+            success: false,
+            message: "Not logged in",
+        });
     });
 };
 
@@ -209,7 +212,7 @@ exports.logout = (req, res) => {
             return res.status(200).json({
                 success: true,
                 message: "Logged out successfully"
-            });
+            }); 
         });
     });
 };

@@ -24,6 +24,9 @@ import EditExtraSubCategory from "./component/ExtraCategories/EditExtraCategory"
 import TrashCategory from "./component/Categories/TrashCategory"
 import TrashSubCategory from "./component/SubCategories/TrashSubCategory"
 import TrashExtraCategory from "./component/ExtraCategories/TrashCategory"
+import AddProduct from "./component/Products/AddProducts"
+import ViewProducts from "./component/Products/ViewProducts"
+import EditProduct from "./component/Products/EditProucts"
 
 function App() {
 
@@ -35,7 +38,7 @@ function App() {
 
       if (res.data.success) {
         setLogin(true);
-      }
+      } 
     } catch (error) {
       console.log(error);
     }
@@ -74,6 +77,11 @@ function App() {
             <Route path="/extra-categories/view" element={<ViewExtraSubCategories />} />
             <Route path="/extra-categories/edit/:id" element={<EditExtraSubCategory />} />
             <Route path="/extra-categories/trash" element={<TrashExtraCategory />} />
+
+            {/* Products */}
+            <Route path="/products/add" element={<AddProduct />} />
+            <Route path="/products/view" element={<ViewProducts />} />
+            <Route path="/products/edit/:id" element={<EditProduct />} />
 
             <Route path="/change-password" element={<ChangePwd />} />
             <Route path="/settings" element={<Settings />} />

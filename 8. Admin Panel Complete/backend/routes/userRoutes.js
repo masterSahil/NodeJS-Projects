@@ -25,7 +25,7 @@ router.post("/signup", userController.Register);
 router.post("/login", userController.login);
 
 // logout
-router.get("/logout", userController.logout);   
+router.get("/logout", userController.logout);
 
 // checking authentication
 router.get("/auth-check", userController.AuthCheck);

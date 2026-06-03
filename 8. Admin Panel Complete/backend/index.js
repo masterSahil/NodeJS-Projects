@@ -1,16 +1,19 @@
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const cors = require("cors")
+
 const express = require("express");
 const app = express();
-require("dotenv").config();
-const cookieParser = require("cookie-parser");
-const cors = require("cors")
-const session = require("express-session");
-const passport = require("./config/passport");
 
+require("dotenv").config();
+const passport = require("./config/passport");
 const connectDB = require("./config/mongodb");
+
 const router = require("./routes/userRoutes")
 const categoryRouter = require("./routes/categoryRoutes")
 const subcategoryRouter = require("./routes/subcategoryRoute")
 const extrasubcategoryRouter = require("./routes/extraCategory")
+const productRouter = require("./routes/productRoutes")
 
 const PORT = process.env.PORT;
 
@@ -41,3 +44,4 @@ app.use('/', router);
 app.use('/', categoryRouter);
 app.use('/', subcategoryRouter);
 app.use('/', extrasubcategoryRouter);
+app.use('/', productRouter);

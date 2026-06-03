@@ -31,9 +31,12 @@ export default function Sidebar() {
         const res = await axios.get("http://localhost:9000/auth-check", { withCredentials: true });
         if (res.data.success) {
           setCurrentUser(res.data.user);
-        }
+        } 
       } catch (error) {
         console.log("Failed to fetch user data:", error);
+        if (error.response?.status === 401) {
+          window.location.href = "/";
+        }
       }
     };
     fetchUser();
@@ -102,8 +105,8 @@ export default function Sidebar() {
         <div>
           <p className="text-xs font-semibold text-slate-500 mb-3 px-3">USERS</p>
           <div className="space-y-1">
-            <SidebarItem icon={UserPlus} label="Add Form" to="/users/add" />
-            <SidebarItem icon={Users} label="View Data" to="/users/view" />
+            <SidebarItem icon={UserPlus} label="Add New User" to="/users/add" />
+            <SidebarItem icon={Users} label="View User Data" to="/users/view" />
           </div>
         </div>
 
@@ -134,6 +137,16 @@ export default function Sidebar() {
             <SidebarItem icon={FolderPlus} label="Add Extra Categories" to="/extra-categories/add" />
             <SidebarItem icon={FolderOpen} label="View Extra Categories" to="/extra-categories/view" />
             <SidebarItem icon={Trash2} label="Trash Extra Categories" to="/extra-categories/trash" />
+          </div>
+        </div>
+
+        {/* Products Section */}
+        <div>
+          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">PRODUCTS</p>
+          <div className="space-y-1">
+            <SidebarItem icon={FolderPlus} label="Add Products" to="/products/add" />
+            <SidebarItem icon={FolderOpen} label="View Products" to="/products/view" />
+            {/* <SidebarItem icon={Trash2} label="Trash Extra Categories" to="/extra-categories/trash" /> */}
           </div>
         </div>
 

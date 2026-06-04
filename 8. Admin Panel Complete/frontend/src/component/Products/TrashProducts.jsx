@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Sidebar from "../Sidebar";
-import { Search, Trash2, LayoutGrid, Table2, ArchiveRestore, Layers3 } from "lucide-react";
+import { Search, Trash2, LayoutGrid, Table2, Package } from "lucide-react";
 
-export default function TrashExtraCategory() {
-  const [extraCategories, setExtraCategories] = useState([]);
+export default function TrashProduct() {
+  const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [viewType, setViewType] = useState("table");
 
@@ -15,21 +15,22 @@ export default function TrashExtraCategory() {
 
   const getTrashData = async () => {
     try {
-      const res = await axios.get("http://localhost:9000/trash-extra-category");
-
-      setExtraCategories(res.data.extraCategories);
+      const res = await axios.get("http://localhost:9000/trash-product");
+      
+      setProducts(res.data.products || res.data.data || []);
     } catch (error) {
       console.log(error);
       Swal.fire({
-        icon: "error", title: "Error",
-        text: "Failed to Fetch extra category",
+        icon: "error", 
+        title: "Error",
+        text: "Failed to fetch deleted products",
       });
     }
   };
 
-  const restoreExtraCategory = async (id) => {
+  const restoreProduct = async (id) => {
     const result = await Swal.fire({
-      title: "Restore Extra Category?",
+      title: "Restore Product?",
       text: "This item will become active again.",
       icon: "question",
       showCancelButton: true,
@@ -40,22 +41,23 @@ export default function TrashExtraCategory() {
     if (!result.isConfirmed) return;
 
     try {
-      await axios.put(`http://localhost:9000/restore-extra-category/${id}`);
+      await axios.put(`http://localhost:9000/restore-product/${id}`);
 
-      setExtraCategories((prev) => prev.filter((item) => item._id !== id));
+      setProducts((prev) => prev.filter((item) => item._id !== id));
 
       Swal.fire({
         icon: "success",
         title: "Restored",
-        text: "Extra Category restored successfully",
+        text: "Product restored successfully",
         timer: 1500,
         showConfirmButton: false,
       });
     } catch (error) {
       console.log(error);
       Swal.fire({
-        icon: "error", title: "Error",
-        text: "Failed to restore extra category",
+        icon: "error", 
+        title: "Error",
+        text: "Failed to restore product",
       });
     }
   };
@@ -73,34 +75,33 @@ export default function TrashExtraCategory() {
     if (!result.isConfirmed) return;
 
     try {
-      await axios.delete(`http://localhost:9000/permanent-extra-category/${id}`);
+      await axios.delete(`http://localhost:9000/permanent-product/${id}`);
 
-      setExtraCategories((prev) => prev.filter((item) => item._id !== id));
+      setProducts((prev) => prev.filter((item) => item._id !== id));
 
       Swal.fire({
         icon: "success",
         title: "Deleted",
-        text: "Extra Category Permanently Deleted",
+        text: "Product permanently deleted",
         timer: 1500,
         showConfirmButton: false,
       });
     } catch (error) {
       console.log(error);
       Swal.fire({
-        icon: "error", title: "Error",
-        text: "Failed to Permanently Delete extra category",
+        icon: "error", 
+        title: "Error",
+        text: "Failed to permanently delete product",
       });
     }
   };
 
-  const filteredExtraCategories = extraCategories.filter((item) => {
-    const extra = item.extraCategory?.toLowerCase() || "";
-    const sub = item.subCategoryId?.subcategory?.toLowerCase() || "";
+  const filteredProducts = products.filter((item) => {
+    const prodName = item.name?.toLowerCase() || item.productName?.toLowerCase() || "";
     const cat = item.categoryId?.category?.toLowerCase() || "";
 
     return (
-      extra.includes(searchTerm.toLowerCase()) ||
-      sub.includes(searchTerm.toLowerCase()) ||
+      prodName.includes(searchTerm.toLowerCase()) ||
       cat.includes(searchTerm.toLowerCase())
     );
   });
@@ -113,11 +114,11 @@ export default function TrashExtraCategory() {
 
         <div className="mb-8">
           <h1 className="text-3xl font-bold">
-            Trash Extra Categories
+            Trash Products
           </h1>
 
           <p className="text-gray-500 mt-1">
-            Restore or permanently delete extra categories
+            Restore or permanently delete products
           </p>
         </div>
 
@@ -132,7 +133,7 @@ export default function TrashExtraCategory() {
 
               <input
                 type="text"
-                placeholder="Search extra category..."
+                placeholder="Search product..."
                 value={searchTerm}
                 onChange={(e) =>
                   setSearchTerm(e.target.value)
@@ -167,7 +168,7 @@ export default function TrashExtraCategory() {
           </div>
         </div>
 
-        {filteredExtraCategories.length === 0 && (
+        {filteredProducts.length === 0 && (
           <div className="bg-white rounded-xl border border-gray-200 p-16 text-center">
             <Trash2
               size={60}
@@ -179,22 +180,19 @@ export default function TrashExtraCategory() {
             </h2>
 
             <p className="text-gray-500 mt-2">
-              No deleted extra categories found
+              No deleted products found
             </p>
           </div>
         )}
 
         {viewType === "table" &&
-          filteredExtraCategories.length > 0 && (
+          filteredProducts.length > 0 && (
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-4 text-left">
-                      Extra Category
-                    </th>
-                    <th className="px-6 py-4 text-left">
-                      Sub Category
+                      Product Name
                     </th>
                     <th className="px-6 py-4 text-left">
                       Category
@@ -212,14 +210,10 @@ export default function TrashExtraCategory() {
                 </thead>
 
                 <tbody>
-                  {filteredExtraCategories.map((item) => (
-                    <tr key={item._id}>
+                  {filteredProducts.map((item) => (
+                    <tr key={item._id} className="border-t border-gray-100">
                       <td className="px-6 py-5">
-                        {item.extraCategory}
-                      </td>
-
-                      <td className="px-6 py-5">
-                        {item.subCategoryId?.subcategory}
+                        {item.name || item.productName}
                       </td>
 
                       <td className="px-6 py-5">
@@ -227,23 +221,22 @@ export default function TrashExtraCategory() {
                       </td>
 
                       <td className="px-6 py-5 text-green-600 font-semibold">
-                        ₹ {item.pricing}
+                        ₹ {item.price || item.pricing}
                       </td>
 
                       <td className="px-6 py-5 text-gray-500">
                         {new Date(
-                          item.updatedAt
+                          item.updatedAt || item.createdAt
                         ).toLocaleDateString()}
                       </td>
 
                       <td className="px-6 py-5">
                         <div className="flex justify-end gap-3">
-
                           <button
                             onClick={() =>
-                              restoreExtraCategory(item._id)
+                              restoreProduct(item._id)
                             }
-                            className="px-4 py-2 bg-green-50 text-green-600 rounded-md"
+                            className="px-4 py-2 bg-green-50 text-green-600 rounded-md hover:bg-green-100 transition-colors"
                           >
                             Recover
                           </button>
@@ -252,11 +245,10 @@ export default function TrashExtraCategory() {
                             onClick={() =>
                               permanentDelete(item._id)
                             }
-                            className="px-4 py-2 bg-red-50 text-red-600 rounded-md"
+                            className="px-4 py-2 bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition-colors"
                           >
                             Delete Forever
                           </button>
-
                         </div>
                       </td>
                     </tr>
@@ -267,46 +259,43 @@ export default function TrashExtraCategory() {
           )}
 
         {viewType === "grid" &&
-          filteredExtraCategories.length > 0 && (
+          filteredProducts.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
-              {filteredExtraCategories.map((item) => (
+              {filteredProducts.map((item) => (
                 <div
                   key={item._id}
-                  className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm"
+                  className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center">
-                    <Layers3 />
+                    <Package />
                   </div>
 
-                  <h2 className="text-xl font-bold mt-5">
-                    {item.extraCategory}
+                  <h2 className="text-xl font-bold mt-5 line-clamp-1">
+                    {item.name || item.productName}
                   </h2>
 
                   <p className="text-gray-500 mt-2">
-                    {item.subCategoryId?.subcategory}
-                  </p>
-
-                  <p className="text-gray-500">
                     {item.categoryId?.category}
                   </p>
 
                   <div className="mt-3 text-green-600 font-semibold">
-                    ₹ {item.pricing}
+                    ₹ {item.price || item.pricing}
                   </div>
 
                   <div className="mt-6 flex gap-3">
                     <button
                       onClick={() =>
-                        restoreExtraCategory(item._id)
+                        restoreProduct(item._id)
                       }
-                      className="flex-1 bg-green-50 text-green-600 py-3 rounded-lg"
+                      className="flex-1 bg-green-50 text-green-600 py-3 rounded-lg hover:bg-green-100 transition-colors"
                     >
                       Recover
                     </button>
 
-                    <button onClick={() => permanentDelete(item._id)}
-                      className="flex-1 bg-red-50 text-red-600 py-3 rounded-lg">
+                    <button 
+                      onClick={() => permanentDelete(item._id)}
+                      className="flex-1 bg-red-50 text-red-600 py-3 rounded-lg hover:bg-red-100 transition-colors"
+                        >
                       Delete
                     </button>
                   </div>

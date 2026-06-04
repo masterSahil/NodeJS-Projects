@@ -9,10 +9,8 @@ const SidebarItem = ({ icon: Icon, label, to }) => {
   const isActive = location.pathname === to;
 
   return (
-    <Link to={to}
-      className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors ${
-        isActive ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white'
-      }`}>
+    <Link to={to} className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors 
+    ${isActive ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white'}`}>
       <div className="flex items-center gap-3">
         <Icon size={18} />
         <span className="font-medium text-sm">{label}</span>
@@ -146,7 +144,7 @@ export default function Sidebar() {
           <div className="space-y-1">
             <SidebarItem icon={FolderPlus} label="Add Products" to="/products/add" />
             <SidebarItem icon={FolderOpen} label="View Products" to="/products/view" />
-            {/* <SidebarItem icon={Trash2} label="Trash Extra Categories" to="/extra-categories/trash" /> */}
+            <SidebarItem icon={Trash2} label="Trash Products" to="/products/trash" />
           </div>
         </div>
 

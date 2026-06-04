@@ -15,7 +15,7 @@ export default function TrashProduct() {
 
   const getTrashData = async () => {
     try {
-      const res = await axios.get("http://localhost:9000/products/trash");
+      const res = await axios.get("http://localhost:9000/products-trashed");
       
       setProducts(res.data.products || []);
     } catch (error) {

@@ -104,8 +104,8 @@ export default function AddExtraCategory() {
               <Layers3 className="text-indigo-600" size={24} />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-800">
-                Add Extra Category
+              <h1 className="text-2xl font-bold text-gray-800">
+                Add Products
               </h1>
               <p className="text-sm text-gray-500 mt-0.5">
                 Create and configure a new extra category for your products.

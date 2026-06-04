@@ -3,17 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Sidebar from "../Sidebar";
-import { 
-  Search, 
-  Plus, 
-  MoreVertical, 
-  LayoutGrid, 
-  Table2, 
-  Edit, 
-  Trash2, 
-  Layers3,
-  IndianRupee
-} from "lucide-react";
+import { Search, Plus, MoreVertical, LayoutGrid, Table2, Edit, Trash2, Layers3, IndianRupee } from "lucide-react";
 
 export default function ViewProducts() {
   const [products, setProducts] = useState([]);
@@ -39,14 +29,10 @@ export default function ViewProducts() {
     }
   };
 
-  // Toggle API is matching your router: PUT /products/status/:id
   const toggleStatus = async (id, currentStatus) => {
     try {
       await axios.put(`http://localhost:9000/products/status/${id}`);
-
-      setProducts((prev) =>
-        prev.map((item) => item._id === id ? { ...item, isActive: !currentStatus } : item)
-      );
+      setProducts((prev) =>prev.map((item) => item._id === id ? { ...item, isActive: !currentStatus } : item));
 
       Swal.fire({
         icon: "success", 
@@ -124,7 +110,7 @@ export default function ViewProducts() {
               <Layers3 className="text-indigo-600" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">View Extra Categories</h1>
+              <h1 className="text-2xl font-bold text-gray-800">View Products</h1>
               <p className="text-sm text-gray-500 mt-0.5">Manage your configured products and categories</p>
             </div>
           </div>

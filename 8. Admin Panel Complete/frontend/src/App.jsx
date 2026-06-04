@@ -27,6 +27,7 @@ import TrashExtraCategory from "./component/ExtraCategories/TrashCategory"
 import AddProduct from "./component/Products/AddProducts"
 import ViewProducts from "./component/Products/ViewProducts"
 import EditProduct from "./component/Products/EditProucts"
+import TrashProduct from "./component/Products/TrashProducts"
 
 function App() {
 
@@ -82,6 +83,7 @@ function App() {
             <Route path="/products/add" element={<AddProduct />} />
             <Route path="/products/view" element={<ViewProducts />} />
             <Route path="/products/edit/:id" element={<EditProduct />} />
+            <Route path="/products/trash" element={<TrashProduct />} />
 
             <Route path="/change-password" element={<ChangePwd />} />
             <Route path="/settings" element={<Settings />} />

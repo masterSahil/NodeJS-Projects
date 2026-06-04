@@ -15,9 +15,9 @@ export default function TrashProduct() {
 
   const getTrashData = async () => {
     try {
-      const res = await axios.get("http://localhost:9000/trash-product");
+      const res = await axios.get("http://localhost:9000/products/trash");
       
-      setProducts(res.data.products || res.data.data || []);
+      setProducts(res.data.products || []);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -41,10 +41,9 @@ export default function TrashProduct() {
     if (!result.isConfirmed) return;
 
     try {
-      await axios.put(`http://localhost:9000/restore-product/${id}`);
+      await axios.put(`http://localhost:9000/products/restore/${id}`);
 
       setProducts((prev) => prev.filter((item) => item._id !== id));
-
       Swal.fire({
         icon: "success",
         title: "Restored",
@@ -75,10 +74,9 @@ export default function TrashProduct() {
     if (!result.isConfirmed) return;
 
     try {
-      await axios.delete(`http://localhost:9000/permanent-product/${id}`);
+      await axios.delete(`http://localhost:9000/products/permanent/${id}`);
 
       setProducts((prev) => prev.filter((item) => item._id !== id));
-
       Swal.fire({
         icon: "success",
         title: "Deleted",

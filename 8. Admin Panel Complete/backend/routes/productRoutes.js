@@ -9,7 +9,7 @@ router.put('/products/:id', productController.updateProducts);
 router.put("/products/status/:id", productController.toggleStatus);
 
 router.get('/products/trash', productController.getTrashProducts);
-router.post('/products/restore/:id', productController.restoreProduct);
+router.put('/products/restore/:id', productController.restoreProduct);
 router.delete('/products/permanent/:id', productController.permanentDeleteProduct);
 
 module.exports = router;

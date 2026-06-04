@@ -8,6 +8,7 @@ router.post('/products', productController.createProducts);
 router.put('/products/:id', productController.updateProducts);
 router.put("/products/status/:id", productController.toggleStatus);
 
+router.put('/products-delete/:id', productController.deleteProducts);
 router.get('/products-trashed', productController.getTrashProducts);
 router.put('/products/restore/:id', productController.restoreProduct);
 router.delete('/products/permanent/:id', productController.permanentDeleteProduct);

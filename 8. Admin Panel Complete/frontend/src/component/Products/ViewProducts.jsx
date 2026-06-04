@@ -64,10 +64,9 @@ export default function ViewProducts() {
     if (!result.isConfirmed) return;
 
     try {
-      await axios.put(`http://localhost:9000/products/restore/${id}`);
+      await axios.put(`http://localhost:9000/products-delete/${id}`);
 
       setProducts((prev) => prev.filter((item) => item._id !== id));
-
       Swal.fire({
         icon: "success", 
         title: "Deleted", 

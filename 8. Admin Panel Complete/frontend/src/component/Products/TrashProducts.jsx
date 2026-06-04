@@ -18,6 +18,7 @@ export default function TrashProduct() {
       const res = await axios.get("http://localhost:9000/products-trashed");
       
       setProducts(res.data.products || []);
+      console.log(res.data);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -95,12 +96,28 @@ export default function TrashProduct() {
   };
 
   const filteredProducts = products.filter((item) => {
-    const prodName = item.name?.toLowerCase() || item.productName?.toLowerCase() || "";
-    const cat = item.categoryId?.category?.toLowerCase() || "";
+    const prodName = (
+      item.productName?.extraCategory ||
+      item.productName ||
+      ""
+    ).toLowerCase();
+
+    const cat = (
+      item.productCategory?.category ||
+      ""
+    ).toLowerCase();
+
+    const subCat = (
+      item.productSubCategory?.subcategory ||
+      ""
+    ).toLowerCase();
+
+    const term = searchTerm.toLowerCase();
 
     return (
-      prodName.includes(searchTerm.toLowerCase()) ||
-      cat.includes(searchTerm.toLowerCase())
+      prodName.includes(term) ||
+      cat.includes(term) ||
+      subCat.includes(term)
     );
   });
 
@@ -196,6 +213,9 @@ export default function TrashProduct() {
                       Category
                     </th>
                     <th className="px-6 py-4 text-left">
+                      Sub Category
+                    </th>
+                    <th className="px-6 py-4 text-left">
                       Price
                     </th>
                     <th className="px-6 py-4 text-left">
@@ -211,11 +231,15 @@ export default function TrashProduct() {
                   {filteredProducts.map((item) => (
                     <tr key={item._id} className="border-t border-gray-100">
                       <td className="px-6 py-5">
-                        {item.name || item.productName}
+                        {item.productName?.extraCategory || "N/A"}
                       </td>
 
                       <td className="px-6 py-5">
-                        {item.categoryId?.category}
+                        {item.productCategory.category}
+                      </td>
+
+                      <td className="px-6 py-5">
+                        {item.productSubCategory.subcategory}
                       </td>
 
                       <td className="px-6 py-5 text-green-600 font-semibold">
@@ -256,51 +280,62 @@ export default function TrashProduct() {
             </div>
           )}
 
-        {viewType === "grid" &&
-          filteredProducts.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredProducts.map((item) => (
-                <div
-                  key={item._id}
-                  className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center">
-                    <Package />
+        {viewType === "grid" && filteredProducts.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredProducts.map((item) => (
+              <div
+                key={item._id}
+                className="group bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 flex flex-col h-full"
+              >
+                {/* Header: Icon & Price */}
+                <div className="flex justify-between items-start mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                    <Package size={24} />
                   </div>
-
-                  <h2 className="text-xl font-bold mt-5 line-clamp-1">
-                    {item.name || item.productName}
-                  </h2>
-
-                  <p className="text-gray-500 mt-2">
-                    {item.categoryId?.category}
-                  </p>
-
-                  <div className="mt-3 text-green-600 font-semibold">
+                  <div className="text-lg font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg">
                     ₹ {item.price || item.pricing}
                   </div>
+                </div>
 
-                  <div className="mt-6 flex gap-3">
-                    <button
-                      onClick={() =>
-                        restoreProduct(item._id)
-                      }
-                      className="flex-1 bg-green-50 text-green-600 py-3 rounded-lg hover:bg-green-100 transition-colors"
-                    >
-                      Recover
-                    </button>
-
-                    <button 
-                      onClick={() => permanentDelete(item._id)}
-                      className="flex-1 bg-red-50 text-red-600 py-3 rounded-lg hover:bg-red-100 transition-colors"
-                        >
-                      Delete
-                    </button>
+                {/* Content: Title & Categories */}
+                <div className="flex-1">
+                  <h2 className="text-xl font-bold text-gray-900 line-clamp-1 mb-3">
+                    {item.productName?.extraCategory || "N/A"}
+                  </h2>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {item.productCategory?.category && (
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                        {item.productCategory.category}
+                      </span>
+                    )}
+                    {item.productSubCategory?.subcategory && (
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-50 text-gray-600 border border-gray-200">
+                        {item.productSubCategory.subcategory}
+                      </span>
+                    )}
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+
+                {/* Actions: Buttons */}
+                <div className="mt-6 flex gap-3 pt-5 border-t border-gray-100">
+                  <button
+                    onClick={() => restoreProduct(item._id)}
+                    className="flex-1 bg-green-50 text-green-600 font-medium py-2.5 rounded-xl hover:bg-green-600 hover:text-white transition-colors duration-300"
+                  >
+                    Recover
+                  </button>
+                  <button
+                    onClick={() => permanentDelete(item._id)}
+                    className="flex-1 bg-red-50 text-red-600 font-medium py-2.5 rounded-xl hover:bg-red-600 hover:text-white transition-colors duration-300"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );

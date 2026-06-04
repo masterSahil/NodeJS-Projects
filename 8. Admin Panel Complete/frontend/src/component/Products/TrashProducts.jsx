@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Sidebar from "../Sidebar";
-import { Search, Trash2, LayoutGrid, Table2, Package } from "lucide-react";
+import { Search, Trash2, LayoutGrid, Table2, Package, ArchiveRestore } from "lucide-react";
 
 export default function TrashProduct() {
   const [products, setProducts] = useState([]);
@@ -96,22 +96,9 @@ export default function TrashProduct() {
   };
 
   const filteredProducts = products.filter((item) => {
-    const prodName = (
-      item.productName?.extraCategory ||
-      item.productName ||
-      ""
-    ).toLowerCase();
-
-    const cat = (
-      item.productCategory?.category ||
-      ""
-    ).toLowerCase();
-
-    const subCat = (
-      item.productSubCategory?.subcategory ||
-      ""
-    ).toLowerCase();
-
+    const prodName = (item.productName?.extraCategory || item.productName || "").toLowerCase();
+    const cat = (item.productCategory?.category || "").toLowerCase();
+    const subCat = (item.productSubCategory?.subcategory || "").toLowerCase();
     const term = searchTerm.toLowerCase();
 
     return (
@@ -158,25 +145,13 @@ export default function TrashProduct() {
             </div>
 
             <div className="flex gap-2">
-              <button
-                onClick={() => setViewType("table")}
-                className={`p-3 rounded-md ${
-                  viewType === "table"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100"
-                }`}
-              >
+              <button onClick={() => setViewType("table")}
+                className={`p-3 rounded-md 
+                  ${ viewType === "table" ? "bg-blue-600 text-white" : "bg-gray-100" }`} >
                 <Table2 size={18} />
               </button>
 
-              <button
-                onClick={() => setViewType("grid")}
-                className={`p-3 rounded-md ${
-                  viewType === "grid"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100"
-                }`}
-              >
+              <button onClick={() => setViewType("grid")} className={`p-3 rounded-md ${ viewType === "grid" ? "bg-blue-600 text-white" : "bg-gray-100" }`}>
                 <LayoutGrid size={18} />
               </button>
             </div>
@@ -185,18 +160,10 @@ export default function TrashProduct() {
 
         {filteredProducts.length === 0 && (
           <div className="bg-white rounded-xl border border-gray-200 p-16 text-center">
-            <Trash2
-              size={60}
-              className="mx-auto text-gray-300"
-            />
+            <Trash2 size={60} className="mx-auto text-gray-300" />
 
-            <h2 className="text-xl font-semibold mt-4">
-              Trash Empty
-            </h2>
-
-            <p className="text-gray-500 mt-2">
-              No deleted products found
-            </p>
+            <h2 className="text-xl font-semibold mt-4">Trash Empty</h2>
+            <p className="text-gray-500 mt-2"> No deleted products found </p>
           </div>
         )}
 
@@ -247,29 +214,17 @@ export default function TrashProduct() {
                       </td>
 
                       <td className="px-6 py-5 text-gray-500">
-                        {new Date(
-                          item.updatedAt || item.createdAt
-                        ).toLocaleDateString()}
+                        {new Date( item.updatedAt || item.createdAt ).toLocaleDateString()}
                       </td>
 
                       <td className="px-6 py-5">
                         <div className="flex justify-end gap-3">
-                          <button
-                            onClick={() =>
-                              restoreProduct(item._id)
-                            }
-                            className="px-4 py-2 bg-green-50 text-green-600 rounded-md hover:bg-green-100 transition-colors"
-                          >
-                            Recover
+                          <button onClick={() =>restoreProduct(item._id)} className="px-4 py-2 bg-green-50 text-green-600 rounded-md flex items-center gap-2 hover:bg-green-100 transition-colors">
+                            <ArchiveRestore size={18} /> Recover
                           </button>
 
-                          <button
-                            onClick={() =>
-                              permanentDelete(item._id)
-                            }
-                            className="px-4 py-2 bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition-colors"
-                          >
-                            Delete Forever
+                          <button onClick={() =>permanentDelete(item._id)} className="px-4 py-2 bg-red-50 text-red-600 rounded-md flex items-center gap-2 hover:bg-red-100 transition-colors">
+                            <Trash2 size={18} /> Delete Forever
                           </button>
                         </div>
                       </td>
@@ -283,10 +238,8 @@ export default function TrashProduct() {
         {viewType === "grid" && filteredProducts.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredProducts.map((item) => (
-              <div
-                key={item._id}
-                className="group bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 flex flex-col h-full"
-              >
+              <div key={item._id}
+                className="group bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex flex-col h-full">
                 {/* Header: Icon & Price */}
                 <div className="flex justify-between items-start mb-4">
                   <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
@@ -319,17 +272,11 @@ export default function TrashProduct() {
 
                 {/* Actions: Buttons */}
                 <div className="mt-6 flex gap-3 pt-5 border-t border-gray-100">
-                  <button
-                    onClick={() => restoreProduct(item._id)}
-                    className="flex-1 bg-green-50 text-green-600 font-medium py-2.5 rounded-xl hover:bg-green-600 hover:text-white transition-colors duration-300"
-                  >
-                    Recover
+                  <button onClick={() => restoreProduct(item._id)} className="flex-1 bg-green-50 text-green-600 font-medium py-2.5 rounded-xl flex justify-center items-center gap-2 hover:bg-green-100 transition-colors duration-300"> 
+                    <ArchiveRestore size={18} /> Recover
                   </button>
-                  <button
-                    onClick={() => permanentDelete(item._id)}
-                    className="flex-1 bg-red-50 text-red-600 font-medium py-2.5 rounded-xl hover:bg-red-600 hover:text-white transition-colors duration-300"
-                  >
-                    Delete
+                  <button onClick={() => permanentDelete(item._id)} className="flex-1 bg-red-50 text-red-600 font-medium py-2.5 rounded-xl flex justify-center items-center gap-2 hover:bg-red-100 transition-colors duration-300">
+                    <Trash2 size={18} /> Delete 
                   </button>
                 </div>
               </div>

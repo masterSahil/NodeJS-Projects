@@ -16,9 +16,6 @@ const extraCategory = new Schema({
         required: true,
         trim: true
     },
-    pricing: {
-        type: Number,
-    },
     isActive: {
         type: Boolean,
         default: true

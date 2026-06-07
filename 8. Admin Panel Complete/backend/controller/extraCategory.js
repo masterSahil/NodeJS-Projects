@@ -47,8 +47,8 @@ exports.getExtraCategoryById = async (req, res) => {
 
 exports.createExtraCategory = async (req, res) => {
     try {
-        const { categoryId, subCategoryId, extraCategory, pricing, isActive } = req.body;
-        const newExtraCategory = await ExtraCategory.create({ categoryId, subCategoryId, extraCategory, pricing, isActive });
+        const { categoryId, subCategoryId, extraCategory, isActive } = req.body;
+        const newExtraCategory = await ExtraCategory.create({ categoryId, subCategoryId, extraCategory,  isActive });
 
         res.status(201).json({
             success: true,
@@ -112,11 +112,7 @@ exports.deleteExtraCategory = async (req, res) => {
 
 exports.softDeleteExtraCategory = async (req, res) => {
   try {
-    const trashed = await ExtraCategory.findByIdAndUpdate(
-      req.params.id,
-      { isDeleted: true },
-      { new: true }
-    );
+    const trashed = await ExtraCategory.findByIdAndUpdate(req.params.id, {isDeleted: true}, {new: true});
 
     res.status(200).json({
       success: true,
@@ -150,8 +146,7 @@ exports.getTrashExtraCategories = async (req, res) => {
 
 exports.restoreExtraCategory = async (req, res) => {
   try {
-    const restored = await ExtraCategory.findByIdAndUpdate(req.params.id, { isDeleted: false },
-      { returnDocument: 'after' });
+    const restored = await ExtraCategory.findByIdAndUpdate(req.params.id, {isDeleted: false}, {new: true});
 
     res.status(200).json({
       success: true,

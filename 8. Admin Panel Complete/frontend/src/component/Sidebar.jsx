@@ -34,7 +34,7 @@ const SidebarDropdown = ({ icon: Icon, label, children, activePaths = [] }) => {
       </button>
       
       {isOpen && (
-        <div className="flex flex-col gap-1 mt-1 border-l border-slate-800 ml-4 pl-2">
+        <div className="flex flex-col gap-1 mt-1 border-l border-slate-800 ml-4">
           {children}
         </div>
       )}

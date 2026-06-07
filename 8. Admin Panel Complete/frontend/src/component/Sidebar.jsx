@@ -18,14 +18,22 @@ const SidebarItem = ({ icon: Icon, label, to, isNested = false }) => {
   );
 };
 
-const SidebarDropdown = ({ icon: Icon, label, children, activePaths = [] }) => {
+const SidebarDropdown = ({ icon: Icon, label, children, activePaths = [], openMenu, setOpenMenu }) => {
   const location = useLocation();
   const isChildActive = activePaths.some(path => location.pathname.startsWith(path));
-  const [isOpen, setIsOpen] = useState(isChildActive);
+  const isOpen = openMenu === label || (openMenu === null && isChildActive);
+
+  const handleToggle = () => {
+    if (isOpen) {
+      setOpenMenu(""); 
+    } else {
+      setOpenMenu(label); 
+    }
+  };
 
   return (
     <div className="flex flex-col gap-1">
-      <button onClick={() => setIsOpen(!isOpen)} className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors w-full ${isChildActive && !isOpen ? 'text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white'}`} >
+      <button onClick={handleToggle} className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors w-full ${isChildActive && !isOpen ? 'text-white border-l' : 'text-gray-400 hover:bg-slate-800 hover:text-white'}`} >
         <div className="flex items-center gap-3">
           <Icon size={18} />
           <span className="font-medium text-sm">{label}</span>
@@ -45,6 +53,7 @@ const SidebarDropdown = ({ icon: Icon, label, children, activePaths = [] }) => {
 export default function Sidebar() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null); 
+  const [openMenu, setOpenMenu] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -65,9 +74,7 @@ export default function Sidebar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:9000/logout", {
-        withCredentials: true
-      });
+      await axios.get("http://localhost:9000/logout", { withCredentials: true });
       navigate("/");  
       window.location.reload();
       Swal.fire({
@@ -96,7 +103,7 @@ export default function Sidebar() {
     return text.substring(0, 2).toUpperCase();
   };
 
-  const displayName = currentUser?.name ? currentUser.name : currentUser?.email?.split('@')[0] || "Loading...";
+  const displayName = currentUser?.name ? currentUser.name: currentUser?.email?.split('@')[0] || "Loading...";
 
   return (
     <aside className="hidden sidebar-scroll lg:flex w-64 flex-col bg-slate-950 text-white border-r border-slate-800 relative h-screen">
@@ -124,34 +131,34 @@ export default function Sidebar() {
           <div className="space-y-2">
             
             {/* Users */}
-            <SidebarDropdown icon={Users} label="Users" activePaths={['/users']}>
+            <SidebarDropdown icon={Users} label="Users" activePaths={['/users']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
               <SidebarItem icon={FolderPlus} label="Add New User" to="/users/add" isNested />
               <SidebarItem icon={FolderOpen} label="View User Data" to="/users/view" isNested />
             </SidebarDropdown>
 
             {/* Categories */}
-            <SidebarDropdown icon={Folder} label="Categories" activePaths={['/categories']}>
+            <SidebarDropdown icon={Folder} label="Categories" activePaths={['/categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
               <SidebarItem icon={FolderPlus} label="Add Categories" to="/categories/add" isNested />
               <SidebarItem icon={FolderOpen} label="View Categories" to="/categories/view" isNested />
               <SidebarItem icon={Trash2} label="Trash" to="/categories/trash" isNested />
             </SidebarDropdown>
 
             {/* Sub Categories */}
-            <SidebarDropdown icon={Layers} label="Sub Categories" activePaths={['/sub-categories']}>
+            <SidebarDropdown icon={Layers} label="Sub Categories" activePaths={['/sub-categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
               <SidebarItem icon={FolderPlus} label="Add Sub Categories" to="/sub-categories/add" isNested />
               <SidebarItem icon={FolderOpen} label="View Sub Categories" to="/sub-categories/view" isNested />
               <SidebarItem icon={Trash2} label="Trash" to="/sub-categories/trash" isNested />
             </SidebarDropdown>
 
             {/* Extra Sub Categories */}
-            <SidebarDropdown icon={Grid} label="Extra Categories" activePaths={['/extra-categories']}>
+            <SidebarDropdown icon={Grid} label="Extra Categories" activePaths={['/extra-categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
               <SidebarItem icon={FolderPlus} label="Add Extra Categories" to="/extra-categories/add" isNested />
               <SidebarItem icon={FolderOpen} label="View Extra Categories" to="/extra-categories/view" isNested />
               <SidebarItem icon={Trash2} label="Trash" to="/extra-categories/trash" isNested />
             </SidebarDropdown>
 
             {/* Products */}
-            <SidebarDropdown icon={Package} label="Products" activePaths={['/products']}>
+            <SidebarDropdown icon={Package} label="Products" activePaths={['/products']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
               <SidebarItem icon={FolderPlus} label="Add Products" to="/products/add" isNested />
               <SidebarItem icon={FolderOpen} label="View Products" to="/products/view" isNested />
               <SidebarItem icon={Trash2} label="Trash" to="/products/trash" isNested />

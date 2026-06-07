@@ -1,4 +1,6 @@
 const Product = require("../model/product");
+const fs = require("fs");
+const path = require("path");
 
 module.exports.getProducts = async (req, res) => {
     try {
@@ -21,7 +23,8 @@ module.exports.getProducts = async (req, res) => {
 
 module.exports.createProducts = async (req, res) => {
     try {
-        const newProduct = await Product.create(req.body);
+        const productData = {...req.body, image: req.file ? req.file.filename : ""};
+        const newProduct = await Product.create(productData);
 
         res.status(201).json({
             success: true,
@@ -38,7 +41,25 @@ module.exports.createProducts = async (req, res) => {
 
 module.exports.updateProducts = async (req, res) => {
     try {
-        const updated = await Product.findByIdAndUpdate(req.params.id, req.body, { returnDocument: "after" });
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+
+        let updatedData = {...req.body}
+        if (req.file) {
+            if (product.image) {
+                const oldPath = path.join(__dirname, "../uploads", product.image);
+                if (fs.existsSync(oldPath)) {
+                    fs.unlinkSync(oldPath);
+                }
+            }
+            updatedData.image = req.file.filename;
+        }
+        const updated = await Product.findByIdAndUpdate(req.params.id, updatedData, {new: true});
 
         res.status(200).json({
             success: true,
@@ -55,12 +76,27 @@ module.exports.updateProducts = async (req, res) => {
 
 module.exports.permanentDeleteProduct = async (req, res) => {
     try {
-        const deleted = await Product.findByIdAndDelete(req.params.id);
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+
+        if (product.image) {
+            const imagePath = path.join(__dirname, "../uploads", product.image);
+            if (fs.existsSync(imagePath)) {
+                fs.unlinkSync(imagePath);
+            }
+        }
+
+        await Product.findByIdAndDelete(req.params.id);
 
         res.status(200).json({
             success: true,
-            products: deleted,
-        })
+            message: "Product deleted successfully"
+        });
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -109,12 +145,21 @@ module.exports.editableProduct = async (req, res) => {
 
 module.exports.deleteProducts = async (req, res) => {
     try {
-        const product = await Product.findByIdAndUpdate(req.params.id, {isDeleted: true}, {returnDocument: 'after'});
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+
+        product.isDeleted = true;
+        await product.save();
 
         res.status(200).json({
             success: true,
-            product,
-        });
+            products: product,
+        })
     } catch (error) {
         console.log(error);
         res.status(500).json({

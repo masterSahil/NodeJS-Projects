@@ -16,7 +16,6 @@ export default function TrashProduct() {
   const getTrashData = async () => {
     try {
       const res = await axios.get("http://localhost:9000/products-trashed");
-      
       setProducts(res.data.products || []);
     } catch (error) {
       console.log(error);
@@ -172,22 +171,22 @@ export default function TrashProduct() {
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-4 text-left">
+                    <th className="px-6 py-4 text-left font-medium text-gray-500">
                       Product Name
                     </th>
-                    <th className="px-6 py-4 text-left">
+                    <th className="px-6 py-4 text-left font-medium text-gray-500">
                       Category
                     </th>
-                    <th className="px-6 py-4 text-left">
+                    <th className="px-6 py-4 text-left font-medium text-gray-500">
                       Sub Category
                     </th>
-                    <th className="px-6 py-4 text-left">
+                    <th className="px-6 py-4 text-left font-medium text-gray-500">
                       Price
                     </th>
-                    <th className="px-6 py-4 text-left">
+                    <th className="px-6 py-4 text-left font-medium text-gray-500">
                       Deleted
                     </th>
-                    <th className="px-6 py-4 text-right">
+                    <th className="px-6 py-4 text-right font-medium text-gray-500">
                       Actions
                     </th>
                   </tr>
@@ -195,35 +194,50 @@ export default function TrashProduct() {
 
                 <tbody>
                   {filteredProducts.map((item) => (
-                    <tr key={item._id} className="border-t border-gray-100">
-                      <td className="px-6 py-5">
-                        {item.productName?.extraCategory || "N/A"}
+                    <tr key={item._id} className="border-t border-gray-100 hover:bg-gray-50/50 transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-gray-100 flex shrink-0 items-center justify-center border border-gray-200 overflow-hidden">
+                            {item.image ? (
+                              <img 
+                                src={`http://localhost:9000/uploads/${item.image}`} 
+                                alt="product" 
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <Package className="text-gray-400" size={18} />
+                            )}
+                          </div>
+                          <span className="font-medium text-gray-900">
+                            {item.productName?.extraCategory || "N/A"}
+                          </span>
+                        </div>
                       </td>
 
-                      <td className="px-6 py-5">
-                        {item.productCategory.category}
+                      <td className="px-6 py-4 text-gray-600">
+                        {item.productCategory?.category || "N/A"}
                       </td>
 
-                      <td className="px-6 py-5">
-                        {item.productSubCategory.subcategory}
+                      <td className="px-6 py-4 text-gray-600">
+                        {item.productSubCategory?.subcategory || "N/A"}
                       </td>
 
-                      <td className="px-6 py-5 text-green-600 font-semibold">
+                      <td className="px-6 py-4 text-green-600 font-semibold">
                         ₹ {item.price || item.pricing}
                       </td>
 
-                      <td className="px-6 py-5 text-gray-500">
+                      <td className="px-6 py-4 text-gray-500 text-sm">
                         {new Date( item.updatedAt || item.createdAt ).toLocaleDateString()}
                       </td>
 
-                      <td className="px-6 py-5">
+                      <td className="px-6 py-4">
                         <div className="flex justify-end gap-3">
-                          <button onClick={() =>restoreProduct(item._id)} className="px-4 py-2 bg-green-50 text-green-600 rounded-md flex items-center gap-2 hover:bg-green-100 transition-colors">
-                            <ArchiveRestore size={18} /> Recover
+                          <button onClick={() =>restoreProduct(item._id)} className="px-4 py-2 bg-green-50 text-green-600 rounded-md flex items-center gap-2 hover:bg-green-100 transition-colors text-sm font-medium">
+                            <ArchiveRestore size={16} /> Recover
                           </button>
 
-                          <button onClick={() =>permanentDelete(item._id)} className="px-4 py-2 bg-red-50 text-red-600 rounded-md flex items-center gap-2 hover:bg-red-100 transition-colors">
-                            <Trash2 size={18} /> Delete Forever
+                          <button onClick={() =>permanentDelete(item._id)} className="px-4 py-2 bg-red-50 text-red-600 rounded-md flex items-center gap-2 hover:bg-red-100 transition-colors text-sm font-medium">
+                            <Trash2 size={16} /> Delete Forever
                           </button>
                         </div>
                       </td>
@@ -239,10 +253,19 @@ export default function TrashProduct() {
             {filteredProducts.map((item) => (
               <div key={item._id}
                 className="group bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex flex-col h-full">
-                {/* Header: Icon & Price */}
+
                 <div className="flex justify-between items-start mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                    <Package size={24} />
+                  {/* Image or Icon Fallback */}
+                  <div className="w-14 h-14 rounded-xl bg-blue-50 text-blue-600 flex shrink-0 items-center justify-center overflow-hidden border border-blue-100 group-hover:border-blue-300 transition-colors duration-300">
+                    {item.image ? (
+                      <img 
+                        src={`http://localhost:9000/uploads/${item.image}`} 
+                        alt="product" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Package size={24} />
+                    )}
                   </div>
                   <div className="text-lg font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg">
                     ₹ {item.price || item.pricing}
@@ -271,10 +294,10 @@ export default function TrashProduct() {
 
                 {/* Actions: Buttons */}
                 <div className="mt-6 flex gap-3 pt-5 border-t border-gray-100">
-                  <button onClick={() => restoreProduct(item._id)} className="flex-1 bg-green-50 text-green-600 font-medium py-2.5 rounded-xl flex justify-center items-center gap-2 hover:bg-green-100 transition-colors duration-300"> 
+                  <button onClick={() => restoreProduct(item._id)} className="flex-1 bg-green-50 text-green-600 font-medium py-2.5 text-sm rounded-xl flex justify-center items-center gap-2 hover:bg-green-100 transition-colors duration-300"> 
                     <ArchiveRestore size={18} /> Recover
                   </button>
-                  <button onClick={() => permanentDelete(item._id)} className="flex-1 bg-red-50 text-red-600 font-medium py-2.5 rounded-xl flex justify-center items-center gap-2 hover:bg-red-100 transition-colors duration-300">
+                  <button onClick={() => permanentDelete(item._id)} className="flex-1 bg-red-50 text-red-600 font-medium py-2.5 text-sm rounded-xl flex justify-center items-center gap-2 hover:bg-red-100 transition-colors duration-300">
                     <Trash2 size={18} /> Delete 
                   </button>
                 </div>

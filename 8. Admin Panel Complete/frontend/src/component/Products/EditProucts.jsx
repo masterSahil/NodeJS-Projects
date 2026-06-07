@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layers3, Save, IndianRupee } from "lucide-react";
+import { Layers3, Save, IndianRupee, Image as ImageIcon } from "lucide-react"; // Added ImageIcon
 import Sidebar from "../Sidebar";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -12,6 +12,8 @@ export default function EditProduct() {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [extraSubCategories, setExtraSubCategories] = useState([]);
+  const [image, setImage] = useState(null);
+  const [existingImage, setExistingImage] = useState("");
 
   const [formData, setFormData] = useState({
     productCategory: "",
@@ -67,6 +69,10 @@ export default function EditProduct() {
         price: product.price || "",
         isActive: product.isActive !== undefined ? product.isActive : true,
       });
+
+      if (product.image) {
+        setExistingImage(product.image);
+      }
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -87,8 +93,24 @@ export default function EditProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const submitData = new FormData();
+    submitData.append("productCategory", formData.productCategory);
+    submitData.append("productSubCategory", formData.productSubCategory);
+    submitData.append("productName", formData.productName);
+    submitData.append("price", formData.price);
+    submitData.append("isActive", formData.isActive);
+    
+    if (image) {
+      submitData.append("image", image);
+    }
+
     try {
-      await axios.put(`http://localhost:9000/products/${id}`, formData);
+      await axios.put(`http://localhost:9000/products/${id}`, submitData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       Swal.fire({
         icon: "success",
@@ -198,6 +220,30 @@ export default function EditProduct() {
                     className="w-full pl-11 pr-4 py-3 text-sm rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none text-gray-700"
                   />
                 </div>
+              </div>
+
+              {/* Product Image */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Update Product Image
+                </label>
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <ImageIcon size={16} className="text-gray-400 group-focus-within:text-indigo-500 transition-colors" />
+                  </div>
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={(e) => setImage(e.target.files[0])}
+                    className="w-full pl-11 pr-4 py-2.5 text-sm rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none text-gray-700 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  />
+                </div>
+                {/* Shows a helper text if an image already exists in DB */}
+                {existingImage && !image && (
+                  <p className="mt-2 text-xs text-gray-500">
+                    Current image: <a href={`http://localhost:9000/uploads/${existingImage}`} target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">View image</a>
+                  </p>
+                )}
               </div>
             </div>
               

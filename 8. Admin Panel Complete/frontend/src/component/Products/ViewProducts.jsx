@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Sidebar from "../Sidebar";
-import { Search, Plus, MoreVertical, LayoutGrid, Table2, Edit, Trash2, Layers3, IndianRupee } from "lucide-react";
+import { Search, Plus, MoreVertical, LayoutGrid, Table2, Edit, Trash2, Layers3, IndianRupee, Image as ImageIcon } from "lucide-react";
 
 export default function ViewProducts() {
   const [products, setProducts] = useState([]);
@@ -100,7 +100,7 @@ export default function ViewProducts() {
   return (
     <div className="flex h-screen bg-[#F8F9FA] overflow-hidden">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto max-w-7xl p-6">
+      <main className="flex-1 mx-auto max-w-7xl p-6">
         
         {/* HEADER */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 mb-8">
@@ -152,7 +152,7 @@ export default function ViewProducts() {
               <table className="w-full text-sm">
                 <thead className="bg-gray-50/50 border-b border-gray-100">
                   <tr className="text-left text-gray-500 font-medium">
-                    <th className="px-6 py-4">Product Name</th>
+                    <th className="px-6 py-4">Product</th>
                     <th className="px-6 py-4">Category</th>
                     <th className="px-6 py-4">Sub Category</th>
                     <th className="px-6 py-4">Price</th>
@@ -165,8 +165,17 @@ export default function ViewProducts() {
                     <tr key={item._id} className="hover:bg-gray-50/50 transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-indigo-50 flex shrink-0 items-center justify-center border border-indigo-100/30">
-                            <Layers3 className="text-indigo-500" size={18} />
+                          {/* UPDATED: Image or Icon Fallback */}
+                          <div className="w-10 h-10 rounded-lg bg-indigo-50 flex shrink-0 items-center justify-center border border-indigo-100/30 overflow-hidden">
+                            {item.image ? (
+                              <img 
+                                src={`http://localhost:9000/uploads/${item.image}`} 
+                                alt="product" 
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <Layers3 className="text-indigo-500" size={18} />
+                            )}
                           </div>
                           <span className="font-semibold text-gray-800">
                             {item.productName?.extraCategory || item.productName || "N/A"}
@@ -227,8 +236,17 @@ export default function ViewProducts() {
             {filteredProducts.map((item) => (
               <div key={item._id} className="bg-white border border-gray-100 rounded-lg p-6 shadow-sm hover:shadow-md transition-all relative">
                 <div className="flex justify-between items-start mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center border border-indigo-100/30">
-                     <Layers3 className="text-indigo-500" size={24} />
+                  {/* UPDATED: Image or Icon Fallback */}
+                  <div className="w-14 h-14 rounded-xl bg-indigo-50 flex items-center justify-center border border-indigo-100/30 overflow-hidden shrink-0">
+                    {item.image ? (
+                      <img 
+                        src={`http://localhost:9000/uploads/${item.image}`} 
+                        alt="product" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Layers3 className="text-indigo-500" size={24} />
+                    )}
                   </div>
                   <button onClick={() => toggleMenu(item._id)} className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
                     <MoreVertical size={20} />

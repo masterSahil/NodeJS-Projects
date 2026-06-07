@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layers3, Save, IndianRupee, Info, Hash } from "lucide-react";
+import { Layers3, Save, IndianRupee, Image as ImageIcon } from "lucide-react"; // Added ImageIcon
 import Sidebar from "../Sidebar";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -9,7 +9,7 @@ export default function AddExtraCategory() {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [extraSubCategories, setExtraSubCategories] = useState([]);
-
+  const [image, setImage] = useState(null);
   const [formData, setFormData] = useState({
     productCategory: "",
     productSubCategory: "",
@@ -63,8 +63,24 @@ export default function AddExtraCategory() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const submitData = new FormData();
+    submitData.append("productCategory", formData.productCategory);
+    submitData.append("productSubCategory", formData.productSubCategory);
+    submitData.append("productName", formData.productName);
+    submitData.append("price", formData.price);
+    submitData.append("isActive", formData.isActive);
+    
+    if (image) {
+      submitData.append("image", image);
+    }
+
     try {
-      await axios.post("http://localhost:9000/products", formData);
+      await axios.post("http://localhost:9000/products", submitData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       setFormData({
         productCategory: "",
@@ -73,11 +89,12 @@ export default function AddExtraCategory() {
         price: "",
         isActive: true,
       });
+      setImage(null); 
 
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: "Extra Category added successfully",
+        text: "Product added successfully",
         timer: 2000,
         showConfirmButton: false,
       });
@@ -188,21 +205,36 @@ export default function AddExtraCategory() {
                   />
                 </div>
               </div>
+
+              {/* Product Image - NEW FIELD */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Product Image
+                </label>
+                <div className="relative group">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <ImageIcon size={16} className="text-gray-400 group-focus-within:text-indigo-500 transition-colors" />
+                  </div>
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={(e) => setImage(e.target.files[0])}
+                    className="w-full pl-11 pr-4 py-2.5 text-sm rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none text-gray-700 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  />
+                </div>
+              </div>
             </div>
               
             {/* Status (Locked to Active) */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">Status</label>
-
               <div className="flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 bg-gray-50">
                 <div>
                   <p className="font-medium text-gray-800">Active</p>
                   <p className="text-sm text-gray-500">Extra categories are active by default</p>
                 </div>
-
                 <div className="relative inline-flex items-center cursor-not-allowed">
                   <input type="checkbox" checked={true} disabled className="sr-only"/>
-
                   <div className="w-11 h-6 bg-indigo-600 rounded-full relative">
                     <div className="absolute top-0.5 right-0.5 bg-white w-5 h-5 rounded-full"></div>
                   </div>
@@ -217,7 +249,7 @@ export default function AddExtraCategory() {
                 className="w-full md:px-10 inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white text-sm font-medium py-3 rounded-xl transition-all shadow-sm hover:shadow"
               >
                 <Save size={18} />
-                Save Category
+                Save Product
               </button>
             </div>
           </form>

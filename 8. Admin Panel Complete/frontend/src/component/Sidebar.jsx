@@ -106,7 +106,7 @@ export default function Sidebar() {
   const displayName = currentUser?.name ? currentUser.name: currentUser?.email?.split('@')[0] || "Loading...";
 
   return (
-    <aside className="hidden sidebar-scroll lg:flex w-64 flex-col bg-slate-950 text-white border-r border-slate-800 relative h-screen">
+    <aside className="hidden lg:flex w-64 flex-col bg-slate-950 text-white border-r border-slate-800 relative h-screen">
       
       {/* Brand Header */}
       <div className="p-6 flex items-center gap-2">

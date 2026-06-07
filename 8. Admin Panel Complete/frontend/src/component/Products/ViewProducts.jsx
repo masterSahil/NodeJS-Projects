@@ -165,14 +165,10 @@ export default function ViewProducts() {
                     <tr key={item._id} className="hover:bg-gray-50/50 transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          {/* UPDATED: Image or Icon Fallback */}
-                          <div className="w-10 h-10 rounded-lg bg-indigo-50 flex shrink-0 items-center justify-center border border-indigo-100/30 overflow-hidden">
+                          <div className="w-12 h-12 rounded-lg bg-indigo-50 flex shrink-0 items-center justify-center border border-indigo-100/30 overflow-hidden">
                             {item.image ? (
-                              <img 
-                                src={`http://localhost:9000/uploads/${item.image}`} 
-                                alt="product" 
-                                className="w-full h-full object-cover"
-                              />
+                              <img src={`http://localhost:9000/uploads/${item.image}`} alt="product" 
+                                className="w-full h-full object-cover" />
                             ) : (
                               <Layers3 className="text-indigo-500" size={18} />
                             )}
@@ -232,69 +228,80 @@ export default function ViewProducts() {
 
         {/* GRID VIEW */}
         {viewType === "grid" && (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((item) => (
-              <div key={item._id} className="bg-white border border-gray-100 rounded-lg p-6 shadow-sm hover:shadow-md transition-all relative">
-                <div className="flex justify-between items-start mb-4">
-                  {/* UPDATED: Image or Icon Fallback */}
-                  <div className="w-14 h-14 rounded-xl bg-indigo-50 flex items-center justify-center border border-indigo-100/30 overflow-hidden shrink-0">
-                    {item.image ? (
-                      <img 
-                        src={`http://localhost:9000/uploads/${item.image}`} 
-                        alt="product" 
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <Layers3 className="text-indigo-500" size={24} />
+              <div key={item._id}
+                className="bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all relative flex flex-col overflow-hidden group" >
+
+                <div className="relative h-48 bg-indigo-50/50 flex items-center justify-center shrink-0 overflow-hidden">
+                  {item.image ? (
+                    <img src={`http://localhost:9000/uploads/${item.image}`} alt="product"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  ) : (
+                    <Layers3 className="text-indigo-200" size={48} />
+                  )}
+
+                  {/* Floating Actions Menu */}
+                  <div className="absolute top-3 right-3 z-10">
+                    <button onClick={() => toggleMenu(item._id)}
+                      className="p-2 text-gray-600 bg-white/90 backdrop-blur-sm hover:text-indigo-600 hover:bg-white rounded-full shadow-sm transition-all" >
+                      <MoreVertical size={18} />
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    {openMenuId === item._id && (
+                      <>
+                        <div className="fixed inset-0 z-10" onClick={() => setOpenMenuId(null)} />
+                        <div className="absolute top-10 right-0 w-36 bg-white border border-gray-100 rounded-xl shadow-lg z-20 overflow-hidden">
+                          <Link to={`/products/edit/${item._id}`}
+                            className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors" >
+                            <Edit size={16} /> Edit
+                          </Link>
+                          <button onClick={() => { handleDelete(item._id); setOpenMenuId(null); }}
+                            className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 border-t border-gray-50 transition-colors" >
+                            <Trash2 size={16} /> Delete
+                          </button>
+                        </div>
+                      </>
                     )}
                   </div>
-                  <button onClick={() => toggleMenu(item._id)} className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
-                    <MoreVertical size={20} />
-                  </button>
                 </div>
 
-                <h2 className="text-lg font-bold text-gray-800 truncate mb-1">
-                  {item.productName?.extraCategory || item.productName || "N/A"}
-                </h2>
-                
-                <div className="space-y-1 mb-5">
-                  <p className="text-sm text-gray-500 truncate flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> 
-                    {item.productCategory?.category || "No Category"}
-                  </p>
-                  <p className="text-sm text-gray-500 truncate flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gray-300"></span> 
-                    {item.productSubCategory?.subcategory || "No Sub Category"}
-                  </p>
-                </div>
+                {/* Bottom Content Section */}
+                <div className="p-5 flex flex-col flex-1">
+                  <h2 className="text-lg font-bold text-gray-800 truncate mb-3" title={item.productName?.extraCategory || item.productName || "N/A"} >
+                    {item.productName?.extraCategory || item.productName || "N/A"}
+                  </h2>
 
-                <div className="flex items-center justify-between pt-4 border-t border-gray-50">
-                  <div className="flex items-center gap-1 font-bold text-gray-800">
-                    <IndianRupee size={16} className="text-gray-500" />
-                    {item.price}
+                  <div className="space-y-2 mb-5 flex-1">
+                    <p className="text-sm text-gray-500 truncate flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                      {item.productCategory?.category || "No Category"}
+                    </p>
+                    <p className="text-sm text-gray-500 truncate flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
+                      {item.productSubCategory?.subcategory || "No Sub Category"}
+                    </p>
                   </div>
-                  
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" checked={item.isActive} className="sr-only peer"
-                      onChange={() => toggleStatus(item._id, item.isActive)} />
-                    <div className="w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-indigo-600 transition-colors"></div>
-                    <div className="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5 shadow-sm"></div>
-                  </label>
-                </div>
 
-                {openMenuId === item._id && (
-                  <>
-                    <div className="fixed inset-0 z-10" onClick={() => setOpenMenuId(null)} />
-                    <div className="absolute top-16 right-6 w-36 bg-white border border-gray-100 rounded-xl shadow-lg z-20 overflow-hidden">
-                      <Link to={`/products/edit/${item._id}`} className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
-                        <Edit size={16} /> Edit
-                      </Link>
-                      <button onClick={() => { handleDelete(item._id); setOpenMenuId(null); }} className="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 border-t border-gray-50 transition-colors">
-                        <Trash2 size={16} /> Delete
-                      </button>
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
+                    <div className="flex items-center gap-1 text-lg font-bold text-gray-800">
+                      <IndianRupee size={18} className="text-gray-500" />
+                      {item.price}
                     </div>
-                  </>
-                )}
+
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={item.isActive}
+                        className="sr-only peer"
+                        onChange={() => toggleStatus(item._id, item.isActive)}
+                      />
+                      <div className="w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-indigo-600 transition-colors"></div>
+                      <div className="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5 shadow-sm"></div>
+                    </label>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

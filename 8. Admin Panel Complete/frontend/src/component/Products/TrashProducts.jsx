@@ -249,57 +249,52 @@ export default function TrashProduct() {
           )}
 
         {viewType === "grid" && filteredProducts.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((item) => (
               <div key={item._id}
-                className="group bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex flex-col h-full">
+                className="group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden" >
 
-                <div className="flex justify-between items-start mb-4">
-                  {/* Image or Icon Fallback */}
-                  <div className="w-14 h-14 rounded-xl bg-blue-50 text-blue-600 flex shrink-0 items-center justify-center overflow-hidden border border-blue-100 group-hover:border-blue-300 transition-colors duration-300">
-                    {item.image ? (
-                      <img 
-                        src={`http://localhost:9000/uploads/${item.image}`} 
-                        alt="product" 
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <Package size={24} />
-                    )}
-                  </div>
-                  <div className="text-lg font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg">
-                    ₹ {item.price || item.pricing}
+                <div className="relative h-48 bg-blue-50/50 flex items-center justify-center shrink-0 overflow-hidden">
+                  {item.image ? (
+                    <img src={`http://localhost:9000/uploads/${item.image}`} alt="product"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  ) : (
+                    <Package className="text-blue-200" size={48} />
+                  )}
+
+                  <div className="absolute top-3 right-3 z-10">
+                    <div className="text-sm font-bold text-emerald-700 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm">
+                      ₹ {item.price || item.pricing}
+                    </div>
                   </div>
                 </div>
 
-                {/* Content: Title & Categories */}
-                <div className="flex-1">
-                  <h2 className="text-xl font-bold text-gray-900 line-clamp-1 mb-3">
+                <div className="p-5 flex flex-col flex-1">
+                  <h2 className="text-lg font-bold text-gray-900 line-clamp-1 mb-3" title={item.productName?.extraCategory || "N/A"} >
                     {item.productName?.extraCategory || "N/A"}
                   </h2>
-                  
-                  <div className="flex flex-wrap gap-2">
+
+                  <div className="flex flex-wrap gap-2 mb-4 flex-1 content-start">
                     {item.productCategory?.category && (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
                         {item.productCategory.category}
                       </span>
                     )}
                     {item.productSubCategory?.subcategory && (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-50 text-gray-600 border border-gray-200">
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 text-gray-600 border border-gray-200">
                         {item.productSubCategory.subcategory}
                       </span>
                     )}
                   </div>
-                </div>
 
-                {/* Actions: Buttons */}
-                <div className="mt-6 flex gap-3 pt-5 border-t border-gray-100">
-                  <button onClick={() => restoreProduct(item._id)} className="flex-1 bg-green-50 text-green-600 font-medium py-2.5 text-sm rounded-xl flex justify-center items-center gap-2 hover:bg-green-100 transition-colors duration-300"> 
-                    <ArchiveRestore size={18} /> Recover
-                  </button>
-                  <button onClick={() => permanentDelete(item._id)} className="flex-1 bg-red-50 text-red-600 font-medium py-2.5 text-sm rounded-xl flex justify-center items-center gap-2 hover:bg-red-100 transition-colors duration-300">
-                    <Trash2 size={18} /> Delete 
-                  </button>
+                  <div className="mt-auto flex gap-3 pt-4 border-t border-gray-100">
+                    <button onClick={() => restoreProduct(item._id)} className="flex-1 bg-green-50 text-green-600 font-medium py-2.5 text-sm rounded-xl flex justify-center items-center gap-2 hover:bg-green-100 transition-colors duration-300" >
+                      <ArchiveRestore size={18} /> Recover
+                    </button>
+                    <button onClick={() => permanentDelete(item._id)} className="flex-1 bg-red-50 text-red-600 font-medium py-2.5 text-sm rounded-xl flex justify-center items-center gap-2 hover:bg-red-100 transition-colors duration-300" >
+                      <Trash2 size={18} /> Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

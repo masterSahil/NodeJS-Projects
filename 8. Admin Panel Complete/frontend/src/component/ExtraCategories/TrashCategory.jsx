@@ -110,25 +110,16 @@ export default function TrashExtraCategory() {
       <Sidebar />
 
       <main className="flex-1 overflow-y-auto p-6 lg:p-8">
-
         <div className="mb-8">
-          <h1 className="text-3xl font-bold">
-            Trash Extra Categories
-          </h1>
-
-          <p className="text-gray-500 mt-1">
-            Restore or permanently delete extra categories
-          </p>
+          <h1 className="text-3xl font-bold">Trash Extra Categories</h1>
+          <p className="text-gray-500 mt-1">Restore or permanently delete extra categories</p>
         </div>
 
         <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm mb-6">
           <div className="flex flex-col lg:flex-row justify-between gap-4">
 
             <div className="relative w-full lg:max-w-sm">
-              <Search
-                size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-              />
+              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
 
               <input
                 type="text"
@@ -142,25 +133,11 @@ export default function TrashExtraCategory() {
             </div>
 
             <div className="flex gap-2">
-              <button
-                onClick={() => setViewType("table")}
-                className={`p-3 rounded-md ${
-                  viewType === "table"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100"
-                }`}
-              >
+              <button onClick={() => setViewType("table")} className={`p-3 rounded-md ${viewType === "table" ? "bg-blue-600 text-white" : "bg-gray-100" }`} >
                 <Table2 size={18} />
               </button>
 
-              <button
-                onClick={() => setViewType("grid")}
-                className={`p-3 rounded-md ${
-                  viewType === "grid"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100"
-                }`}
-              >
+              <button onClick={() => setViewType("grid")} className={`p-3 rounded-md ${viewType === "grid" ? "bg-blue-600 text-white" : "bg-gray-100"}`} >
                 <LayoutGrid size={18} />
               </button>
             </div>
@@ -169,18 +146,9 @@ export default function TrashExtraCategory() {
 
         {filteredExtraCategories.length === 0 && (
           <div className="bg-white rounded-xl border border-gray-200 p-16 text-center">
-            <Trash2
-              size={60}
-              className="mx-auto text-gray-300"
-            />
-
-            <h2 className="text-xl font-semibold mt-4">
-              Trash Empty
-            </h2>
-
-            <p className="text-gray-500 mt-2">
-              No deleted extra categories found
-            </p>
+            <Trash2 size={60} className="mx-auto text-gray-300" />
+            <h2 className="text-xl font-semibold mt-4">Trash Empty</h2>
+            <p className="text-gray-500 mt-2">No deleted extra categories found</p>
           </div>
         )}
 
@@ -224,29 +192,19 @@ export default function TrashExtraCategory() {
                       </td>
 
                       <td className="px-6 py-5 text-gray-500">
-                        {new Date(
-                          item.updatedAt
-                        ).toLocaleDateString()}
+                        {new Date(item.updatedAt).toLocaleDateString()}
                       </td>
 
                       <td className="px-6 py-5">
                         <div className="flex justify-end gap-3">
 
-                          <button
-                            onClick={() =>
-                              restoreExtraCategory(item._id)
-                            }
-                            className="px-4 py-2 bg-green-50 text-green-600 rounded-md"
-                          >
+                          <button onClick={() => restoreExtraCategory(item._id)}
+                            className="px-4 py-2 bg-green-50 text-green-600 rounded-md" >
                             Recover
                           </button>
 
-                          <button
-                            onClick={() =>
-                              permanentDelete(item._id)
-                            }
-                            className="px-4 py-2 bg-red-50 text-red-600 rounded-md"
-                          >
+                          <button onClick={() => permanentDelete(item._id)}
+                            className="px-4 py-2 bg-red-50 text-red-600 rounded-md" >
                             Delete Forever
                           </button>
 
@@ -285,17 +243,11 @@ export default function TrashExtraCategory() {
                   </p>
 
                   <div className="mt-6 flex gap-3">
-                    <button
-                      onClick={() =>
-                        restoreExtraCategory(item._id)
-                      }
-                      className="flex-1 bg-green-50 text-green-600 py-3 rounded-lg"
-                    >
+                    <button onClick={() => restoreExtraCategory(item._id)} className="flex-1 bg-green-50 text-green-600 py-3 rounded-lg">
                       Recover
                     </button>
 
-                    <button onClick={() => permanentDelete(item._id)}
-                      className="flex-1 bg-red-50 text-red-600 py-3 rounded-lg">
+                    <button onClick={() => permanentDelete(item._id)} className="flex-1 bg-red-50 text-red-600 py-3 rounded-lg">
                       Delete
                     </button>
                   </div>

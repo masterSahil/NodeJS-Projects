@@ -152,7 +152,6 @@ export default function ViewExtraSubCategories() {
                     <th className="px-6 py-4"> Extra Category </th>
                     <th className="px-6 py-4"> Sub Category </th>
                     <th className="px-6 py-4"> Category </th>
-                    <th className="px-6 py-4"> Price </th>
                     <th className="px-6 py-4"> Status </th>
                     <th className="px-6 py-4"> Created </th>
                     <th className="px-6 py-4 text-right"> Actions </th>
@@ -179,10 +178,6 @@ export default function ViewExtraSubCategories() {
                         <td className="px-6 py-5"> { item.subCategoryId?.subcategory} </td>
 
                         <td className="px-6 py-5"> { item.categoryId?.category} </td>
-
-                        <td className="px-6 py-5 font-semibold text-green-600">
-                          ₹ {item.pricing}
-                        </td>
 
                         <td className="px-6 py-5">
                           <label className="relative inline-flex items-center cursor-pointer">
@@ -248,10 +243,6 @@ export default function ViewExtraSubCategories() {
                   <h2 className="text-xl font-bold mt-5"> { item.extraCategory } </h2>
                   <p className="text-gray-500 mt-1"> { item.subCategoryId?.subcategory} </p>
                   <p className="text-gray-500 mt-1"> { item.categoryId?.category } </p>
-
-                  <div className="mt-4 inline-flex px-3 py-1 rounded-full bg-green-50 text-green-600 text-sm font-semibold">
-                    ₹ {item.pricing}
-                  </div>
 
                   <div className="mt-5 flex justify-between items-center">
                     <span className="text-sm text-gray-500"> Status </span>

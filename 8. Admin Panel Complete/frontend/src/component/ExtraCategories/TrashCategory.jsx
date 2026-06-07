@@ -200,9 +200,6 @@ export default function TrashExtraCategory() {
                       Category
                     </th>
                     <th className="px-6 py-4 text-left">
-                      Price
-                    </th>
-                    <th className="px-6 py-4 text-left">
                       Deleted
                     </th>
                     <th className="px-6 py-4 text-right">
@@ -224,10 +221,6 @@ export default function TrashExtraCategory() {
 
                       <td className="px-6 py-5">
                         {item.categoryId?.category}
-                      </td>
-
-                      <td className="px-6 py-5 text-green-600 font-semibold">
-                        ₹ {item.pricing}
                       </td>
 
                       <td className="px-6 py-5 text-gray-500">
@@ -290,10 +283,6 @@ export default function TrashExtraCategory() {
                   <p className="text-gray-500">
                     {item.categoryId?.category}
                   </p>
-
-                  <div className="mt-3 text-green-600 font-semibold">
-                    ₹ {item.pricing}
-                  </div>
 
                   <div className="mt-6 flex gap-3">
                     <button

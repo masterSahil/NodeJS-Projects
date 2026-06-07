@@ -16,7 +16,6 @@ export default function EditExtraSubCategory() {
     categoryId: "",
     subCategoryId: "",
     extraCategory: "",
-    pricing: "",
     isActive: true,
   });
 
@@ -51,7 +50,6 @@ export default function EditExtraSubCategory() {
         categoryId: res.data.extraCategories.categoryId?._id || "",
         subCategoryId: res.data.extraCategories.subCategoryId?._id || "",
         extraCategory: res.data.extraCategories.extraCategory || "",
-        pricing: res.data.extraCategories.pricing || "",
         isActive: res.data.extraCategories.isActive,
       });
     } catch (error) {
@@ -183,26 +181,6 @@ export default function EditExtraSubCategory() {
                 }
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="Enter extra category"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Pricing
-              </label>
-
-              <input
-                type="number"
-                required
-                value={formData.pricing}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    pricing: e.target.value,
-                  })
-                }
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
-                placeholder="Enter price"
               />
             </div>
 

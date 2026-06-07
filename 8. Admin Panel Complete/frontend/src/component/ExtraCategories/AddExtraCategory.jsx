@@ -13,7 +13,6 @@ export default function AddExtraCategory() {
     categoryId: "",
     subCategoryId: "",
     extraCategory: "",
-    pricing: "",
     isActive: true,
   });
 
@@ -50,7 +49,7 @@ export default function AddExtraCategory() {
       await axios.post("http://localhost:9000/extra-category", formData);
 
       setFormData({
-        categoryId: "", subCategoryId: "", extraCategory: "", pricing: "", isActive: true,
+        categoryId: "", subCategoryId: "", extraCategory: "", isActive: true,
       });
 
       Swal.fire({
@@ -164,27 +163,6 @@ export default function AddExtraCategory() {
                   })
                 }
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"/>
-            </div>
-
-            {/* Pricing */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Pricing
-              </label>
-
-              <div className="relative">
-                <IndianRupee size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"/>
-
-                <input type="number" min="0" required placeholder="Enter price" value={formData.pricing}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      pricing: e.target.value,
-                    })
-                  }
-                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"/>
-              </div>
             </div>
 
             {/* Status */}

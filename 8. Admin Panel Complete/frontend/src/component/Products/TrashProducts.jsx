@@ -18,7 +18,6 @@ export default function TrashProduct() {
       const res = await axios.get("http://localhost:9000/products-trashed");
       
       setProducts(res.data.products || []);
-      console.log(res.data);
     } catch (error) {
       console.log(error);
       Swal.fire({

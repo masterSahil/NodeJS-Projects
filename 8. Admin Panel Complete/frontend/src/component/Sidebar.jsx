@@ -1,21 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, UserPlus, Users, Settings, LogOut, ChevronRight, Lock, FolderPlus, FolderOpen, Trash2 } from 'lucide-react';
+import { LayoutDashboard, Users, Settings, LogOut, ChevronRight, ChevronDown, Lock, FolderPlus, FolderOpen, Trash2, Folder, Layers, Grid, Package } from 'lucide-react';
 import axios from "axios";
 import Swal from 'sweetalert2';
 
-const SidebarItem = ({ icon: Icon, label, to }) => {
+const SidebarItem = ({ icon: Icon, label, to, isNested = false }) => {
   const location = useLocation();
   const isActive = location.pathname === to;
 
   return (
-    <Link to={to} className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors 
-    ${isActive ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white'}`}>
+    <Link to={to} className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors ${isActive ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white'} ${isNested ? 'ml-6' : ''}`}>
       <div className="flex items-center gap-3">
-        <Icon size={18} />
-        <span className="font-medium text-sm">{label}</span>
+        {Icon && <Icon size={isNested ? 16 : 18} />}
+        <span className={`font-medium ${isNested ? 'text-xs' : 'text-sm'}`}>{label}</span>
       </div>
     </Link>
+  );
+};
+
+const SidebarDropdown = ({ icon: Icon, label, children, activePaths = [] }) => {
+  const location = useLocation();
+  const isChildActive = activePaths.some(path => location.pathname.startsWith(path));
+  const [isOpen, setIsOpen] = useState(isChildActive);
+
+  return (
+    <div className="flex flex-col gap-1">
+      <button onClick={() => setIsOpen(!isOpen)} className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors w-full ${isChildActive && !isOpen ? 'text-white' : 'text-gray-400 hover:bg-slate-800 hover:text-white'}`} >
+        <div className="flex items-center gap-3">
+          <Icon size={18} />
+          <span className="font-medium text-sm">{label}</span>
+        </div>
+        {isOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+      </button>
+      
+      {isOpen && (
+        <div className="flex flex-col gap-1 mt-1 border-l border-slate-800 ml-4 pl-2">
+          {children}
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -66,9 +89,7 @@ export default function Sidebar() {
 
   const getInitials = (text) => {
     if (!text) return "U";
-    
     const nameParts = text.split(/[\s._]+/); 
-    
     if (nameParts.length > 1 && nameParts[1].length > 0) {
       return (nameParts[0][0] + nameParts[1][0]).toUpperCase();
     }
@@ -79,6 +100,7 @@ export default function Sidebar() {
 
   return (
     <aside className="hidden sidebar-scroll lg:flex w-64 flex-col bg-slate-950 text-white border-r border-slate-800 relative h-screen">
+      
       {/* Brand Header */}
       <div className="p-6 flex items-center gap-2">
         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -91,60 +113,50 @@ export default function Sidebar() {
       {/* Navigation Links */}
       <div className="flex-1 overflow-y-auto px-4 py-2 space-y-6 scrollbar-hide">
         
-        {/* Overview Section */}
-        <div>
-          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">OVERVIEW</p>
-          <div className="space-y-1">
-            <SidebarItem icon={LayoutDashboard} label="Dashboard" to="/" />
-          </div>
+        {/* Main Section */}
+        <div className="space-y-1">
+          <SidebarItem icon={LayoutDashboard} label="Dashboard" to="/" />
         </div>
 
-        {/* Users Section */}
+        {/* Management Section */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">USERS</p>
-          <div className="space-y-1">
-            <SidebarItem icon={UserPlus} label="Add New User" to="/users/add" />
-            <SidebarItem icon={Users} label="View User Data" to="/users/view" />
-          </div>
-        </div>
+          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">MANAGEMENT</p>
+          <div className="space-y-2">
+            
+            {/* Users */}
+            <SidebarDropdown icon={Users} label="Users" activePaths={['/users']}>
+              <SidebarItem icon={FolderPlus} label="Add New User" to="/users/add" isNested />
+              <SidebarItem icon={FolderOpen} label="View User Data" to="/users/view" isNested />
+            </SidebarDropdown>
 
-        {/* Categories Section */}
-        <div>
-          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">CATEGORIES</p>
-          <div className="space-y-1">
-            <SidebarItem icon={FolderPlus} label="Add Categories" to="/categories/add" />
-            <SidebarItem icon={FolderOpen} label="View Categories" to="/categories/view" />
-            <SidebarItem icon={Trash2} label="Trash Categories" to="/categories/trash" />
-          </div>
-        </div>
+            {/* Categories */}
+            <SidebarDropdown icon={Folder} label="Categories" activePaths={['/categories']}>
+              <SidebarItem icon={FolderPlus} label="Add Categories" to="/categories/add" isNested />
+              <SidebarItem icon={FolderOpen} label="View Categories" to="/categories/view" isNested />
+              <SidebarItem icon={Trash2} label="Trash" to="/categories/trash" isNested />
+            </SidebarDropdown>
 
-        {/* Sub Categories Section */}
-        <div>
-          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">SUB CATEGORIES</p>
-          <div className="space-y-1">
-            <SidebarItem icon={FolderPlus} label="Add Sub Categories" to="/sub-categories/add" />
-            <SidebarItem icon={FolderOpen} label="View Sub Categories" to="/sub-categories/view" />
-            <SidebarItem icon={Trash2} label="Trash Sub Categories" to="/sub-categories/trash" />
-          </div>
-        </div>
+            {/* Sub Categories */}
+            <SidebarDropdown icon={Layers} label="Sub Categories" activePaths={['/sub-categories']}>
+              <SidebarItem icon={FolderPlus} label="Add Sub Categories" to="/sub-categories/add" isNested />
+              <SidebarItem icon={FolderOpen} label="View Sub Categories" to="/sub-categories/view" isNested />
+              <SidebarItem icon={Trash2} label="Trash" to="/sub-categories/trash" isNested />
+            </SidebarDropdown>
 
-        {/* Extra Sub Categories Section */}
-        <div>
-          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">EXTRA SUB CATEGORIES</p>
-          <div className="space-y-1">
-            <SidebarItem icon={FolderPlus} label="Add Extra Categories" to="/extra-categories/add" />
-            <SidebarItem icon={FolderOpen} label="View Extra Categories" to="/extra-categories/view" />
-            <SidebarItem icon={Trash2} label="Trash Extra Categories" to="/extra-categories/trash" />
-          </div>
-        </div>
+            {/* Extra Sub Categories */}
+            <SidebarDropdown icon={Grid} label="Extra Categories" activePaths={['/extra-categories']}>
+              <SidebarItem icon={FolderPlus} label="Add Extra Categories" to="/extra-categories/add" isNested />
+              <SidebarItem icon={FolderOpen} label="View Extra Categories" to="/extra-categories/view" isNested />
+              <SidebarItem icon={Trash2} label="Trash" to="/extra-categories/trash" isNested />
+            </SidebarDropdown>
 
-        {/* Products Section */}
-        <div>
-          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">PRODUCTS</p>
-          <div className="space-y-1">
-            <SidebarItem icon={FolderPlus} label="Add Products" to="/products/add" />
-            <SidebarItem icon={FolderOpen} label="View Products" to="/products/view" />
-            <SidebarItem icon={Trash2} label="Trash Products" to="/products/trash" />
+            {/* Products */}
+            <SidebarDropdown icon={Package} label="Products" activePaths={['/products']}>
+              <SidebarItem icon={FolderPlus} label="Add Products" to="/products/add" isNested />
+              <SidebarItem icon={FolderOpen} label="View Products" to="/products/view" isNested />
+              <SidebarItem icon={Trash2} label="Trash" to="/products/trash" isNested />
+            </SidebarDropdown>
+
           </div>
         </div>
 
@@ -162,7 +174,7 @@ export default function Sidebar() {
       {/* User Profile Section */}
       <div className="p-4 border-t border-slate-800">
         <div className="flex items-center justify-between cursor-pointer hover:bg-slate-800 p-2 rounded-lg transition-colors">
-          <div onClick={()=>navigate("/settings")} className="flex items-center gap-3">
+          <div onClick={() => navigate("/settings")} className="flex items-center gap-3">
             
             {currentUser?.image ? (
               <img src={`http://localhost:9000${currentUser.image}`} alt={displayName} 
@@ -173,7 +185,6 @@ export default function Sidebar() {
               </div>
             )}
 
-            {/* Show Dynamic Name or Email prefix and Role */}
             <div>
               <p className="text-sm font-semibold truncate max-w-30">
                 {displayName}

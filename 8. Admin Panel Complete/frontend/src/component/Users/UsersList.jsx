@@ -82,10 +82,8 @@ export default function UserList() {
               <h1 className="text-3xl font-bold text-gray-900 tracking-tight">User Management</h1>
               <p className="text-sm text-gray-500 mt-1.5">View, manage, and configure system access for all team members.</p>
             </div>
-            <Link
-              to="/users/add" 
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-[0.98] shrink-0"
-            >
+            <Link to="/users/add" 
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-[0.98] shrink-0" >
               <Plus size={18} />
               Add New User
             </Link>

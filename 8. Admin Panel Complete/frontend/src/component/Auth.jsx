@@ -19,7 +19,7 @@ export default function AuthPage() {
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: "Account Created successfully. Please Login to Access Portal.",
+        text: "Account Created. Please Login.",
         timer: 2000,
         showConfirmButton: false,
       });

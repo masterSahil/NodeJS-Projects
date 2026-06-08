@@ -7,7 +7,7 @@ const sendEmail = require('../config/nodemailer');
 
 exports.getUser = async (req, res) => {
     try {
-        const user = await UserSchema.find();
+        const user = await UserSchema.find({isDeleted: false});
 
         res.status(200).json({
             success: true,
@@ -101,7 +101,76 @@ exports.updateUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
     try {
-        const user = await UserSchema.findByIdAndDelete(req.params.id);
+        const user = await UserSchema.findByIdAndUpdate(req.params.id, {isDeleted: true}, {new: true});
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            user,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+exports.getTrashUsers = async (req, res) => {
+    try {
+        const users = await UserSchema.find({isDeleted: true});
+
+        res.status(200).json({
+            success: true,
+            users
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+}
+
+exports.restoreUser = async (req, res) => {
+    try {
+        const user = await UserSchema.findByIdAndUpdate(req.params.id, {isDeleted: false}, {new: true});
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            user,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+exports.permanentDeleteUser = async (req, res) => {
+    try {
+        const user = await UserSchema.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
 
         if (user.image) {
             const oldPath = path.join(__dirname, "..", user.image);
@@ -109,6 +178,7 @@ exports.deleteUser = async (req, res) => {
                 fs.unlinkSync(oldPath);
             }
         }
+        await UserSchema.findByIdAndDelete(req.params.id);
 
         res.status(200).json({
             success: true,

@@ -35,6 +35,7 @@ import AddProduct from "./component/Products/AddProducts"
 import ViewProducts from "./component/Products/ViewProducts"
 import EditProduct from "./component/Products/EditProucts"
 import TrashProduct from "./component/Products/TrashProducts"
+import UserTrash from "./component/Users/TrashUsers"
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
             <Route path="/users/add" element={<AddUserForm />} />
             <Route path="/users/view" element={<UserList />} />
             <Route path="/users/edit/:id" element={<EditUserForm />} />
+            <Route path="/users/trash" element={<UserTrash />} />
 
             {/* Categories */}
             <Route path="/categories/add" element={<AddCategory />} />

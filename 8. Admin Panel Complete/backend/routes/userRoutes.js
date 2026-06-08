@@ -18,7 +18,12 @@ router.get("/user", userController.getUser);
 router.get("/user/:id", userController.getSingleUser);
 router.post("/user", uploads.single('image'), userController.createUser);
 router.put("/user/:id", uploads.single('image'), userController.updateUser);
-router.delete("/user/:id", userController.deleteUser);
+router.put("/user-delete/:id", userController.deleteUser);
+
+// soft delete
+router.get("/trash-users", userController.getTrashUsers);
+router.patch("/user-restore/:id", userController.restoreUser);
+router.delete("/user-permanent/:id", userController.permanentDeleteUser);
 
 // login and signup
 router.post("/signup", userController.Register);

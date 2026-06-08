@@ -134,6 +134,7 @@ export default function Sidebar() {
             <SidebarDropdown icon={Users} label="Users" activePaths={['/users']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
               <SidebarItem icon={FolderPlus} label="Add New User" to="/users/add" isNested />
               <SidebarItem icon={FolderOpen} label="View User Data" to="/users/view" isNested />
+              <SidebarItem icon={FolderOpen} label="Trash Users" to="/users/trash" isNested />
             </SidebarDropdown>
 
             {/* Categories */}

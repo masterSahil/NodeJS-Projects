@@ -56,7 +56,7 @@ export default function UserList() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:9000/user/${id}`);
+      await axios.put(`http://localhost:9000/user-delete/${id}`);
       setMockUsers(mockUsers.filter(user => (user._id || user.id) !== id));
       Swal.fire({
         icon: "success",
@@ -109,7 +109,7 @@ export default function UserList() {
           </div>
 
           {/* Search & View Toggle Toolbar */}
-          <div className="bg-white p-3 rounded-xl border border-gray-200/80 shadow-sm mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="bg-white p-2.5 rounded-lg border border-gray-200/80 shadow-sm mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="relative w-full sm:max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
               <input 
@@ -117,7 +117,7 @@ export default function UserList() {
                 placeholder="Search user..." 
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 w-full border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm" 
+                className="pl-10 pr-4 py-3 w-full border border-gray-200 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm" 
               />
             </div>
             <div className="flex bg-gray-100/80 p-1 rounded-lg shrink-0">
@@ -138,7 +138,7 @@ export default function UserList() {
 
           {/* Content Area */}
           {viewMode === 'list' ? (
-            <div className="bg-white rounded-2xl border border-gray-200/80 shadow-sm overflow-hidden flex flex-col">
+            <div className="bg-white rounded-lg border border-gray-200/80 shadow-sm overflow-hidden flex flex-col">
               <div className="min-h-75 overflow-x-auto">
                 <table className="w-full text-left text-sm text-gray-600">
                   <thead className="bg-white text-xs font-semibold text-gray-500 border-b border-gray-100">

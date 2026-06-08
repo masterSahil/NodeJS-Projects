@@ -62,15 +62,24 @@ export default function ChangePassword() {
     const { currentPassword, newPassword, confirmPassword } = formData;
 
     if (!currentPassword) {
-      alert("Please enter your current password.");
+      Swal.fire({
+        icon: "warning", title: "Warning",
+        text: "Please enter your current password.",
+      });
       return false;
     }
     if (newPassword.length < 6) {
-      alert("New password must be at least 6 characters long.");
+      Swal.fire({
+        icon: "warning", title: "Warning",
+        text: "New password must be at least 6 characters long.",
+      });
       return false;
     }
     if (newPassword !== confirmPassword) {
-      alert("New password and confirm password do not match.");
+      Swal.fire({
+        icon: "warning", title: "Warning",
+        text: "New password and confirm password do not match.",
+      });
       return false;
     }
 

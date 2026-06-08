@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Lock, Phone, Shield, ArrowLeft, Key, CheckCircle2, UserPlus, Eye, EyeOff, UploadCloud, X, ImageIcon } from 'lucide-react';
-import Sidebar from './Sidebar'; 
+import Sidebar from '../Sidebar'; 
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -91,15 +91,13 @@ export default function AddUserForm() {
         <Sidebar />
       </div>
       
-      <main className="flex-1 h-full overflow-y-auto p-4 lg:p-8">
+      <main className="flex-1 h-full overflow-y-auto p-6 lg:p-8">
         <div className="max-w-7xl mx-auto w-full">
           
           {/* Page Header */}
           <div className="mb-8">
-            <Link 
-              to="/users/view" 
-              className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 transition-colors font-medium mb-3"
-            >
+            <Link to="/users/view" 
+              className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 transition-colors font-medium mb-3" >
               <ArrowLeft size={16} />
               Back to Users
             </Link>

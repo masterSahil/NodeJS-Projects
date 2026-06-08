@@ -96,7 +96,7 @@ export default function TrashCategory() {
   return (
     <div className="flex h-screen bg-[#f8fafc] overflow-hidden">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+      <main className="mx-auto max-w-7xl flex-1 overflow-y-auto p-6 lg:p-8">
         {/* HEADER */}
         <div className="flex flex-col lg:flex-row justify-between gap-5 mb-8">
           <div>

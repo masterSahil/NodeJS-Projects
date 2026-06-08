@@ -109,7 +109,7 @@ export default function TrashExtraCategory() {
     <div className="flex h-screen bg-[#f8fafc] overflow-hidden">
       <Sidebar />
 
-      <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+      <main className="max-w-7xl mx-auto flex-1 overflow-y-auto p-6 lg:p-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold">Trash Extra Categories</h1>
           <p className="text-gray-500 mt-1">Restore or permanently delete extra categories</p>

@@ -1,11 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Dashboard from "./component/Dashboard"
-import AddUserForm from "./component/AddForm"
-import UserList from "./component/UsersList"
-import EditUserForm from "./component/EditForm"
-import AdminAuth from "./component/Auth"
-import axios from "axios"
 import { useEffect, useState } from "react"
+import axios from "axios"
+import Dashboard from "./component/Dashboard"
+
+// users
+import AddUserForm from "./component/Users/AddForm"
+import UserList from "./component/Users/UsersList"
+import EditUserForm from "./component/Users/EditForm"
+
+import AdminAuth from "./component/Auth"
 import Settings from "./component/Settings"
 import ChangePwd from "./component/ChangePwd"
 import NotFound from "./component/NotFound"
@@ -18,12 +21,16 @@ import EditCategory from "./component/Categories/EditCategory"
 import AddSubCategory from "./component/SubCategories/AddSubCategories"
 import ViewSubCategories from "./component/SubCategories/ViewSubCategories"
 import EditSubCategory from "./component/SubCategories/EditSubCategory"
+import TrashCategory from "./component/Categories/TrashCategory"
+import TrashSubCategory from "./component/SubCategories/TrashSubCategory"
+
+// extra category
 import AddExtraCategory from "./component/ExtraCategories/AddExtraCategory"
 import ViewExtraSubCategories from "./component/ExtraCategories/ViewExtraCategory"
 import EditExtraSubCategory from "./component/ExtraCategories/EditExtraCategory"
-import TrashCategory from "./component/Categories/TrashCategory"
-import TrashSubCategory from "./component/SubCategories/TrashSubCategory"
 import TrashExtraCategory from "./component/ExtraCategories/TrashCategory"
+
+// product
 import AddProduct from "./component/Products/AddProducts"
 import ViewProducts from "./component/Products/ViewProducts"
 import EditProduct from "./component/Products/EditProucts"

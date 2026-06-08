@@ -105,7 +105,7 @@ export default function ViewSubCategories() {
     <div className="flex h-screen bg-[#f8fafc] overflow-hidden">
       <Sidebar />
 
-      <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+      <main className="max-w-7xl mx-auto flex-1 overflow-y-auto p-6 lg:p-8">
         {/* HEADER */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 mb-8">
           <div>

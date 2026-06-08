@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { 
-  User, Mail, Lock, Phone, Shield, ArrowLeft, Key, 
-  CheckCircle2, Save, Eye, EyeOff, UploadCloud, X, ImageIcon 
-} from 'lucide-react';
-import Sidebar from './Sidebar'; 
+import { User, Mail, Lock, Phone, Shield, ArrowLeft, Key, CheckCircle2, Save, Eye, EyeOff, UploadCloud, X, ImageIcon } from 'lucide-react';
+import Sidebar from '../Sidebar'; 
 import axios from "axios";
 import Swal from 'sweetalert2';
 

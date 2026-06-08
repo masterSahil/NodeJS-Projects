@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Plus, MoreVertical, Filter, Shield, User, Key, Edit, Trash2 } from 'lucide-react';
-import Sidebar from './Sidebar'; 
+import Sidebar from '../Sidebar'; 
 import axios from 'axios';
 import Swal from 'sweetalert2';
 

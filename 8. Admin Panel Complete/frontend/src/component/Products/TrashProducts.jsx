@@ -110,7 +110,7 @@ export default function TrashProduct() {
     <div className="flex h-screen bg-[#f8fafc] overflow-hidden">
       <Sidebar />
 
-      <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+      <main className="flex-1 max-w-7xl mx-auto overflow-y-auto p-6 lg:p-8">
 
         <div className="mb-8">
           <h1 className="text-3xl font-bold">

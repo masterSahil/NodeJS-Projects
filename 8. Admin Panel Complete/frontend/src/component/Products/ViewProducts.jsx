@@ -100,7 +100,7 @@ export default function ViewProducts() {
   return (
     <div className="flex h-screen bg-[#F8F9FA] overflow-hidden">
       <Sidebar />
-      <main className="flex-1 mx-auto max-w-7xl p-6">
+      <main className="flex-1 max-w-7xl mx-auto p-6">
         
         {/* HEADER */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 mb-8">

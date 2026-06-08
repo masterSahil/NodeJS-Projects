@@ -69,7 +69,7 @@ export default function EditCategory() {
   return (
     <div className="flex h-screen bg-[#f8fafc] overflow-hidden">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+      <main className="mx-auto max-w-7xl flex-1 overflow-y-auto p-6 lg:p-8">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900"> Edit Category </h1>
@@ -78,7 +78,7 @@ export default function EditCategory() {
         </div>
 
         {/* FORM CARD */}
-        <div className="max-w-7xl bg-white mx-auto border border-gray-200 rounded-lg p-8 shadow-sm">
+        <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
           <form onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3"> Category Name </label>

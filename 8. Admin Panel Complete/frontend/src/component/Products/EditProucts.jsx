@@ -156,8 +156,8 @@ export default function EditProduct() {
   return (
     <div className="flex h-screen bg-[#F8F9FA] overflow-hidden">
       <Sidebar />
-      <main className="flex-1 overflow-auto p-6 lg:p-10">
-        <div className="max-w-7xl mx-auto bg-white rounded-2xl border border-gray-100 shadow-sm p-8 transition-all">
+      <main className="flex-1 max-w-7xl mx-auto overflow-auto p-6 lg:p-10">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 transition-all">
           
           {/* Header */}
           <div className="flex items-center gap-4 mb-8 pb-5 border-b border-gray-50">

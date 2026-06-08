@@ -84,7 +84,7 @@ export default function EditSubCategory() {
     <div className="flex h-screen bg-[#f8fafc] overflow-hidden">
       <Sidebar />
 
-      <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+      <main className="max-w-7xl mx-auto flex-1 overflow-y-auto p-6 lg:p-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
             Edit Sub Category
@@ -94,7 +94,7 @@ export default function EditSubCategory() {
           </p>
         </div>
 
-        <div className="max-w-7xl mx-auto bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+        <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">

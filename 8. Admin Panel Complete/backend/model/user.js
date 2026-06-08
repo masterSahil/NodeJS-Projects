@@ -7,6 +7,7 @@ const userSchema = new Schema({
     phone: {type: Number},
     role: {type: String},
     image: {type: String},
+    isDeleted: {type: Boolean, default: false},
     resetPasswordOtp: {type: String},
     resetPasswordExpires: {type: Date},
 }, {

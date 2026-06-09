@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Plus, MoreVertical, Shield, User, Key, Edit, Trash2, LayoutGrid, List } from 'lucide-react';
+import { Search, Plus, MoreVertical, Shield, User, Key, Edit, Trash2, LayoutGrid, List, Table2 } from 'lucide-react';
 import Sidebar from '../Sidebar'; 
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -120,18 +120,15 @@ export default function UserList() {
                 className="pl-10 pr-4 py-3 w-full border border-gray-200 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm" 
               />
             </div>
-            <div className="flex bg-gray-100/80 p-1 rounded-lg shrink-0">
-              <button 
-                onClick={() => setViewMode('list')} 
-                className={`p-1.5 rounded-md transition-colors ${viewMode === 'list' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
-              >
-                <List size={20} />
+            <div className="flex items-center gap-2">
+              <button onClick={() => setViewMode("list")} className={`p-3 rounded-md transition-all 
+                  ${viewMode === "list" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600"}`}>
+                <Table2 size={18} />
               </button>
-              <button 
-                onClick={() => setViewMode('grid')} 
-                className={`p-1.5 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
-              >
-                <LayoutGrid size={20} />
+
+              <button onClick={() => setViewMode("grid")} className={`p-3 rounded-md transition-all 
+                  ${viewMode === "grid" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600"}`}>
+                <LayoutGrid size={18} />  
               </button>
             </div>
           </div>

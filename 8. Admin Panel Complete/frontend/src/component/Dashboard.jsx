@@ -279,7 +279,7 @@ const AdminDashboard = () => (
         <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
           <h3 className="font-bold text-gray-900 mb-4">Quick Transfer</h3>
           <div className="flex gap-2 mb-4">
-             {/* Mock Avatars */}
+             {/* Mock Avatars */} 
              {[1,2,3,4,5].map(n => (
                <div key={n} className="w-8 h-8 rounded-full bg-gray-200 border-2 justify-center font-semibold text-sm flex items-center border-white shrink-0">{n}</div>
              ))}

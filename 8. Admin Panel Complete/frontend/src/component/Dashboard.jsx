@@ -435,7 +435,7 @@ const ManagerDashboard = () => (
           <div className="space-y-3">
             {[1, 2, 3].map((t) => (
               <div key={t} className="p-3 border border-gray-100 bg-gray-50 rounded-xl flex gap-3">
-                 <div className="w-8 h-8 rounded-full bg-gray-200 shrink-0"></div>
+                 <div className="w-8 h-8 rounded-full text-center pt-0.5 font-bold bg-gray-200 shrink-0">A</div>
                  <div>
                    <p className="text-xs font-semibold">User Name</p>
                    <p className="text-xs text-gray-500 mt-0.5">I need 3 more new features on the mobile app design.</p>

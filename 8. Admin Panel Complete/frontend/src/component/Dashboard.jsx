@@ -214,9 +214,7 @@ const UserDashboard = ({ user }) => (
   </div>
 );
 
-// ==========================================
-// 2. ADMIN DASHBOARD (Based on Image 2)
-// ==========================================
+// 2. ADMIN DASHBOARD 
 const AdminDashboard = () => (
   <div className="max-w-7xl mx-auto space-y-6">
     <div className="flex justify-between items-center mb-6">
@@ -236,7 +234,7 @@ const AdminDashboard = () => (
       ].map((stat, i) => (
         <div key={i} className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between items-center text-center relative">
           <MoreHorizontal size={16} className="absolute top-4 right-4 text-gray-300" />
-          <div className="p-3 bg-teal-50 text-teal-600 rounded-xl mb-3"><stat.icon size={20}/></div>
+          <div className="p-3 bg-blue-50 text-blue-600 rounded-xl mb-3"><stat.icon size={20}/></div>
           <p className="text-sm text-gray-500 font-medium">{stat.title}</p>
           <h3 className="text-xl font-bold text-gray-900 mt-1">{stat.amount}</h3>
         </div>
@@ -249,14 +247,14 @@ const AdminDashboard = () => (
         <div className="flex justify-between items-center mb-6">
           <h3 className="font-bold text-gray-900">Finance</h3>
           <div className="flex gap-3 text-xs">
-            <span className="flex items-center gap-1"><div className="w-2 h-2 bg-teal-500 rounded-full"></div> Income</span>
+            <span className="flex items-center gap-1"><div className="w-2 h-2 bg-blue-500 rounded-full"></div> Income</span>
             <span className="flex items-center gap-1"><div className="w-2 h-2 bg-red-400 rounded-full"></div> Outcome</span>
           </div>
         </div>
-        <div className="h-48 w-full flex items-end">
-           <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 40">
-              <path d="M0,35 Q10,20 20,30 T40,15 T60,25 T80,10 T100,20 L100,40 L0,40 Z" fill="rgba(20, 184, 166, 0.2)" />
-              <path d="M0,35 Q10,20 20,30 T40,15 T60,25 T80,10 T100,20" fill="none" stroke="#14b8a6" strokeWidth="2" />
+        <div className="h-80 w-full flex items-end">
+           <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 42">
+              <path d="M0,35 Q10,20 20,30 T40,15 T60,25 T80,10 T100,20 L100,40 L0,40 Z" fill="lightblue" />
+              <path d="M0,35 Q10,20 20,30 T40,15 T60,25 T80,10 T100,20" fill="none" stroke="blue" strokeWidth="2" />
            </svg>
         </div>
       </div>
@@ -268,8 +266,8 @@ const AdminDashboard = () => (
             <h3 className="font-bold text-gray-900">My Card</h3>
             <MoreHorizontal size={16} className="text-gray-400" />
           </div>
-          <div className="bg-linear-to-r from-teal-400 to-teal-500 rounded-xl p-5 text-white shadow-md">
-            <p className="text-teal-100 text-xs mb-1">Balance</p>
+          <div className="bg-linear-to-r from-blue-400 to-blue-500 rounded-xl p-5 text-white shadow-md">
+            <p className="text-blue-100 text-xs mb-1">Balance</p>
             <h2 className="text-2xl font-bold mb-6">$25,756</h2>
             <div className="flex justify-between text-xs font-medium">
               <span>7025 **** **** 1234</span>
@@ -283,12 +281,12 @@ const AdminDashboard = () => (
           <div className="flex gap-2 mb-4">
              {/* Mock Avatars */}
              {[1,2,3,4,5].map(n => (
-               <div key={n} className="w-8 h-8 rounded-full bg-gray-200 border-2 border-white shrink-0"></div>
+               <div key={n} className="w-8 h-8 rounded-full bg-gray-200 border-2 justify-center font-semibold text-sm flex items-center border-white shrink-0">{n}</div>
              ))}
           </div>
           <div className="flex gap-2">
             <input type="text" placeholder="Card Number" className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm" />
-            <button className="bg-teal-500 text-white p-2 rounded-lg"><Send size={16}/></button>
+            <button className="bg-blue-500 text-white p-2 rounded-lg"><Send size={16}/></button>
           </div>
         </div>
       </div>
@@ -298,18 +296,18 @@ const AdminDashboard = () => (
     <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h3 className="font-bold text-gray-900">Transaction History</h3>
-        <span className="text-sm text-teal-600 font-medium cursor-pointer">See All</span>
+        <span className="text-sm text-blue-600 font-medium cursor-pointer">See All</span>
       </div>
       <table className="w-full text-left text-sm">
         <tbody className="divide-y divide-gray-100">
           {[
             { name: "Danley Moriyo", cat: "Figma", date: "14/02/2024", time: "03:25 PM", amount: "$15.25", status: "Pending", sColor: "text-red-500" },
-            { name: "Miliya Buritos", cat: "Plaid", date: "10/02/2024", time: "10:15 AM", amount: "$12.34", status: "Completed", sColor: "text-teal-500" },
-            { name: "Cinema Alert", cat: "Spotify", date: "16/02/2024", time: "04:55 PM", amount: "$10.15", status: "Completed", sColor: "text-teal-500" }
+            { name: "Miliya Buritos", cat: "Plaid", date: "10/02/2024", time: "10:15 AM", amount: "$12.34", status: "Completed", sColor: "text-blue-500" },
+            { name: "Cinema Alert", cat: "Spotify", date: "16/02/2024", time: "04:55 PM", amount: "$10.15", status: "Completed", sColor: "text-blue-500" }
           ].map((tx, i) => (
             <tr key={i} className="hover:bg-gray-50">
               <td className="py-3 font-medium flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-gray-200"></div> {tx.name}
+                <div className="w-auto p-2 rounded-lg bg-gray-200"> {tx.name}</div> 
               </td>
               <td className="py-3 text-gray-500">{tx.cat}</td>
               <td className="py-3 text-gray-500">{tx.date}</td>
@@ -461,7 +459,7 @@ const SuperAdminDashboard = ({user}) => (
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
       <StatCard title="Total Revenue" value="$48,295" change="+12.5%" isPositive={true} icon={BarChart2} iconBg="bg-blue-50" iconColor="text-blue-600" />
-      <StatCard title="Active Users" value="2,847" change="+8.2%" isPositive={true} icon={Users} iconBg="bg-teal-50" iconColor="text-teal-600" />
+      <StatCard title="Active Users" value="2,847" change="+8.2%" isPositive={true} icon={Users} iconBg="bg-blue-50" iconColor="text-blue-600" />
       <StatCard title="Total Orders" value="1,432" change="-3.1%" isPositive={false} icon={ShoppingCart} iconBg="bg-blue-50" iconColor="text-blue-600" />
       <StatCard title="Page Views" value="284K" change="+24.7%" isPositive={true} icon={Eye} iconBg="bg-yellow-50" iconColor="text-yellow-600" />
     </div>
@@ -517,7 +515,7 @@ const SuperAdminDashboard = ({user}) => (
               </div>
               <div className="flex-1 space-y-3">
                 <div className="flex items-center justify-between text-sm"><div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-blue-700"></div><span className="text-gray-600">Direct</span></div><span className="font-semibold text-gray-900">35%</span></div>
-                <div className="flex items-center justify-between text-sm"><div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-teal-500"></div><span className="text-gray-600">Organic</span></div><span className="font-semibold text-gray-900">28%</span></div>
+                <div className="flex items-center justify-between text-sm"><div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-blue-500"></div><span className="text-gray-600">Organic</span></div><span className="font-semibold text-gray-900">28%</span></div>
                 <div className="flex items-center justify-between text-sm"><div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-sky-500"></div><span className="text-gray-600">Referral</span></div><span className="font-semibold text-gray-900">22%</span></div>
                 <div className="flex items-center justify-between text-sm"><div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-violet-500"></div><span className="text-gray-600">Social</span></div><span className="font-semibold text-gray-900">15%</span></div>
               </div>
@@ -535,7 +533,7 @@ const SuperAdminDashboard = ({user}) => (
             </div>
             <div>
               <div className="flex justify-between text-sm mb-1"><span className="font-medium text-gray-900">New Customers</span><span className="text-gray-500">85%</span></div>
-              <div className="w-full bg-gray-100 rounded-full h-2 mb-1"><div className="bg-teal-500 h-2 rounded-full" style={{ width: '85%' }}></div></div>
+              <div className="w-full bg-gray-100 rounded-full h-2 mb-1"><div className="bg-blue-500 h-2 rounded-full" style={{ width: '85%' }}></div></div>
               <div className="flex justify-between text-xs text-gray-400"><span>847</span><span>Target: 1,000</span></div>
             </div>
           </div>
@@ -560,7 +558,7 @@ const SuperAdminDashboard = ({user}) => (
             <tbody className="divide-y divide-gray-100">
               {[
                 { name: "Emma Wilson", email: "emma@example.com", id: "ORD-7891", product: "Pro Dashboard", status: "Completed", amount: "$299.00", color: "bg-blue-500", stBg: "bg-green-100 text-green-700" },
-                { name: "James Chen", email: "james@company.io", id: "ORD-7890", product: "Team Plan", status: "Processing", amount: "$599.00", color: "bg-teal-500", stBg: "bg-blue-100 text-blue-700" },
+                { name: "James Chen", email: "james@company.io", id: "ORD-7890", product: "Team Plan", status: "Processing", amount: "$599.00", color: "bg-blue-500", stBg: "bg-blue-100 text-blue-700" },
               ].map((order, i) => (
                 <tr key={i} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4">
@@ -588,7 +586,7 @@ const SuperAdminDashboard = ({user}) => (
         <div className="space-y-6">
             {[
               { title: "New order placed", desc: "Emma Wilson purchased Pro Dashboard License", time: "2 min ago", icon: ShoppingCart, bg: "bg-blue-50 text-blue-600" },
-              { title: "New customer registered", desc: "James Chen created an account", time: "15 min ago", icon: Users, bg: "bg-teal-50 text-teal-600" },
+              { title: "New customer registered", desc: "James Chen created an account", time: "15 min ago", icon: Users, bg: "bg-blue-50 text-blue-600" },
             ].map((activity, i) => (
               <div key={i} className="flex gap-4">
                 <div className={`w-10 h-10 rounded-full shrink-0 flex items-center justify-center ${activity.bg}`}><activity.icon size={18} /></div>

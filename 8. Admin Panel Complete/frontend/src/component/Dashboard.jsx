@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LayoutDashboard, BarChart2, ShoppingCart, Users, FileText, Mail, MessageSquare, Folder, Kanban, Search, Plus, Moon, Bell, LogOut, ArrowUpRight, ArrowDownRight, Eye, Menu, ChevronRight } from 'lucide-react';
 import Sidebar from './Sidebar';
+import axios from 'axios';
 
 const SidebarItem = ({ icon: Icon, label, active, badge }) => (
   <div
@@ -58,6 +59,26 @@ const StatCard = ({ title, value, change, isPositive, icon: Icon, iconBg, iconCo
 );
 
 export default function Dashboard() {
+
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:9000/auth-check", { withCredentials: true });
+     
+      console.log(res.data);
+    } catch (error) {
+      console.log("Failed to fetch user", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response?.data?.message || "Failed to Fetch User Data.",
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, [])
+  
   return (
     <div className="flex h-screen bg-gray-50 font-sans overflow-hidden">
         <Sidebar />

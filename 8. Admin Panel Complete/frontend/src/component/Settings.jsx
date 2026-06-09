@@ -8,12 +8,11 @@ import Swal from "sweetalert2"
 export default function Settings() {
   const [isLoading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState(null);
-  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    role: 'User',
+    role: 'user',
   });
 
   const [image, setImage] = useState(null);

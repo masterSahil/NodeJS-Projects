@@ -140,12 +140,16 @@ export default function Sidebar() {
               </>
             }
 
-            {/* Categories */}
-            <SidebarDropdown icon={Folder} label="Categories" activePaths={['/categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
-              <SidebarItem icon={FolderPlus} label="Add Categories" to="/categories/add" isNested />
-              <SidebarItem icon={FolderOpen} label="View Categories" to="/categories/view" isNested />
-              <SidebarItem icon={Trash2} label="Trash" to="/categories/trash" isNested />
-            </SidebarDropdown>
+            { role === 'superadmin' || role ==='admin' && 
+              <>
+                {/* Categories */}
+                <SidebarDropdown icon={Folder} label="Categories" activePaths={['/categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
+                  <SidebarItem icon={FolderPlus} label="Add Categories" to="/categories/add" isNested />
+                  <SidebarItem icon={FolderOpen} label="View Categories" to="/categories/view" isNested />
+                  <SidebarItem icon={Trash2} label="Trash" to="/categories/trash" isNested />
+                </SidebarDropdown>
+              </>
+            }
 
             {/* Sub Categories */}
             <SidebarDropdown icon={Layers} label="Sub Categories" activePaths={['/sub-categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>

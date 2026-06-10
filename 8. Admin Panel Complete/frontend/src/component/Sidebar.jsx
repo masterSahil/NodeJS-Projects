@@ -126,7 +126,7 @@ export default function Sidebar() {
 
         {/* Management Section */}
         <div>
-          { role === 'manager' || role === 'superadmin' || role ==='admin' &&
+          { (role === 'manager' || role === 'superadmin' || role ==='admin') &&
             <p className="text-xs font-semibold text-slate-500 mb-3 px-3">MANAGEMENT</p>
           }
 
@@ -142,7 +142,7 @@ export default function Sidebar() {
               </>
             }
 
-            { role === 'superadmin' || role ==='admin' && 
+            { (role === 'superadmin' || role ==='admin') && 
               <>
                 {/* Categories */}
                 <SidebarDropdown icon={Folder} label="Categories" activePaths={['/categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
@@ -153,7 +153,7 @@ export default function Sidebar() {
               </>
             }
 
-            { role === 'superadmin' || role ==='admin' &&
+            { (role === 'superadmin' || role ==='admin') &&
               <>
                 {/* Sub Categories */}
                 <SidebarDropdown icon={Layers} label="Sub Categories" activePaths={['/sub-categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
@@ -164,7 +164,7 @@ export default function Sidebar() {
               </>
             }
 
-            { role === 'superadmin' || role ==='admin' &&
+            { (role === 'superadmin' || role ==='admin') &&
               <>
                 {/* Extra Sub Categories */}
                 <SidebarDropdown icon={Grid} label="Extra Categories" activePaths={['/extra-categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
@@ -175,7 +175,7 @@ export default function Sidebar() {
               </>
             }
 
-            { role === 'manager' || role === 'superadmin' || role ==='admin' &&
+            { (role === 'manager' || role === 'superadmin' || role ==='admin') &&
               <>
                 {/* Products */}
                 <SidebarDropdown icon={Package} label="Products" activePaths={['/products']} openMenu={openMenu} setOpenMenu={setOpenMenu}>

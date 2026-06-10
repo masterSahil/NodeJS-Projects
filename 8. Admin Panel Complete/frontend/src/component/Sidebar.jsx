@@ -129,12 +129,16 @@ export default function Sidebar() {
           <p className="text-xs font-semibold text-slate-500 mb-3 px-3">MANAGEMENT</p>
           <div className="space-y-2">
             
-            {/* Users */}
-            <SidebarDropdown icon={Users} label="Users" activePaths={['/users']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
-              <SidebarItem icon={FolderPlus} label="Add New User" to="/users/add" isNested />
-              <SidebarItem icon={FolderOpen} label="View User Data" to="/users/view" isNested />
-              <SidebarItem icon={FolderOpen} label="Trash Users" to="/users/trash" isNested />
-            </SidebarDropdown>
+            { role === 'superadmin' || role ==='admin' &&
+              <>
+                {/* Users */}
+                <SidebarDropdown icon={Users} label="Users" activePaths={['/users']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
+                  <SidebarItem icon={FolderPlus} label="Add New User" to="/users/add" isNested />
+                  <SidebarItem icon={FolderOpen} label="View User Data" to="/users/view" isNested />
+                  <SidebarItem icon={FolderOpen} label="Trash Users" to="/users/trash" isNested />
+                </SidebarDropdown>
+              </>
+            }
 
             {/* Categories */}
             <SidebarDropdown icon={Folder} label="Categories" activePaths={['/categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>

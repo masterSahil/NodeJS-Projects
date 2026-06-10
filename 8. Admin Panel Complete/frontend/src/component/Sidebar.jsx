@@ -54,6 +54,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null); 
   const [openMenu, setOpenMenu] = useState(null);
+  const [role, setRole] = useState('user')
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -62,6 +63,7 @@ export default function Sidebar() {
         if (res.data.success) {
           setCurrentUser(res.data.user);
         } 
+        setRole(res.data.user.role);
       } catch (error) {
         console.log("Failed to fetch user data:", error);
         if (error.response?.status === 401) {

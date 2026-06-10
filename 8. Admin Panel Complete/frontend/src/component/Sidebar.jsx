@@ -78,17 +78,14 @@ export default function Sidebar() {
       navigate("/");  
       window.location.reload();
       Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "Logout successfully",
-        timer: 2000,
+        icon: "success", title: "Success",
+        text: "Logout successfully", timer: 2000,
         showConfirmButton: false,
       });
     } catch (error) {
       console.log(error);
       Swal.fire({
-        icon: "error",
-        title: "Error",
+        icon: "error", title: "Error",
         text: error.response?.data?.message || "Failed to Logout.",
       });
     }

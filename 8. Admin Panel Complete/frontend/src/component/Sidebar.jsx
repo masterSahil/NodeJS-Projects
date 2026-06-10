@@ -129,7 +129,7 @@ export default function Sidebar() {
           <p className="text-xs font-semibold text-slate-500 mb-3 px-3">MANAGEMENT</p>
           <div className="space-y-2">
             
-            { role === 'superadmin' || role ==='admin' &&
+            { role === 'superadmin' &&
               <>
                 {/* Users */}
                 <SidebarDropdown icon={Users} label="Users" activePaths={['/users']} openMenu={openMenu} setOpenMenu={setOpenMenu}>

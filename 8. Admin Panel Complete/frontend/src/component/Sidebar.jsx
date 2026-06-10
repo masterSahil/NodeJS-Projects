@@ -173,12 +173,16 @@ export default function Sidebar() {
               </>
             }
 
-            {/* Products */}
-            <SidebarDropdown icon={Package} label="Products" activePaths={['/products']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
-              <SidebarItem icon={FolderPlus} label="Add Products" to="/products/add" isNested />
-              <SidebarItem icon={FolderOpen} label="View Products" to="/products/view" isNested />
-              <SidebarItem icon={Trash2} label="Trash" to="/products/trash" isNested />
-            </SidebarDropdown>
+            { role === 'manager' || role === 'superadmin' || role ==='admin' &&
+              <>
+                {/* Products */}
+                <SidebarDropdown icon={Package} label="Products" activePaths={['/products']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
+                  <SidebarItem icon={FolderPlus} label="Add Products" to="/products/add" isNested />
+                  <SidebarItem icon={FolderOpen} label="View Products" to="/products/view" isNested />
+                  <SidebarItem icon={Trash2} label="Trash" to="/products/trash" isNested />
+                </SidebarDropdown>
+              </>
+            }
 
           </div>
         </div>

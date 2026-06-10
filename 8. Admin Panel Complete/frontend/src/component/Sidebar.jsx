@@ -162,12 +162,16 @@ export default function Sidebar() {
               </>
             }
 
-            {/* Extra Sub Categories */}
-            <SidebarDropdown icon={Grid} label="Extra Categories" activePaths={['/extra-categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
-              <SidebarItem icon={FolderPlus} label="Add Extra Categories" to="/extra-categories/add" isNested />
-              <SidebarItem icon={FolderOpen} label="View Extra Categories" to="/extra-categories/view" isNested />
-              <SidebarItem icon={Trash2} label="Trash" to="/extra-categories/trash" isNested />
-            </SidebarDropdown>
+            { role === 'superadmin' || role ==='admin' &&
+              <>
+                {/* Extra Sub Categories */}
+                <SidebarDropdown icon={Grid} label="Extra Categories" activePaths={['/extra-categories']} openMenu={openMenu} setOpenMenu={setOpenMenu}>
+                  <SidebarItem icon={FolderPlus} label="Add Extra Categories" to="/extra-categories/add" isNested />
+                  <SidebarItem icon={FolderOpen} label="View Extra Categories" to="/extra-categories/view" isNested />
+                  <SidebarItem icon={Trash2} label="Trash" to="/extra-categories/trash" isNested />
+                </SidebarDropdown>
+              </>
+            }
 
             {/* Products */}
             <SidebarDropdown icon={Package} label="Products" activePaths={['/products']} openMenu={openMenu} setOpenMenu={setOpenMenu}>

@@ -126,9 +126,11 @@ export default function Sidebar() {
 
         {/* Management Section */}
         <div>
-          <p className="text-xs font-semibold text-slate-500 mb-3 px-3">MANAGEMENT</p>
+          { role === 'manager' || role === 'superadmin' || role ==='admin' &&
+            <p className="text-xs font-semibold text-slate-500 mb-3 px-3">MANAGEMENT</p>
+          }
+
           <div className="space-y-2">
-            
             { role === 'superadmin' &&
               <>
                 {/* Users */}
@@ -183,7 +185,6 @@ export default function Sidebar() {
                 </SidebarDropdown>
               </>
             }
-
           </div>
         </div>
 

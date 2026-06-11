@@ -14,7 +14,7 @@ export default function EditUserForm() {
     email: '',
     password: '', 
     phone: '',
-    role: 'User'
+    role: 'user'
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +32,7 @@ export default function EditUserForm() {
         email: userData.email || '',
         password: '', 
         phone: userData.phone || '',
-        role: userData.role || 'User'
+        role: userData.role || 'user'
       });
 
       if (userData.image) {
@@ -121,10 +121,10 @@ export default function EditUserForm() {
   };
 
   const roles = [
-    { id: 'User', title: 'Standard User', desc: 'Basic access to view assigned tasks and manage personal profile.' },
-    { id: 'Manager', title: 'Manager', desc: 'Can oversee specific teams, view departmental reports, and approve requests.' },
-    { id: 'Admin', title: 'Administrator', desc: 'Standard access to manage users, view all analytics, and update content.' },
-    { id: 'Super Admin', title: 'Super Admin', desc: 'Unrestricted system access. Can manage billing, security, and other admins.' }
+    { id: 'user', title: 'Standard User', desc: 'Basic access to view assigned tasks and manage personal profile.' },
+    { id: 'manager', title: 'Manager', desc: 'Can oversee specific teams, view departmental reports, and approve requests.' },
+    { id: 'admin', title: 'Administrator', desc: 'Standard access to manage users, view all analytics, and update content.' },
+    { id: 'superadmin', title: 'Super Admin', desc: 'Unrestricted system access. Can manage billing, security, and other admins.' }
   ];
 
   if (isLoading) {

@@ -22,6 +22,10 @@ The system supports multiple user roles with different permission levels, secure
 * Password hashing with Bcrypt.js
 * Protected frontend and backend routes
 
+
+# 📸 Video Presentation
+Google Drive Link: https://drive.google.com/file/d/1eDVW_uAJYfl5-L5B7C3D_8ZfTvTBHRYP/view?usp=sharing
+
 ---
 
 ## 👥 Role-Based Access Control (RBAC)
@@ -337,10 +341,6 @@ npm run dev
 ```
 
 ---
-
-# 📸 Video Presentation
-Google Drive Link: https://drive.google.com/file/d/1eDVW_uAJYfl5-L5B7C3D_8ZfTvTBHRYP/view?usp=sharing
-
 
 # 📸 Screenshots
 

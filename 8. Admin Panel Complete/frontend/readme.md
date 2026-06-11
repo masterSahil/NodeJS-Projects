@@ -1,1 +1,432 @@
-🚀 Apex CMS - Advanced Role-Based Admin PanelApex CMS is a robust, full-stack Content Management System built using the MERN stack (MongoDB, Express.js, React, Node.js). It is designed to handle complex administrative tasks with a heavy focus on security, multi-tier Role-Based Access Control (RBAC), and intuitive data management.✨ Core FeaturesSecure Authentication & Authorization: Session-based authentication powered by Passport.js (Local Strategy), ensuring secure login and persistent sessions.Granular Role-Based Access (RBAC): Four distinct user roles (User, Manager, Admin, Super Admin) that strictly dictate UI rendering and backend API access.OTP-Based Password Recovery: Secure "Forgot Password" flow utilizing Nodemailer. Sends a time-sensitive (2-minute expiration) OTP to the user's registered email for password resets.Soft Delete & Trash Management: Prevent accidental data loss. Deleted users, categories, and products are moved to a "Trash" repository where they can be permanently deleted or fully restored.Dynamic Data Viewing: Flexible UI allowing users to toggle between Table and Grid (Card) views for all entities, coupled with real-time search and filtering functionalities.Media Management: Seamless image uploading and processing for user profiles and product images using Multer.Modern UI/UX: Clean, responsive, and highly interactive interface built with React, Vite, Tailwind CSS, and user-friendly alerts via SweetAlert2.👥 Role & Permissions ArchitectureThe system operates on a strict hierarchy. Higher-tier roles inherit the permissions of the roles below them.RolePermissions & Access LevelsSuper Admin (Default)Unrestricted Access. Can manage everything, including the creation, editing, and deletion of other users and administrators.AdminCategory Master. Can perform full CRUD operations on Categories, Sub-Categories, Extra-Categories, and Products.ManagerProduct Master. Can manage (Create, Read, Update, Delete, Trash) Products, but cannot alter underlying categories or system users.UserBasic Access. Can view the dashboard statistics, access their personal settings, update their profile, and change their password.🛠️ Technology StackFrontendFramework: React 19 (via Vite for blazing-fast builds)Styling: Tailwind CSS (Utility-first styling for a sleek, modern look)Routing: React Router v7 (Protected routes based on auth state and roles)Icons & Alerts: Lucide React (SVG icons), SweetAlert2 (Beautiful popup notifications)HTTP Client: Axios (Configured with credentials to handle secure session cookies)BackendEnvironment: Node.js & Express.jsDatabase: MongoDB via Mongoose ORMAuthentication: Passport.js (Local Strategy) & Express SessionSecurity: Bcrypt.js (Password hashing) & CORS (Cross-Origin Resource Sharing)Utilities: Multer (Multipart/form-data for file uploads), Nodemailer (SMTP email generation for OTPs)🏗️ System Concepts & Workflows1. The Authentication FlowWhen a user attempts to log in, the frontend sends credentials to the Node server. Passport.js verifies the hashed password against the database. Upon success, an HTTP-only session cookie is generated and sent to the frontend. The React app wraps its routes in an Auth check component, instantly redirecting unauthenticated users back to the login screen while remembering the state of logged-in users.2. The OTP Password Reset MechanismIf a user forgets their password:They enter their email address.The backend generates a random OTP, hashes it (or stores it temporarily with an expiration timestamp), and emails it via Nodemailer.The user has exactly 2 minutes to enter the OTP on the verification screen.If validated, they are granted access to establish a new password, which is subsequently hashed using Bcrypt before saving.3. The Soft-Delete SystemStandard DELETE requests often result in immediate data loss. Apex CMS utilizes a "soft delete" flag in the MongoDB schema (e.g., isDeleted: true). When an admin deletes a record, it simply updates this flag. The main views filter out any records where this flag is true. The "Trash" views query specifically for records where this flag is true, offering options to toggle the flag back (Restore) or drop the document from the database entirely (Permanent Delete).⚙️ Environment ConfigurationTo run this project locally, the backend relies on specific environment variables to secure connections and handle email dispatching. The .env file requires:PORT: The backend server port (e.g., 9000).MONGODB_URI: The connection string to your MongoDB cluster or local instance.EMAIL_USER: The SMTP email address used to send out OTPs.EMAIL_PASS: The app-specific password for the SMTP email address.
+# 🚀 Apex CMS - Advanced Role-Based Admin Panel
+
+Apex CMS is a powerful, enterprise-grade Content Management System (CMS) built with the **MERN Stack** (MongoDB, Express.js, React.js, Node.js). It provides secure authentication, advanced Role-Based Access Control (RBAC), media management, OTP-based password recovery, and soft-delete functionality, making it suitable for modern administrative applications.
+
+---
+
+## 📌 Overview
+
+Apex CMS is designed to simplify administrative operations while maintaining high security standards and excellent user experience.
+
+The system supports multiple user roles with different permission levels, secure session-based authentication, image uploads, data restoration through trash management, and responsive dashboard interfaces.
+
+---
+
+# ✨ Features
+
+## 🔐 Authentication & Authorization
+
+* Session-based Authentication using Passport.js
+* Secure login and logout system
+* Persistent user sessions
+* Password hashing with Bcrypt.js
+* Protected frontend and backend routes
+
+---
+
+## 👥 Role-Based Access Control (RBAC)
+
+The system follows a strict hierarchical permission model.
+
+### 🏆 Super Admin
+
+* Complete system control
+* Create, edit, delete, and restore users
+* Manage administrators
+* Full access to all modules
+
+### 🛡️ Admin
+
+* Full Category Management
+* Manage Categories
+* Manage Sub-Categories
+* Manage Extra Categories
+* Manage Products
+
+### 📦 Manager
+
+* Product Management
+* Create Products
+* Edit Products
+* Delete Products
+* Restore Products from Trash
+
+### 👤 User
+
+* Dashboard Access
+* View Statistics
+* Update Profile
+* Change Password
+* Personal Settings Management
+
+---
+
+## 🔑 OTP-Based Password Recovery
+
+Secure password reset workflow:
+
+* User enters registered email
+* OTP is generated
+* OTP sent using Nodemailer
+* OTP expires in 2 minutes
+* User verifies OTP
+* User creates new password
+* Password stored securely using Bcrypt hashing
+
+---
+
+## 🗑️ Soft Delete & Trash System
+
+Instead of permanently deleting records:
+
+* Records are marked as deleted
+* Deleted data moves to Trash
+* Data can be restored anytime
+* Permanent deletion available when required
+
+Supported Modules:
+
+* Users
+* Categories
+* Sub-Categories
+* Extra Categories
+* Products
+
+---
+
+## 🖼️ Media Management
+
+Supports:
+
+* User Profile Images
+* Product Images
+* Image Upload Preview
+* Image Replacement
+* Image Deletion
+
+Powered by:
+
+* Multer
+* Express
+* MongoDB
+
+---
+
+## 🔎 Advanced Search & Filtering
+
+Features include:
+
+* Real-time Search
+* Dynamic Filtering
+* Table View
+* Grid/Card View
+* Instant Data Updates
+
+---
+
+## 🎨 Modern UI/UX
+
+Built with:
+
+* React 19
+* Vite
+* Tailwind CSS
+* SweetAlert2
+* Lucide React Icons
+
+Features:
+
+* Fully Responsive Design
+* Smooth User Experience
+* Modern Dashboard Layout
+* Interactive Components
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+| Technology      | Purpose                     |
+| --------------- | --------------------------- |
+| React 19        | User Interface              |
+| Vite            | Fast Development Build Tool |
+| Tailwind CSS    | Styling                     |
+| React Router v7 | Routing                     |
+| Axios           | API Communication           |
+| SweetAlert2     | Alerts & Notifications      |
+| Lucide React    | Icons                       |
+
+---
+
+## Backend
+
+| Technology      | Purpose              |
+| --------------- | -------------------- |
+| Node.js         | Runtime Environment  |
+| Express.js      | Backend Framework    |
+| MongoDB         | Database             |
+| Mongoose        | ODM                  |
+| Passport.js     | Authentication       |
+| Express Session | Session Management   |
+| Bcrypt.js       | Password Security    |
+| Multer          | File Uploads         |
+| Nodemailer      | OTP Email Service    |
+| CORS            | Cross-Origin Support |
+
+---
+
+# 🏗️ System Architecture
+
+## Authentication Flow
+
+```text
+User Login
+     ↓
+React Frontend
+     ↓
+Express Backend
+     ↓
+Passport.js Validation
+     ↓
+MongoDB User Verification
+     ↓
+Session Cookie Creation
+     ↓
+Authenticated Dashboard Access
+```
+
+---
+
+## OTP Password Reset Flow
+
+```text
+Enter Email
+     ↓
+Generate OTP
+     ↓
+Send OTP via Nodemailer
+     ↓
+OTP Verification
+     ↓
+Create New Password
+     ↓
+Password Hashing (Bcrypt)
+     ↓
+Password Updated
+```
+
+---
+
+## Soft Delete Workflow
+
+```text
+Delete Request
+     ↓
+isDeleted = true
+     ↓
+Moved to Trash
+     ↓
+Restore OR Permanent Delete
+```
+
+---
+
+# 📂 Project Modules
+
+## User Management
+
+* Create User
+* Edit User
+* Delete User
+* Restore User
+* Change Role
+* Search Users
+
+---
+
+## Category Management
+
+* Create Category
+* Update Category
+* Delete Category
+* Restore Category
+
+---
+
+## Sub Category Management
+
+* Create Sub Category
+* Edit Sub Category
+* Delete Sub Category
+* Restore Sub Category
+
+---
+
+## Extra Category Management
+
+* Create Extra Category
+* Edit Extra Category
+* Delete Extra Category
+* Restore Extra Category
+
+---
+
+## Product Management
+
+* Create Product
+* Edit Product
+* Upload Product Images
+* Delete Product
+* Restore Product
+* Search Products
+
+---
+
+# ⚙️ Environment Variables
+
+Create a `.env` file inside the backend folder:
+
+```env
+PORT=9000
+
+MONGODB_URI=your_mongodb_connection_string
+
+EMAIL_USER=your_email@gmail.com
+
+EMAIL_PASS=your_app_password
+```
+
+---
+
+# 🚀 Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/your-username/apex-cms.git
+```
+
+---
+
+## Install Backend Dependencies
+
+```bash
+cd backend
+
+npm install
+```
+
+---
+
+## Install Frontend Dependencies
+
+```bash
+cd frontend
+
+npm install
+```
+
+---
+
+## Start Backend
+
+```bash
+npm run dev
+```
+
+---
+
+## Start Frontend
+
+```bash
+npm run dev
+```
+
+---
+
+# 📸 Screenshots
+
+Add your project screenshots here:
+
+```text
+/screenshots
+
+dashboard.png
+users.png
+products.png
+categories.png
+trash.png
+login.png
+```
+
+---
+
+# 🔒 Security Features
+
+* Session-Based Authentication
+* Role-Based Authorization
+* Protected API Routes
+* Bcrypt Password Hashing
+* OTP Expiration Validation
+* Secure Cookie Handling
+* Input Validation
+* CORS Protection
+
+---
+
+# 📈 Future Enhancements
+
+* JWT Authentication
+* Activity Logs
+* Audit Trails
+* Dark Mode
+* Multi-Language Support
+* Cloud Storage Integration
+* Export Reports (PDF/Excel)
+* Analytics Dashboard
+* Email Templates
+* Two-Factor Authentication (2FA)
+
+---
+
+# 👨‍💻 Author
+
+**Sahil**
+
+Full Stack MERN Developer
+
+Skills:
+
+* React.js
+* Node.js
+* Express.js
+* MongoDB
+* Tailwind CSS
+* Authentication & Authorization
+* REST APIs
+* RBAC Systems
+
+---
+
+# ⭐ Support
+
+If you like this project:
+
+⭐ Star the repository
+
+🍴 Fork the repository
+
+🛠️ Contribute to improve Apex CMS
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🎯 Apex CMS
+
+**Secure • Scalable • Role-Based • Enterprise Ready**

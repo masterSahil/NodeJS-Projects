@@ -176,39 +176,15 @@ export default function Sidebar() {
             }
 
             {/* Products */}
-            <SidebarDropdown
-              icon={Package}
-              label="Products"
-              activePaths={['/products']}
-              openMenu={openMenu}
-              setOpenMenu={setOpenMenu}
-            >
-              {/* Only Manager/Admin/SuperAdmin can add products */}
+            <SidebarDropdown icon={Package} label="Products" activePaths={['/products']} openMenu={openMenu} setOpenMenu={setOpenMenu} >
               {(role === 'manager' || role === 'admin' || role === 'superadmin') && (
-                <SidebarItem
-                  icon={FolderPlus}
-                  label="Add Products"
-                  to="/products/add"
-                  isNested
-                />
+                <SidebarItem icon={FolderPlus} label="Add Products" to="/products/add" isNested />
               )}
 
-              {/* Everyone can view products */}
-              <SidebarItem
-                icon={FolderOpen}
-                label="View Products"
-                to="/products/view"
-                isNested
-              />
+              <SidebarItem icon={FolderOpen} label="View Products" to="/products/view" isNested />
 
-              {/* Only Manager/Admin/SuperAdmin can access trash */}
               {(role === 'manager' || role === 'admin' || role === 'superadmin') && (
-                <SidebarItem
-                  icon={Trash2}
-                  label="Trash"
-                  to="/products/trash"
-                  isNested
-                />
+                <SidebarItem icon={Trash2} label="Trash" to="/products/trash" isNested />
               )}
             </SidebarDropdown>
           </div>

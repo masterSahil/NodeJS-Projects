@@ -289,11 +289,8 @@ Create a `.env` file inside the backend folder:
 
 ```env
 PORT=9000
-
 MONGODB_URI=your_mongodb_connection_string
-
 EMAIL_USER=your_email@gmail.com
-
 EMAIL_PASS=your_app_password
 ```
 
@@ -304,7 +301,7 @@ EMAIL_PASS=your_app_password
 ## Clone Repository
 
 ```bash
-git clone https://github.com/your-username/apex-cms.git
+git clone https://github.com/masterSahil/NodeJS-Projects/tree/main/8.%20Admin%20Panel%20Complete
 ```
 
 ---
@@ -313,20 +310,16 @@ git clone https://github.com/your-username/apex-cms.git
 
 ```bash
 cd backend
-
 npm install
 ```
-
 ---
 
 ## Install Frontend Dependencies
 
 ```bash
 cd frontend
-
 npm install
 ```
-
 ---
 
 ## Start Backend
@@ -345,20 +338,38 @@ npm run dev
 
 ---
 
+# 📸 Video Presentation
+Google Drive Link: https://drive.google.com/file/d/1eDVW_uAJYfl5-L5B7C3D_8ZfTvTBHRYP/view?usp=sharing
+
+
 # 📸 Screenshots
 
-Add your project screenshots here:
+### Login Page
+![images](./public/screenshots/img1.png)
 
-```text
-/screenshots
+### Super Admin Page
+![images](./public/screenshots/img2.png)
 
-dashboard.png
-users.png
-products.png
-categories.png
-trash.png
-login.png
-```
+### Add Products Page
+![images](./public/screenshots/img3.png)
+
+### View Products Table View
+![images](./public/screenshots/img4.png)
+
+### View Products Card View
+![images](./public/screenshots/img5.png)
+
+### View Products Trash View
+![images](./public/screenshots/img6.png)
+
+### Admin Dashboard
+![images](./public/screenshots/img7.png)
+
+### Manager Dashboard
+![images](./public/screenshots/img8.png)
+
+### User Dashboard
+![images](./public/screenshots/img9.png)
 
 ---
 
@@ -406,27 +417,3 @@ Skills:
 * Authentication & Authorization
 * REST APIs
 * RBAC Systems
-
----
-
-# ⭐ Support
-
-If you like this project:
-
-⭐ Star the repository
-
-🍴 Fork the repository
-
-🛠️ Contribute to improve Apex CMS
-
----
-
-# 📄 License
-
-This project is licensed under the MIT License.
-
----
-
-## 🎯 Apex CMS
-
-**Secure • Scalable • Role-Based • Enterprise Ready**

@@ -264,6 +264,22 @@ export default function Settings() {
                     />
                   </div>
                 </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2" htmlFor="role">
+                    Role
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                      <User size={18} />
+                    </div>
+                    <input
+                      type="text" disabled
+                      value={formData.role}
+                      className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all hover:cursor-not-allowed "
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Profile Picture Upload Section (Integrated cleanly into personal info) */}
@@ -326,7 +342,7 @@ export default function Settings() {
             </div>
 
             {/* Section 2: Role & Permissions */}
-            <div className="bg-white rounded-2xl border border-gray-200/80 shadow-sm p-6 lg:p-8 transition-shadow hover:shadow-md">
+            {/* <div className="bg-white rounded-2xl border border-gray-200/80 shadow-sm p-6 lg:p-8 transition-shadow hover:shadow-md">
               <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-100">
                 <div className="p-2 bg-purple-50 text-purple-600 rounded-lg">
                   <Key size={20} />
@@ -371,7 +387,7 @@ export default function Settings() {
                   );
                 })}
               </div>
-            </div>
+            </div> */}
           </form>
         </div>
       </main>

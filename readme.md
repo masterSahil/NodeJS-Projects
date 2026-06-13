@@ -346,12 +346,6 @@ Start development server:
 npm run dev
 ```
 
-or
-
-```bash
-npm start
-```
-
 ---
 
 # 🎯 Purpose
@@ -379,5 +373,3 @@ Focused on:
 - Dashboard Development
 
 ---
-
-⭐ If you find these projects useful, consider giving the repository a star.

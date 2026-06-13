@@ -246,28 +246,6 @@ Collection of Node.js practical programs and concepts prepared for academic exam
 
 ---
 
-## 1️⃣1️⃣ Product & Category Management System
-
-A complete product management application with category support and admin authentication.
-
-### Features
-
-- Product CRUD
-- Category CRUD
-- Authentication
-- Dashboard
-- Product Filtering
-- Image Uploads
-
-### Learning Outcome
-
-- Relational Data Handling
-- Category Management
-- Advanced CRUD
-- Dashboard Design
-
----
-
 # 🛠 Tech Stack
 
 ## Frontend

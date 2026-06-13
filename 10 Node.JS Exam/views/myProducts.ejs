@@ -1,0 +1,27 @@
+<%- include('partials/navbar') %>
+
+<main class="page">
+    <section class="hero">
+        <div>
+            <p class="eyebrow">Saved shelf</p>
+            <h1>Your Favorites</h1>
+            <p class="subtle">Products you saved for quick viewing later.</p>
+        </div>
+        <a class="button primary" href="/products">Browse Products</a>
+    </section>
+
+    <% if (products.length === 0) { %>
+        <section class="empty">
+            <h2>No favorites yet</h2>
+            <p class="subtle">Open the products dashboard and save the items you like.</p>
+        </section>
+    <% } else { %>
+        <section class="grid">
+            <% products.forEach(product => { %>
+                <%- include('productItem', { product, user, favoriteIds }) %>
+            <% }) %>
+        </section>
+    <% } %>
+</main>
+</body>
+</html>

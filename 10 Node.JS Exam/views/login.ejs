@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ECommerce</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <main class="auth-shell">
+        <section class="auth-card">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p class="subtle">Sign in to share and manage your favorite products.</p>
+            </div>
+
+            <% if (typeof error !== 'undefined') { %>
+                <div class="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required>
+                </div>
+
+                <button class="button primary auth-button" type="submit">Login</button>
+            </form>
+
+            <p class="auth-foot">New here? <a href="/register">Create an account</a></p>
+        </section>
+    </main>
+</body>
+</html>

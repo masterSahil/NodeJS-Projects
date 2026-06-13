@@ -1,0 +1,44 @@
+<%- include('partials/navbar') %>
+
+<main class="page">
+    <section class="hero" style="align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 32px;">
+        <div>
+            <h1 style="font-size: 1.75rem;">Admin Categories</h1>
+            <p class="subtle">Keep the catalog tidy so every product is easy to find.</p>
+        </div>
+
+        <% if (typeof user !== 'undefined' && user.role === 'admin') { %>
+            <a class="button primary" href="/category/add" style="padding: 10px 20px;">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 6px;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+                Add Category
+            </a>
+        <% } %>
+    </section>
+
+    <div style="max-width: 800px; margin: 0 auto;">
+        <section class="category-list" style="display: flex; flex-direction: column; gap: 16px;">
+            <% categories.forEach(category => { %>
+                <div class="category-row" style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-sm);">
+                    <div>
+                        <h2 style="font-size: 1.25rem; margin-bottom: 4px; color: var(--text-dark);"><%= category.name %></h2>
+                        <p class="subtle" style="font-size: 0.9rem; color: var(--text-muted);"><%= category.productCount %> product<%= category.productCount === 1 ? '' : 's' %></p>
+                    </div>
+
+                    <% if (typeof user !== 'undefined' && user.role === 'admin') { %>
+                        <div class="actions" style="margin-top: 0; display: flex; gap: 12px; align-items: center;">
+                            <a class="button" href="/products?category=<%= category._id %>" style="padding: 8px 16px;">View</a>
+                            <a class="button" href="/category/edit/<%= category._id %>" style="padding: 8px 16px;">Edit</a>
+                            <form class="inline-form" action="/category/delete/<%= category._id %>" method="POST" style="margin: 0;">
+                                <button class="button danger" type="submit" onclick="return confirm('Delete this category? Products will become uncategorized.')" style="padding: 8px 16px;">Delete</button>
+                            </form>
+                        </div>
+                    <% } else { %>
+                        <a class="button" href="/products?category=<%= category._id %>" style="padding: 8px 16px;">View products</a>
+                    <% } %>
+                </div>
+            <% }) %>
+        </section>
+    </div>
+</main>
+</body>
+</html>

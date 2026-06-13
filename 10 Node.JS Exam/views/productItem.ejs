@@ -1,0 +1,41 @@
+<article class="product-card">
+    <div class="product-image">
+        <% if (product.image) { %>
+            <img src="<%= product.image %>" alt="<%= product.name %>">
+        <% } else { %>
+            <div class="placeholder"><%= product.name.charAt(0).toUpperCase() %></div>
+        <% } %>
+    </div>
+
+    <div class="product-content">
+        <h2><%= product.name %></h2>
+
+        <div class="author-badge">
+            <div class="author-avatar"><%= product.createdBy ? product.createdBy.username.charAt(0).toUpperCase() : 'U' %></div>
+            <span>By <strong><%= product.createdBy ? product.createdBy.username : 'Unknown' %></strong></span>
+        </div>
+
+        <div class="card-label">Category</div>
+        <p class="card-text"><%= product.category ? product.category.name : 'Uncategorized' %></p>
+
+        <div class="product-actions">
+            <% if (typeof user !== 'undefined' && user.role === 'admin') { %>
+                <a class="button" href="/product/edit/<%= product._id %>">Edit</a>
+                <form class="inline-form" action="/product/delete/<%= product._id %>" method="POST">
+                    <button class="button danger" type="submit" onclick="return confirm('Delete this product?')">Delete</button>
+                </form>
+            <% } else { %>
+                <% const isFavorite = typeof favoriteIds !== 'undefined' && favoriteIds.includes(product._id.toString()); %>
+                <% if (isFavorite) { %>
+                    <form class="inline-form" action="/favorites/<%= product._id %>/remove" method="POST">
+                        <button class="button danger" type="submit">Remove</button>
+                    </form>
+                <% } else { %>
+                    <form class="inline-form" action="/favorites/<%= product._id %>/add" method="POST">
+                        <button class="button primary" type="submit">Favorite</button>
+                    </form>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</article>

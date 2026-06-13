@@ -1,0 +1,47 @@
+<%- include('partials/navbar') %>
+
+<main class="page">
+    <section class="hero">
+        <div>
+            <h1>Admin Products</h1>
+            <p class="subtle">Create, update, delete, and review every product.</p>
+        </div>
+
+        <% if (typeof user !== 'undefined' && user.role === 'admin') { %>
+            <a class="button primary" href="/product/add">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 4px;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+                Add Product
+            </a>
+        <% } %>
+    </section>
+
+    <div class="toolbar">
+        <form class="filter-form" method="GET" action="/products">
+            <div style="flex: 1;">
+                <label for="category">Filter by category</label>
+                <select name="category" id="category">
+                    <option value="">All Categories</option>
+                    <% categories.forEach(cat => { %>
+                        <option value="<%= cat._id %>" <%= selectedCategory === cat._id.toString() ? 'selected' : '' %>><%= cat.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <button class="button" type="submit">Apply</button>
+        </form>
+    </div>
+
+    <% if (products.length === 0) { %>
+        <section class="empty">
+            <h2>No products found</h2>
+            <p class="subtle">Try another category or ask an admin to add new products.</p>
+        </section>
+    <% } else { %>
+        <section class="grid">
+            <% products.forEach(product => { %>
+                <%- include('productItem', { product, user, favoriteIds }) %>
+            <% }) %>
+        </section>
+    <% } %>
+</main>
+</body>
+</html>

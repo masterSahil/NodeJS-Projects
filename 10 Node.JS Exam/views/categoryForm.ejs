@@ -1,0 +1,28 @@
+<%- include('partials/navbar') %>
+
+<main class="page">
+    <section class="hero" style="border: none; justify-content: center; text-align: center; margin-bottom: 24px;">
+        <div style="text-align: center; width: 100%;">
+            <h1 style="font-size: 1.75rem;"><%= category ? 'Edit Category' : 'Add Category' %></h1>
+            <p class="subtle">Use clear names that make browsing feel simple.</p>
+        </div>
+    </section>
+
+    <div style="max-width: 500px; margin: 0 auto;">
+        <form action="<%= category ? `/category/edit/${category._id}` : '/category/add' %>" method="POST">
+            <div class="form-panel" style="padding: 40px; box-shadow: var(--shadow-sm);">
+                <div class="form-group" style="margin-bottom: 32px;">
+                    <label style="font-size: 1rem; margin-bottom: 8px;">Category Name</label>
+                    <input type="text" name="name" value="<%= category ? category.name : '' %>" placeholder="Example: Desserts" required style="padding: 14px;">
+                </div>
+
+                <div class="actions" style="display: flex; gap: 12px; margin-top: 24px;">
+                    <a class="button" href="/categories" style="flex: 1; padding: 12px;">Cancel</a>
+                    <button class="button primary" type="submit" style="flex: 1; padding: 12px;"><%= category ? 'Update Category' : 'Save Category' %></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

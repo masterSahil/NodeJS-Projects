@@ -339,7 +339,7 @@ npm run dev
 ---
 
 # 📸 Video Presentation
-Google Drive Link: https://drive.google.com/file/d/1eDVW_uAJYfl5-L5B7C3D_8ZfTvTBHRYP/view?usp=sharing
+Google Drive Link: https://drive.google.com/file/d/1XvxfpkqMT0bb7l2YYyJiZMCwPChx571W/view?usp=sharing
 
 
 # 📸 Screenshots

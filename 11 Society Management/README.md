@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./frontend/public/favicon.png" alt="Smart Society Logo" width="120" />
+  <img src="./frontend/public/favicon.png" alt="Smart Society Logo" width="100" />
   <h1>Smart Society Management System 🏙️</h1>
   <p><em>A comprehensive, full-stack web application designed to digitize and streamline the management of residential societies, apartment complexes, and gated communities.</em></p>
 </div>
@@ -111,7 +111,7 @@ cd backend
 npm install
 
 # Install frontend dependencies
-cd ../frontend
+cd frontend
 npm install
 ```
 

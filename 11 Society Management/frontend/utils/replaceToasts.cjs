@@ -13,7 +13,7 @@ function processDir(dir) {
             let content = fs.readFileSync(fullPath, 'utf8');
             let original = content;
 
-            // Replace common patterns
+ 
             content = content.replace(/alert\(error\.message\);/g, 'toast.error(error.message);');
             content = content.replace(/alert\((['"`].+?['"`])\);/g, (match, p1) => {
                 if (p1.toLowerCase().includes('success') || p1.toLowerCase().includes('generated')) {
@@ -23,7 +23,7 @@ function processDir(dir) {
             });
 
             if (content !== original) {
-                // Add import if not present
+ 
                 if (!content.includes('react-hot-toast')) {
                     const importStatement = "import toast from 'react-hot-toast';\n";
                     

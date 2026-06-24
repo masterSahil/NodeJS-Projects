@@ -2,7 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const ApiError = require("../utils/apiError");
 
-// ── Storage Configuration ──────────────────────────────────────
+ 
 const storage = multer.diskStorage({
     destination: (_req, _file, cb) => {
         cb(null, "uploads/");
@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     },
 });
 
-// ── File Filter — images only ──────────────────────────────────
+ 
 const fileFilter = (_req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|webp/;
     const extOk = allowedTypes.test(path.extname(file.originalname).toLowerCase());
@@ -27,7 +27,7 @@ const fileFilter = (_req, file, cb) => {
     }
 };
 
-// ── Multer Instance ────────────────────────────────────────────
+ 
 const upload = multer({
     storage,
     fileFilter,

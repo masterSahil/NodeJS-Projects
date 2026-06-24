@@ -4,7 +4,7 @@ const ApiResponse = require("../utils/apiResponse");
 const ApiError = require("../utils/apiError");
 const { buildPagination, paginationMeta } = require("../utils/paginationHelper");
 
-// GET /api/v1/users
+ 
 const getAllUsers = asyncHandler(async (req, res) => {
     const { role, isActive, search } = req.query;
     const { skip, limit, sort, page } = buildPagination(req.query);
@@ -30,14 +30,14 @@ const getAllUsers = asyncHandler(async (req, res) => {
     );
 });
 
-// GET /api/v1/users/:id
+ 
 const getUserById = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id).select("-password").populate("flatId");
     if (!user) throw new ApiError(404, "User not found.");
     res.status(200).json(new ApiResponse(200, { user }, "User fetched."));
 });
 
-// PUT /api/v1/users/:id
+ 
 const updateUser = asyncHandler(async (req, res) => {
     const { name, email, phone, role, flatId, isActive } = req.body;
     const updateData = {};
@@ -53,7 +53,7 @@ const updateUser = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { user }, "User updated."));
 });
 
-// DELETE /api/v1/users/:id
+ 
 const deleteUser = asyncHandler(async (req, res) => {
     if (req.params.id === req.user._id.toString()) {
         throw new ApiError(400, "You cannot delete your own account.");
@@ -63,7 +63,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, null, "User deleted."));
 });
 
-// PUT /api/v1/users/:id/toggle-active
+ 
 const toggleActive = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (!user) throw new ApiError(404, "User not found.");

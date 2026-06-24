@@ -29,7 +29,7 @@ const MaintainanceStaff = () => {
     const handleStatusUpdate = async (complaintId, newStatus) => {
         try {
             await put(`/complaints/${complaintId}/status`, { status: newStatus });
-            // Refresh dashboard
+ 
             const res = await get("/dashboard/maintenance");
             setData(res.data);
         } catch (error) {

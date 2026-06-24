@@ -9,7 +9,7 @@ const Notification = require("../model/notification");
 const asyncHandler = require("../utils/asyncHandler");
 const ApiResponse = require("../utils/apiResponse");
 
-// GET /api/v1/dashboard/admin
+ 
 const adminDashboard = asyncHandler(async (req, res) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -48,14 +48,14 @@ const adminDashboard = asyncHandler(async (req, res) => {
         Complaint.aggregate([{ $group: { _id: "$category", count: { $sum: 1 } } }])
     ]);
 
-    // Today visitor breakdown
+ 
     const [guestsInside, expectedDeliveries, todayEntries] = await Promise.all([
         Visitor.countDocuments({ entryTime: { $ne: null }, exitTime: null }),
         Visitor.countDocuments({ visitorType: "delivery", createdAt: { $gte: today, $lt: tomorrow } }),
         Visitor.countDocuments({ entryTime: { $gte: today, $lt: tomorrow } }),
     ]);
 
-    // Format complaint stats for the chart
+ 
     const complaintStats = complaintsByCategory.map(item => ({
         name: item._id,
         count: item.count
@@ -88,7 +88,7 @@ const adminDashboard = asyncHandler(async (req, res) => {
     }, "Admin dashboard data."));
 });
 
-// GET /api/v1/dashboard/resident
+ 
 const residentDashboard = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
@@ -117,7 +117,7 @@ const residentDashboard = asyncHandler(async (req, res) => {
     }, "Resident dashboard data."));
 });
 
-// GET /api/v1/dashboard/security
+ 
 const securityDashboard = asyncHandler(async (req, res) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -152,7 +152,7 @@ const securityDashboard = asyncHandler(async (req, res) => {
     }, "Security dashboard data."));
 });
 
-// GET /api/v1/dashboard/maintenance
+ 
 const maintenanceDashboard = asyncHandler(async (req, res) => {
     const userId = req.user._id;
     const today = new Date();

@@ -19,7 +19,7 @@ const VehicleList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [viewMode, setViewMode] = useState('table');
     
-    // Modal States
+ 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [selectedVehicle, setSelectedVehicle] = useState(null);
 

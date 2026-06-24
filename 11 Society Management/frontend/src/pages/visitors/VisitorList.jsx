@@ -26,11 +26,11 @@ const VisitorList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [viewMode, setViewMode] = useState('table');
     
-    // Filters
+ 
     const [statusFilter, setStatusFilter] = useState("");
     const [typeFilter, setTypeFilter] = useState("");
 
-    // Action states
+ 
     const [isApproveOpen, setIsApproveOpen] = useState(false);
     const [selectedVisitor, setSelectedVisitor] = useState(null);
     const [approvalAction, setApprovalAction] = useState(""); // "Approved" or "Rejected"
@@ -78,7 +78,7 @@ const VisitorList = () => {
     };
 
     const handleGateAction = async (visitorId, action) => {
-        // action is "entry" or "exit"
+ 
         try {
             await put(`/visitors/${visitorId}/${action}`);
             fetchVisitors();

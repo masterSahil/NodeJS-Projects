@@ -19,7 +19,7 @@ const FamilyList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [viewMode, setViewMode] = useState('table');
     
-    // Modal States
+ 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [selectedMember, setSelectedMember] = useState(null);
 

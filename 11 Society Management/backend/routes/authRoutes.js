@@ -28,13 +28,13 @@ const {
     resetPassword,
 } = require("../controllers/authController");
 
-// ── Public ─────────────────────────────────────────────────────
+ 
 router.post("/login", loginValidator, validate, login);
 router.post("/forgot-password", forgotPasswordValidator, validate, forgotPassword);
 router.post("/verify-otp", verifyOtpValidator, validate, verifyOtp);
 router.post("/reset-password", resetPasswordValidator, validate, resetPassword);
 
-// ── Public Registration (for testing/setup) ─────────────────────
+ 
 router.post(
     "/register",
     registerValidator,
@@ -42,7 +42,7 @@ router.post(
     register
 );
 
-// ── Authenticated ──────────────────────────────────────────────
+ 
 router.get("/profile", authenticate, getProfile);
 
 router.put(

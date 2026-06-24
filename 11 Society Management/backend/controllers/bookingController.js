@@ -6,7 +6,7 @@ const ApiError = require("../utils/apiError");
 const { buildPagination, paginationMeta } = require("../utils/paginationHelper");
 const { createNotification, broadcastToRole } = require("../services/notificationService");
 
-// GET /api/v1/bookings
+ 
 const getBookings = asyncHandler(async (req, res) => {
     const { status, facilityId, date } = req.query;
     const { skip, limit, sort, page } = buildPagination(req.query);
@@ -34,7 +34,7 @@ const getBookings = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { bookings, pagination: paginationMeta(total, page, limit) }, "Bookings fetched."));
 });
 
-// GET /api/v1/bookings/:id
+ 
 const getBookingById = asyncHandler(async (req, res) => {
     const booking = await Booking.findById(req.params.id)
         .populate("residentId", "name email")
@@ -43,7 +43,7 @@ const getBookingById = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { booking }, "Booking fetched."));
 });
 
-// POST /api/v1/bookings
+ 
 const createBooking = asyncHandler(async (req, res) => {
     const { facilityId, bookingDate, startTime, endTime } = req.body;
 
@@ -51,7 +51,7 @@ const createBooking = asyncHandler(async (req, res) => {
     if (!facility) throw new ApiError(404, "Facility not found.");
     if (!facility.isActive) throw new ApiError(400, "Facility is not available.");
 
-    // Check for time slot conflicts
+ 
     const conflict = await Booking.findOne({
         facilityId,
         bookingDate: new Date(bookingDate),
@@ -76,7 +76,7 @@ const createBooking = asyncHandler(async (req, res) => {
     res.status(201).json(new ApiResponse(201, { booking: populated }, "Booking created."));
 });
 
-// PUT /api/v1/bookings/:id/approve
+ 
 const approveBooking = asyncHandler(async (req, res) => {
     const booking = await Booking.findById(req.params.id).populate("facilityId", "facilityName");
     if (!booking) throw new ApiError(404, "Booking not found.");
@@ -90,7 +90,7 @@ const approveBooking = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { booking }, `Booking ${req.body.status.toLowerCase()}.`));
 });
 
-// PUT /api/v1/bookings/:id/cancel
+ 
 const cancelBooking = asyncHandler(async (req, res) => {
     const booking = await Booking.findById(req.params.id);
     if (!booking) throw new ApiError(404, "Booking not found.");

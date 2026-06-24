@@ -26,11 +26,11 @@ const BookingList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [viewMode, setViewMode] = useState('table');
     
-    // Filters
+ 
     const [statusFilter, setStatusFilter] = useState("");
     const [facilityFilter, setFacilityFilter] = useState("");
 
-    // Modal States
+ 
     const [isApproveOpen, setIsApproveOpen] = useState(false);
     const [isCancelOpen, setIsCancelOpen] = useState(false);
     const [selectedBooking, setSelectedBooking] = useState(null);

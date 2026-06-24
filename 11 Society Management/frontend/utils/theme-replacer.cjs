@@ -59,7 +59,7 @@ function processDirectory(dir) {
             let modified = false;
             
             for (const [oldClass, newClass] of Object.entries(replacements)) {
-                // Regex to match exact class names (not parts of other classes)
+ 
                 const regex = new RegExp(`(?<=['"\\s\`])(${oldClass})(?=['"\\s\`])`, 'g');
                 if (regex.test(content)) {
                     content = content.replace(regex, newClass);

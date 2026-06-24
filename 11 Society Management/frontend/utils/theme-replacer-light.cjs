@@ -39,14 +39,14 @@ function processDirectory(dir) {
                 }
             }
             
-            // Revert text-cyber-text back to text-white if it's inside a button or bg-cyber-primary
-            // This is a bit manual, but we can do a simple global replace for common button patterns
+ 
+ 
             if (modified) {
-                // Example: bg-cyber-primary text-cyber-text -> bg-cyber-primary text-white
+ 
                 content = content.replace(/bg-cyber-primary([a-zA-Z0-9\s-]*?)text-cyber-text/g, 'bg-cyber-primary$1text-white');
                 content = content.replace(/text-cyber-text([a-zA-Z0-9\s-]*?)bg-cyber-primary/g, 'text-white$1bg-cyber-primary');
                 
-                // Same for emerald, rose, amber, teal
+ 
                 const colors = ['#10b981', '#f43f5e', '#f59e0b', 'cyber-accent', 'cyber-secondary'];
                 for (const c of colors) {
                     const bgClass = `bg-\\[${c}\\]`;

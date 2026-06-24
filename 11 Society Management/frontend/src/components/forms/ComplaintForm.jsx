@@ -32,7 +32,7 @@ const ComplaintForm = ({ initialData, onSubmit, onCancel }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Use FormData for file uploads
+ 
         const data = new FormData();
         data.append("title", formData.title);
         data.append("category", formData.category);

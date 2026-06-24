@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem("token"));
     const [loading, setLoading] = useState(true);
 
-    // On mount or token change, verify the token and fetch user profile
+ 
     useEffect(() => {
         const verifyUser = async () => {
             if (!token) {
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
                 const res = await api.get("/auth/profile");
                 setUser(res.data.data.user);
             } catch {
-                // Token invalid or expired
+ 
                 localStorage.removeItem("token");
                 localStorage.removeItem("user");
                 setToken(null);

@@ -27,11 +27,11 @@ const BillList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [viewMode, setViewMode] = useState('table');
     
-    // Filters
+ 
     const [statusFilter, setStatusFilter] = useState("");
     const [monthFilter, setMonthFilter] = useState("");
 
-    // Modal States
+ 
     const [isPayOpen, setIsPayOpen] = useState(false);
     const [isGenerateOpen, setIsGenerateOpen] = useState(false);
     const [selectedBill, setSelectedBill] = useState(null);

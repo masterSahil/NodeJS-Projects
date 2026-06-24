@@ -4,7 +4,7 @@ const ApiResponse = require("../utils/apiResponse");
 const ApiError = require("../utils/apiError");
 const { buildPagination, paginationMeta } = require("../utils/paginationHelper");
 
-// GET /api/v1/notifications
+ 
 const getNotifications = asyncHandler(async (req, res) => {
     const { isRead } = req.query;
     const { skip, limit, sort, page } = buildPagination(req.query);
@@ -25,7 +25,7 @@ const getNotifications = asyncHandler(async (req, res) => {
     }, "Notifications fetched."));
 });
 
-// PUT /api/v1/notifications/:id/read
+ 
 const markRead = asyncHandler(async (req, res) => {
     const notification = await Notification.findOne({ _id: req.params.id, userId: req.user._id });
     if (!notification) throw new ApiError(404, "Notification not found.");
@@ -36,7 +36,7 @@ const markRead = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { notification }, "Marked as read."));
 });
 
-// PUT /api/v1/notifications/read-all
+ 
 const markAllRead = asyncHandler(async (req, res) => {
     const result = await Notification.updateMany(
         { userId: req.user._id, isRead: false },

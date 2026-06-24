@@ -20,11 +20,11 @@ const BookingFormPage = () => {
     useEffect(() => {
         const fetchDependencies = async () => {
             try {
-                // Fetch facilities
+ 
                 const facRes = await get("/facilities");
                 setFacilities(facRes.data.facilities || []);
 
-                // If editing (though usually bookings are only created or cancelled), fetch booking
+ 
                 if (isEditMode && !initialData) {
                     const bookRes = await get(`/bookings/${id}`);
                     setInitialData(bookRes.data.booking || bookRes.data.data);

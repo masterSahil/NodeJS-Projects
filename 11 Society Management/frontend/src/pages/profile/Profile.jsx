@@ -8,13 +8,13 @@ const Profile = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState({ type: "", text: "" });
 
-    // Profile form
+ 
     const [profileData, setProfileData] = useState({
         name: user?.name || "",
         phone: user?.phone || "",
     });
 
-    // Password form
+ 
     const [passwordData, setPasswordData] = useState({
         currentPassword: "",
         newPassword: "",

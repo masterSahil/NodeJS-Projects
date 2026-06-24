@@ -14,14 +14,14 @@ const Header = ({ onMenuToggle, onExpandSidebar, isCollapsed }) => {
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const profileRef = useRef(null);
 
-    // Fetch unread notification count
+ 
     useEffect(() => {
         const fetchUnread = async () => {
             try {
                 const res = await api.get("/notifications?isRead=false&limit=1");
                 setUnreadCount(res.data.data.unreadCount || 0);
             } catch {
-                // Fail silently
+ 
             }
         };
 
@@ -30,7 +30,7 @@ const Header = ({ onMenuToggle, onExpandSidebar, isCollapsed }) => {
         return () => clearInterval(interval);
     }, []);
 
-    // Close profile menu on outside click
+ 
     useEffect(() => {
         const handleClick = (e) => {
             if (profileRef.current && !profileRef.current.contains(e.target)) {

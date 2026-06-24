@@ -24,13 +24,13 @@ const FlatList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [viewMode, setViewMode] = useState('table');
     
-    // Filters
+ 
     const [search, setSearch] = useState("");
     const [blockFilter, setBlockFilter] = useState("");
     const [statusFilter, setStatusFilter] = useState("");
     const [typeFilter, setTypeFilter] = useState("");
 
-    // Form states
+ 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [isAssignOpen, setIsAssignOpen] = useState(false);
     const [selectedFlat, setSelectedFlat] = useState(null);
@@ -62,7 +62,7 @@ const FlatList = () => {
     const fetchUnassignedResidents = useCallback(async () => {
         try {
             const res = await get("/users?role=resident&limit=200");
-            // Filter residents who don't have a flat assigned
+ 
             const unassigned = res.data.users.filter(u => !u.flatId);
             setResidents(unassigned);
         } catch (error) {
@@ -71,7 +71,7 @@ const FlatList = () => {
     }, [get]);
 
     useEffect(() => {
-        // Use a simple timeout for search debounce here
+ 
         const timer = setTimeout(() => {
             fetchFlats();
         }, 500);

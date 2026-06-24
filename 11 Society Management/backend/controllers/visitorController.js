@@ -5,7 +5,7 @@ const ApiError = require("../utils/apiError");
 const { buildPagination, paginationMeta } = require("../utils/paginationHelper");
 const { createNotification } = require("../services/notificationService");
 
-// GET /api/v1/visitors
+ 
 const getVisitors = asyncHandler(async (req, res) => {
     const { approvalStatus, visitorType, date } = req.query;
     const { skip, limit, sort, page } = buildPagination(req.query);
@@ -30,14 +30,14 @@ const getVisitors = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { visitors, pagination: paginationMeta(total, page, limit) }, "Visitors fetched."));
 });
 
-// GET /api/v1/visitors/:id
+ 
 const getVisitorById = asyncHandler(async (req, res) => {
     const visitor = await Visitor.findById(req.params.id).populate("residentId", "name email flatId");
     if (!visitor) throw new ApiError(404, "Visitor not found.");
     res.status(200).json(new ApiResponse(200, { visitor }, "Visitor fetched."));
 });
 
-// POST /api/v1/visitors
+ 
 const createVisitor = asyncHandler(async (req, res) => {
     const { visitorName, mobile, purpose, visitorType, residentId } = req.body;
 
@@ -49,7 +49,7 @@ const createVisitor = asyncHandler(async (req, res) => {
         visitorType,
     });
 
-    // Notify resident about new visitor (if created by security)
+ 
     if (req.user.role === "security" && residentId) {
         await createNotification(residentId, "New Visitor", `${visitorName} is at the gate. Please approve or reject.`);
     }
@@ -57,12 +57,12 @@ const createVisitor = asyncHandler(async (req, res) => {
     res.status(201).json(new ApiResponse(201, { visitor }, "Visitor registered."));
 });
 
-// PUT /api/v1/visitors/:id/approve
+ 
 const approveVisitor = asyncHandler(async (req, res) => {
     const visitor = await Visitor.findById(req.params.id);
     if (!visitor) throw new ApiError(404, "Visitor not found.");
 
-    // Only the resident this visitor is for can approve/reject (Admin can override)
+ 
     if (req.user.role !== "admin" && visitor.residentId.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "You can only approve/reject visitors for your flat.");
     }
@@ -76,7 +76,7 @@ const approveVisitor = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { visitor }, `Visitor ${req.body.approvalStatus.toLowerCase()}.`));
 });
 
-// PUT /api/v1/visitors/:id/entry
+ 
 const markEntry = asyncHandler(async (req, res) => {
     const visitor = await Visitor.findById(req.params.id);
     if (!visitor) throw new ApiError(404, "Visitor not found.");
@@ -89,7 +89,7 @@ const markEntry = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { visitor }, "Entry recorded."));
 });
 
-// PUT /api/v1/visitors/:id/exit
+ 
 const markExit = asyncHandler(async (req, res) => {
     const visitor = await Visitor.findById(req.params.id);
     if (!visitor) throw new ApiError(404, "Visitor not found.");

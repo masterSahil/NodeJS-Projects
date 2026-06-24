@@ -17,7 +17,7 @@ const ResidentFormPage = () => {
 
     const isEditMode = Boolean(id);
 
-    // Fetch flats for the dropdown
+ 
     const fetchVacantFlats = useCallback(async () => {
         try {
             const res = await get("/flats?status=vacant&limit=100");
@@ -31,12 +31,12 @@ const ResidentFormPage = () => {
         fetchVacantFlats();
     }, [fetchVacantFlats]);
 
-    // If edit mode but no state passed, fetch from API
+ 
     useEffect(() => {
         if (isEditMode && !initialData) {
             const fetchUser = async () => {
                 try {
-                    // Assuming we have an endpoint for single user. If not, this might fail.
+ 
                     const res = await get(`/users/${id}`);
                     setInitialData(res.data.user || res.data.data);
                 } catch (error) {

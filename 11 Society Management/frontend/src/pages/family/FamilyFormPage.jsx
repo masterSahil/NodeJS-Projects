@@ -20,8 +20,8 @@ const FamilyFormPage = () => {
         if (isEditMode && !initialData) {
             const fetchFamilyMember = async () => {
                 try {
-                    // Fetch all and find the specific one, or if there's a specific endpoint, use it.
-                    // The backend returns an array of family members for the resident.
+ 
+ 
                     const res = await get(`/family`);
                     const members = res.data.members || res.data || [];
                     const member = members.find(m => m._id === id);

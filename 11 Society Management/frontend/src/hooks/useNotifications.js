@@ -12,7 +12,7 @@ const useNotifications = () => {
             const res = await api.get("/notifications?isRead=false&limit=1");
             setUnreadCount(res.data.data.unreadCount || 0);
         } catch (error) {
-            // Silently fail to avoid console spam
+ 
         }
     }, [isAuthenticated]);
 

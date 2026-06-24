@@ -38,7 +38,7 @@ const PollForm = ({ onSubmit, onCancel }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Filter out empty options
+ 
         const validOptions = options.map(opt => opt.trim()).filter(opt => opt !== "");
         
         if (validOptions.length < 2) {

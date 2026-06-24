@@ -24,13 +24,13 @@ const ResidentList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [viewMode, setViewMode] = useState('table');
     
-    // Filters
+ 
     const [search, setSearch] = useState("");
     const debouncedSearch = useDebounce(search, 500);
     const [roleFilter, setRoleFilter] = useState("");
     const [activeFilter, setActiveFilter] = useState("");
 
-    // Modal States
+ 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [isToggleOpen, setIsToggleOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);

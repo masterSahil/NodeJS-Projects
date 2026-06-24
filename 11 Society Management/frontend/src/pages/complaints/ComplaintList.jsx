@@ -25,11 +25,11 @@ const ComplaintList = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [viewMode, setViewMode] = useState('table');
     
-    // Filters
+ 
     const [statusFilter, setStatusFilter] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
 
-    // Modal States
+ 
     const [isStatusOpen, setIsStatusOpen] = useState(false);
     const [isAssignOpen, setIsAssignOpen] = useState(false);
     const [selectedComplaint, setSelectedComplaint] = useState(null);

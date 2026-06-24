@@ -5,7 +5,7 @@ const ApiResponse = require("../utils/apiResponse");
 const ApiError = require("../utils/apiError");
 const { buildPagination, paginationMeta } = require("../utils/paginationHelper");
 
-// GET /api/v1/flats
+ 
 const getAllFlats = asyncHandler(async (req, res) => {
     const { block, status, flatType, search } = req.query;
     const { skip, limit, sort, page } = buildPagination(req.query);
@@ -24,18 +24,18 @@ const getAllFlats = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { flats, pagination: paginationMeta(total, page, limit) }, "Flats fetched."));
 });
 
-// GET /api/v1/flats/:id
+ 
 const getFlatById = asyncHandler(async (req, res) => {
     const flat = await Flat.findById(req.params.id);
     if (!flat) throw new ApiError(404, "Flat not found.");
 
-    // Also find the resident assigned to this flat
+ 
     const resident = await User.findOne({ flatId: flat._id }).select("-password");
 
     res.status(200).json(new ApiResponse(200, { flat, resident }, "Flat fetched."));
 });
 
-// POST /api/v1/flats
+ 
 const createFlat = asyncHandler(async (req, res) => {
     const { block, floor, flatNumber, flatType } = req.body;
 
@@ -46,14 +46,14 @@ const createFlat = asyncHandler(async (req, res) => {
     res.status(201).json(new ApiResponse(201, { flat }, "Flat created."));
 });
 
-// PUT /api/v1/flats/:id
+ 
 const updateFlat = asyncHandler(async (req, res) => {
     const flat = await Flat.findByIdAndUpdate(req.params.id, { $set: req.body }, { returnDocument: 'after', runValidators: true });
     if (!flat) throw new ApiError(404, "Flat not found.");
     res.status(200).json(new ApiResponse(200, { flat }, "Flat updated."));
 });
 
-// DELETE /api/v1/flats/:id
+ 
 const deleteFlat = asyncHandler(async (req, res) => {
     const flat = await Flat.findById(req.params.id);
     if (!flat) throw new ApiError(404, "Flat not found.");
@@ -63,7 +63,7 @@ const deleteFlat = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, null, "Flat deleted."));
 });
 
-// PUT /api/v1/flats/:id/assign
+ 
 const assignFlat = asyncHandler(async (req, res) => {
     const { residentId } = req.body;
 
@@ -75,11 +75,11 @@ const assignFlat = asyncHandler(async (req, res) => {
     if (!user) throw new ApiError(404, "Resident not found.");
     if (user.role !== "resident") throw new ApiError(400, "Only residents can be assigned to flats.");
 
-    // Update flat status
+ 
     flat.status = "occupied";
     await flat.save();
 
-    // Assign flat to user
+ 
     user.flatId = flat._id;
     await user.save();
 

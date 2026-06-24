@@ -3,15 +3,15 @@ const asyncHandler = require("../utils/asyncHandler");
 const ApiResponse = require("../utils/apiResponse");
 const ApiError = require("../utils/apiError");
 
-// GET /api/v1/family
+ 
 const getFamily = asyncHandler(async (req, res) => {
     let filter = {};
 
     if (req.user.role === "admin") {
-        // Admin can filter by residentId
+ 
         if (req.query.residentId) filter.residentId = req.query.residentId;
     } else {
-        // Residents see only their own family
+ 
         filter.residentId = req.user._id;
     }
 
@@ -19,12 +19,12 @@ const getFamily = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { members }, "Family members fetched."));
 });
 
-// GET /api/v1/family/:id
+ 
 const getFamilyMember = asyncHandler(async (req, res) => {
     const member = await Family.findById(req.params.id).populate("residentId", "name email");
     if (!member) throw new ApiError(404, "Family member not found.");
 
-    // Ownership check for residents
+ 
     if (req.user.role !== "admin" && member.residentId._id.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "Access denied.");
     }
@@ -32,7 +32,7 @@ const getFamilyMember = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { member }, "Family member fetched."));
 });
 
-// POST /api/v1/family
+ 
 const addFamilyMember = asyncHandler(async (req, res) => {
     const { name, relation, age, phone } = req.body;
 
@@ -47,12 +47,12 @@ const addFamilyMember = asyncHandler(async (req, res) => {
     res.status(201).json(new ApiResponse(201, { member }, "Family member added."));
 });
 
-// PUT /api/v1/family/:id
+ 
 const updateFamilyMember = asyncHandler(async (req, res) => {
     const member = await Family.findById(req.params.id);
     if (!member) throw new ApiError(404, "Family member not found.");
 
-    // Ownership check
+ 
     if (member.residentId.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "You can only update your own family members.");
     }
@@ -61,12 +61,12 @@ const updateFamilyMember = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { member: updated }, "Family member updated."));
 });
 
-// DELETE /api/v1/family/:id
+ 
 const deleteFamilyMember = asyncHandler(async (req, res) => {
     const member = await Family.findById(req.params.id);
     if (!member) throw new ApiError(404, "Family member not found.");
 
-    // Ownership check (admin can also delete)
+ 
     if (req.user.role !== "admin" && member.residentId.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "Access denied.");
     }

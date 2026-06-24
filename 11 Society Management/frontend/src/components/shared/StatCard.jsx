@@ -3,7 +3,7 @@ import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { motion } from "framer-motion";
 
 const StatCard = ({ title, value, icon: Icon, trend, trendLabel, colorClass = "teal", className = "" }) => {
-    // We map generic colors to our cyber theme colors
+ 
     const colorStyles = {
         teal: "bg-cyber-accent/10 text-cyber-accent border-cyber-accent/20 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]",
         emerald: "bg-[#10b981]/10 text-[#10b981] border-[#10b981]/20 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]",

@@ -2,7 +2,7 @@ import React from "react";
 import { CheckCircle2, Clock, XCircle, AlertCircle } from "lucide-react";
 
 const StatusBadge = ({ status, className = "" }) => {
-    // Map status string to styles
+ 
     const getStatusConfig = (statusString) => {
         const s = (statusString || "").toLowerCase();
         
@@ -27,7 +27,7 @@ const StatusBadge = ({ status, className = "" }) => {
             };
         }
         
-        // Default / Open
+ 
         return {
             style: "bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/20",
             icon: AlertCircle

@@ -6,7 +6,7 @@ const ApiError = require("../utils/apiError");
 const { buildPagination, paginationMeta } = require("../utils/paginationHelper");
 const { createNotification, broadcastToRole } = require("../services/notificationService");
 
-// GET /api/v1/complaints
+ 
 const getComplaints = asyncHandler(async (req, res) => {
     const { status, category } = req.query;
     const { skip, limit, sort, page } = buildPagination(req.query);
@@ -28,14 +28,14 @@ const getComplaints = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { complaints, pagination: paginationMeta(total, page, limit) }, "Complaints fetched."));
 });
 
-// GET /api/v1/complaints/:id
+ 
 const getComplaintById = asyncHandler(async (req, res) => {
     const complaint = await Complaint.findById(req.params.id)
         .populate("residentId", "name email phone flatId")
         .populate("assignedTo", "name email phone");
     if (!complaint) throw new ApiError(404, "Complaint not found.");
 
-    // Access check
+ 
     if (req.user.role === "resident" && complaint.residentId._id.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "Access denied.");
     }
@@ -46,7 +46,7 @@ const getComplaintById = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { complaint }, "Complaint fetched."));
 });
 
-// POST /api/v1/complaints
+ 
 const createComplaint = asyncHandler(async (req, res) => {
     const { category, title, description } = req.body;
 
@@ -58,13 +58,13 @@ const createComplaint = asyncHandler(async (req, res) => {
         image: req.file ? req.file.path : undefined,
     });
 
-    // Notify admins
+ 
     await broadcastToRole("admin", "New Complaint", `${title} — ${category}`);
 
     res.status(201).json(new ApiResponse(201, { complaint }, "Complaint created."));
 });
 
-// PUT /api/v1/complaints/:id
+ 
 const updateComplaint = asyncHandler(async (req, res) => {
     const complaint = await Complaint.findById(req.params.id);
     if (!complaint) throw new ApiError(404, "Complaint not found.");
@@ -86,7 +86,7 @@ const updateComplaint = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { complaint: updated }, "Complaint updated."));
 });
 
-// PUT /api/v1/complaints/:id/assign
+ 
 const assignComplaint = asyncHandler(async (req, res) => {
     const { assignedTo } = req.body;
 
@@ -102,7 +102,7 @@ const assignComplaint = asyncHandler(async (req, res) => {
     complaint.status = "Assigned";
     await complaint.save();
 
-    // Notify maintenance staff
+ 
     await createNotification(assignedTo, "New Assignment", `Complaint "${complaint.title}" has been assigned to you.`);
 
     const populated = await Complaint.findById(complaint._id)
@@ -112,14 +112,14 @@ const assignComplaint = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { complaint: populated }, "Complaint assigned."));
 });
 
-// PUT /api/v1/complaints/:id/status
+ 
 const updateStatus = asyncHandler(async (req, res) => {
     const { status } = req.body;
 
     const complaint = await Complaint.findById(req.params.id);
     if (!complaint) throw new ApiError(404, "Complaint not found.");
 
-    // Maintenance can only update complaints assigned to them
+ 
     if (req.user.role === "maintenance" && complaint.assignedTo?.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "You can only update complaints assigned to you.");
     }
@@ -127,7 +127,7 @@ const updateStatus = asyncHandler(async (req, res) => {
     complaint.status = status;
     await complaint.save();
 
-    // Notify resident about status change
+ 
     if (complaint.residentId) {
         await createNotification(complaint.residentId, "Complaint Update", `Your complaint "${complaint.title}" is now "${status}".`);
     }

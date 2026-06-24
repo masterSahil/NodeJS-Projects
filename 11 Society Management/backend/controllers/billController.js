@@ -6,7 +6,7 @@ const ApiError = require("../utils/apiError");
 const { buildPagination, paginationMeta } = require("../utils/paginationHelper");
 const { createNotification } = require("../services/notificationService");
 
-// GET /api/v1/bills
+ 
 const getBills = asyncHandler(async (req, res) => {
     const { status, month, year } = req.query;
     const { skip, limit, sort, page } = buildPagination(req.query);
@@ -25,7 +25,7 @@ const getBills = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { bills, pagination: paginationMeta(total, page, limit) }, "Bills fetched."));
 });
 
-// GET /api/v1/bills/:id
+ 
 const getBillById = asyncHandler(async (req, res) => {
     const bill = await Bill.findById(req.params.id).populate("residentId", "name email flatId");
     if (!bill) throw new ApiError(404, "Bill not found.");
@@ -37,7 +37,7 @@ const getBillById = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { bill }, "Bill fetched."));
 });
 
-// POST /api/v1/bills
+ 
 const createBill = asyncHandler(async (req, res) => {
     const { residentId, month, year, amount, dueDate } = req.body;
 
@@ -48,14 +48,14 @@ const createBill = asyncHandler(async (req, res) => {
     res.status(201).json(new ApiResponse(201, { bill }, "Bill created."));
 });
 
-// PUT /api/v1/bills/:id
+ 
 const updateBill = asyncHandler(async (req, res) => {
     const bill = await Bill.findByIdAndUpdate(req.params.id, { $set: req.body }, { returnDocument: 'after', runValidators: true });
     if (!bill) throw new ApiError(404, "Bill not found.");
     res.status(200).json(new ApiResponse(200, { bill }, "Bill updated."));
 });
 
-// PUT /api/v1/bills/:id/pay
+ 
 const payBill = asyncHandler(async (req, res) => {
     const bill = await Bill.findById(req.params.id);
     if (!bill) throw new ApiError(404, "Bill not found.");
@@ -71,7 +71,7 @@ const payBill = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, { bill }, "Bill paid successfully."));
 });
 
-// POST /api/v1/bills/generate
+ 
 const generateBills = asyncHandler(async (req, res) => {
     const { month, year, amount, dueDate } = req.body;
 
@@ -91,7 +91,7 @@ const generateBills = asyncHandler(async (req, res) => {
 
     const created = await Bill.insertMany(bills);
 
-    // Notify all residents
+ 
     for (const r of residents) {
         await createNotification(r._id, "New Bill Generated", `Your maintenance bill for ${month} ${year} of ₹${amount} is due.`);
     }

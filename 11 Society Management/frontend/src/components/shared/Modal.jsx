@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Modal = ({ isOpen, onClose, title, children, maxWidth = "max-w-xl" }) => {
-    // Close on escape key
+ 
     useEffect(() => {
         const handleEsc = (e) => {
             if (e.key === "Escape") onClose();
@@ -12,7 +12,7 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = "max-w-xl" }) => {
         return () => window.removeEventListener("keydown", handleEsc);
     }, [isOpen, onClose]);
 
-    // Prevent body scroll when open
+ 
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";

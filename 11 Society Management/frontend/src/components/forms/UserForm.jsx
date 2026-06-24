@@ -35,7 +35,7 @@ const UserForm = ({ initialData, onSubmit, onCancel, flats }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Clean up empty flatId if role isn't resident
+ 
         const dataToSubmit = { ...formData };
         if (dataToSubmit.role !== "resident") {
             delete dataToSubmit.flatId;
@@ -43,7 +43,7 @@ const UserForm = ({ initialData, onSubmit, onCancel, flats }) => {
             delete dataToSubmit.flatId;
         }
 
-        // Don't send empty password on update
+ 
         if (initialData && !dataToSubmit.password) {
             delete dataToSubmit.password;
         }

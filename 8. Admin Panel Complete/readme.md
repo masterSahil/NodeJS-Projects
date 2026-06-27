@@ -22,10 +22,6 @@ The system supports multiple user roles with different permission levels, secure
 * Password hashing with Bcrypt.js
 * Protected frontend and backend routes
 
-
-# 📸 Video Presentation
-Google Drive Link: https://drive.google.com/file/d/1XvxfpkqMT0bb7l2YYyJiZMCwPChx571W/view?usp=sharing
-
 ---
 
 ## 👥 Role-Based Access Control (RBAC)

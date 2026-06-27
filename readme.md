@@ -244,6 +244,78 @@ Collection of Node.js practical programs and concepts prepared for academic exam
 - Authentication
 - Middleware
 
+## ⭐ 1️⃣1️⃣ Smart Society Management System (Flagship Project)
+
+An enterprise-grade **Full Stack MERN application** built to digitize and automate residential society management. The platform provides secure, role-based dashboards for administrators, residents, security personnel, and maintenance staff while streamlining day-to-day community operations.
+
+### Features
+
+* Role-Based Authentication (JWT)
+* Multi-Role Dashboard
+* Resident Management
+* Flat & Occupancy Management
+* Visitor Entry & Exit System
+* Vehicle Management
+* Maintenance Bill Generation
+* Complaint Management
+* Poll & Voting System
+* Notice Board
+* Facility Booking
+* Maintenance Work Orders
+* Profile Management
+* Forgot Password with OTP
+* Dashboard Analytics
+* Secure REST APIs
+* Responsive Modern UI
+* Glassmorphism Design
+* Protected Routes
+* Image Upload
+* Email Notifications
+
+### User Roles
+
+* Administrator
+* Resident
+* Security Guard
+* Maintenance Staff
+
+### Tech Stack
+
+**Frontend**
+
+* React 19
+* Vite
+* Tailwind CSS v4
+* React Router
+* Framer Motion
+* Lucide React
+
+**Backend**
+
+* Node.js
+* Express.js
+* JWT Authentication
+* bcrypt
+* REST APIs
+
+**Database**
+
+* MongoDB
+* Mongoose
+
+### Learning Outcome
+
+* Enterprise Application Architecture
+* RBAC (Role-Based Access Control)
+* Authentication & Authorization
+* REST API Design
+* MongoDB Relationships
+* Dashboard Development
+* State Management
+* Secure Backend Development
+* Modern UI/UX
+* Full Stack MERN Development
+
 ---
 
 # 🛠 Tech Stack

@@ -14,10 +14,6 @@ By digitizing daily operations, this application drastically reduces administrat
 
 ---
 
-## 📸 Video Presentation Link
-
-https://drive.google.com/file/d/17tMCpTOvh5RR3BMgGgTE5M5IUyMreYTz/view
-
 ## 📸 Role-Based Dashboards & Flows
 
 Our application is built around strict Role-Based Access Control. Each user gets a personalized dashboard tailored to their specific operational needs.
